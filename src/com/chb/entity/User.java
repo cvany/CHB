@@ -3,13 +3,12 @@ package com.chb.entity;
 import java.util.Date;
 
 /**
- * ÓÃ»§ÊµÌåÀà
- * @author ´ŞÎÄÔª
- * 2017Äê11ÔÂ30ÈÕ
+ * ç”¨æˆ·å®ä½“ç±»
+ * @author å´”æ–‡å…ƒ
+ * 2017å¹´11æœˆ30æ—¥
  *
  */
 public class User {
-	// ³ÉÔ±±äÁ¿
     private Integer id;
     private String userName;
     private String password;
@@ -20,7 +19,6 @@ public class User {
     private String photo;
     private Date registerTime;
     
-    // ¹¹Ôìº¯Êı
     public User() {
         super();
     }

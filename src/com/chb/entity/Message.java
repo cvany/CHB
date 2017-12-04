@@ -1,8 +1,8 @@
 package com.chb.entity;
 /**
- * ÏûÏ¢ÊµÌåÀà
- * @author ´ŞÎÄÔª
- * 2017Äê11ÔÂ30ÈÕ
+ * æ¶ˆæ¯å®ä½“ç±»
+ * @author å´”æ–‡å…ƒ
+ * 2017å¹´11æœˆ30æ—¥
  *
  */
 public class Message {

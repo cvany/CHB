@@ -1,8 +1,8 @@
 package com.chb.entity;
 /**
- * ÉÌµêÊµÌåÀà
- * @author ´ŞÎÄÔª
- * 2017Äê11ÔÂ30ÈÕ
+ * å•†åº—å®ä½“ç±»
+ * @author å´”æ–‡å…ƒ
+ * 2017å¹´11æœˆ30æ—¥
  *
  */
 public class Shop {

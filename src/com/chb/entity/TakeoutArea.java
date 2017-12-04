@@ -1,8 +1,8 @@
 package com.chb.entity;
 /**
- * Åä²ÍÇøÓòÊµÌåÀà
- * @author ´ŞÎÄÔª
- * 2017Äê11ÔÂ30ÈÕ
+ * é…é€åŒºåŸŸå®ä½“ç±»
+ * @author å´”æ–‡å…ƒ
+ * 2017å¹´11æœˆ30æ—¥
  *
  */
 public class TakeoutArea {

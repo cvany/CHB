@@ -1,8 +1,8 @@
 package com.chb.entity;
 /**
- * ÉÌÆ··ÖÀàÊµÌåÀà 
- * @author ´ŞÎÄÔª
- * 2017Äê11ÔÂ30ÈÕ
+ * å•†åº—åˆ†ç±»å®ä½“ç±»
+ * @author å´”æ–‡å…ƒ
+ * 2017å¹´11æœˆ30æ—¥
  *
  */
 public class ShopClassify {

@@ -18,9 +18,8 @@ public class UserController {
 	@RequestMapping("findUser")
 	@ResponseBody
 	public String findUser() throws IOException{
-		User user = userService.findByUsername("小花");
-		System.out.println("这里执行了吗###############################"+user.getPassword());
-		return user.getPassword()+"哈哈哈";
+		User user = userService.findByUsername("灏忚姳");
+		return user.getPassword();
 	}
 	
 	@RequestMapping("test")
