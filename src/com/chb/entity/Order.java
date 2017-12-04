@@ -1,11 +1,10 @@
 package com.chb.entity;
 /**
- * ¶©µ¥ÊµÌåÀà
- * @author ´ŞÎÄÔª
- * 2017Äê11ÔÂ30ÈÕ
+ * è®¢å•å®ä½“ç±»
+ * @author å´”æ–‡å…ƒ
+ * 2017å¹´11æœˆ30æ—¥
  *
  */
-
 import java.util.Date;
 
 public class Order {
