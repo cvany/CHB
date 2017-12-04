@@ -9,7 +9,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.chb.entity.User;
 import com.chb.service.UserService;
-
+/**
+ * 用户控制类
+ * @author 崔文元
+ *2017年12月4日
+ */
 @Controller
 public class UserController {
 	@Autowired
