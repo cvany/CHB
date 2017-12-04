@@ -1,50 +1,100 @@
 package com.chb.entity;
 
+import java.util.Date;
+
+/**
+ * 用户实体类
+ * @author 崔文元
+ * 2017年11月30日
+ *
+ */
 public class User {
 	// 成员变量
-    private Integer userid;
-    private String username;
+    private Integer id;
+    private String userName;
     private String password;
-
+    private String salt;
+    private String email;
+    private String phone;
+    private Integer loginCount;
+    private String photo;
+    private Date registerTime;
+    
     // 构造函数
     public User() {
         super();
     }
 
-    @Override
-	public String toString() {
-		return "User [username=" + username + ", password=" + password + "]";
+	public Integer getId() {
+		return id;
 	}
 
-	public User(Integer userid, String username, String password) {
-        super();
-        this.userid = userid;
-        this.username = username;
-        this.password = password;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    // 成员方法
-    public Integer getUserid() {
-        return userid;
-    }
+	public String getUserName() {
+		return userName;
+	}
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
-    }
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
-    public String getUsername() {
-        return username;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public String getSalt() {
+		return salt;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public Integer getLoginCount() {
+		return loginCount;
+	}
+
+	public void setLoginCount(Integer loginCount) {
+		this.loginCount = loginCount;
+	}
+
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+
+	public Date getRegisterTime() {
+		return registerTime;
+	}
+
+	public void setRegisterTime(Date registerTime) {
+		this.registerTime = registerTime;
+	}
+    
 }
