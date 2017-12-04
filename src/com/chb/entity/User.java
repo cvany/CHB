@@ -18,8 +18,9 @@ public class User {
     private Integer loginCount;
     private String photo;
     private Date registerTime;
+    private Integer status;
     
-    public User() {
+	public User() {
         super();
     }
 
@@ -94,5 +95,12 @@ public class User {
 	public void setRegisterTime(Date registerTime) {
 		this.registerTime = registerTime;
 	}
-    
+	
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
 }
