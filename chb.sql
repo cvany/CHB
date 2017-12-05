@@ -10,10 +10,26 @@ Target Server Type    : MYSQL
 Target Server Version : 50549
 File Encoding         : 65001
 
-Date: 2017-11-30 15:53:05
+Date: 2017-12-04 16:24:28
 */
-CREATE DATABASE chb;
+create database chb;
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for admin
+-- ----------------------------
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE `admin` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userName` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of admin
+-- ----------------------------
+INSERT INTO `admin` VALUES ('1', 'admin', 'admin');
 
 -- ----------------------------
 -- Table structure for businessman
@@ -33,6 +49,10 @@ CREATE TABLE `businessman` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of businessman
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for city
 -- ----------------------------
 DROP TABLE IF EXISTS `city`;
@@ -49,6 +69,10 @@ CREATE TABLE `city` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of city
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for classify_goods
 -- ----------------------------
 DROP TABLE IF EXISTS `classify_goods`;
@@ -59,6 +83,10 @@ CREATE TABLE `classify_goods` (
   `shopId` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of classify_goods
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for complaint
@@ -76,6 +104,10 @@ CREATE TABLE `complaint` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of complaint
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for credibility
 -- ----------------------------
 DROP TABLE IF EXISTS `credibility`;
@@ -87,6 +119,10 @@ CREATE TABLE `credibility` (
   `changePoint` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of credibility
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for goods
@@ -110,6 +146,10 @@ CREATE TABLE `goods` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of goods
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for message
 -- ----------------------------
 DROP TABLE IF EXISTS `message`;
@@ -121,6 +161,10 @@ CREATE TABLE `message` (
   `content` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of message
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for order
@@ -145,6 +189,10 @@ CREATE TABLE `order` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of order
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for order_comment
 -- ----------------------------
 DROP TABLE IF EXISTS `order_comment`;
@@ -160,6 +208,10 @@ CREATE TABLE `order_comment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of order_comment
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for order_goods_list
 -- ----------------------------
 DROP TABLE IF EXISTS `order_goods_list`;
@@ -172,6 +224,10 @@ CREATE TABLE `order_goods_list` (
   `createTime` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of order_goods_list
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for shop
@@ -205,6 +261,10 @@ CREATE TABLE `shop` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of shop
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for shop_address
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_address`;
@@ -220,6 +280,10 @@ CREATE TABLE `shop_address` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of shop_address
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for shop_classify
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_classify`;
@@ -228,6 +292,10 @@ CREATE TABLE `shop_classify` (
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of shop_classify
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for shop_in_data
@@ -247,6 +315,10 @@ CREATE TABLE `shop_in_data` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of shop_in_data
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for takeout_area
 -- ----------------------------
 DROP TABLE IF EXISTS `takeout_area`;
@@ -255,6 +327,10 @@ CREATE TABLE `takeout_area` (
   `address` longtext NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of takeout_area
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for user
@@ -270,8 +346,14 @@ CREATE TABLE `user` (
   `loginCount` int(11) NOT NULL,
   `photo` varchar(255) DEFAULT NULL,
   `registerTime` datetime NOT NULL,
+  `status` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of user
+-- ----------------------------
+INSERT INTO `user` VALUES ('1', '小花', '12335sdfs', '132', '123@qq.com', null, '0', null, '2017-11-30 15:58:03', null);
 
 -- ----------------------------
 -- Table structure for user_address
@@ -280,9 +362,9 @@ DROP TABLE IF EXISTS `user_address`;
 CREATE TABLE `user_address` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userId` int(11) NOT NULL,
-  `provice` int(11) NOT NULL,
-  `city` int(11) NOT NULL,
-  `area` int(11) NOT NULL,
+  `provinceId` int(11) NOT NULL,
+  `cityId` int(11) NOT NULL,
+  `areaId` int(11) NOT NULL,
   `adress` varchar(255) NOT NULL,
   `lng` double DEFAULT NULL,
   `lat` double DEFAULT NULL,
@@ -291,3 +373,7 @@ CREATE TABLE `user_address` (
   `name` varchar(125) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of user_address
+-- ----------------------------
