@@ -4,9 +4,12 @@ import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.chb.entity.Page;
+import com.chb.entity.ResultMessage;
 import com.chb.entity.User;
 import com.chb.service.UserService;
 /**
@@ -21,13 +24,20 @@ public class UserController {
 
 	@RequestMapping("findUser")
 	@ResponseBody
-	public User findUser() throws IOException{
+	public String findUser() throws IOException{
 		User user = userService.findByUsername("小花");
-		return user;
+		return user.getPassword();
 	}
 	
 	@RequestMapping("test")
 	public void test(User user){
 		System.out.println(user.toString());
+	}
+	
+	@RequestMapping("getUserListByPage")
+	@ResponseBody
+	public ResultMessage getUserByPage(@RequestBody Page page) {
+		System.out.println(userService.getUserListByPage(page));
+		return userService.getUserListByPage(page);
 	}
 }
