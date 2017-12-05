@@ -16,7 +16,8 @@ controllers.controller("userList", ['$scope','$http','$state',function($scope,$h
         //是否存在缓存页数
         if(sessionStorage.userListPageNum) $scope.page.pageNum = sessionStorage.userListPageNum;
         var url = baseUrl + "getUserListByPage.do"
-        $http.post(url,$scope.page.voToJson())
+        var data = {page:$scope.page.voToJson()}
+        $http.post(url,data)
             .success(function(data) {
                 console.log(data);
                 if(data.serviceResult == 1) {
