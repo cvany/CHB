@@ -1,0 +1,98 @@
+@charset "UTF-8";
+
+#iform {
+
+	width: 180px;
+	height: 41px;
+	margin-left: 1000px;
+	margin-top:-300px;	
+}
+
+#myTabContent {
+	width: 360px;
+	height: 105px;
+	margin-left: 900px;
+	margin-top:0px;
+	border:2px solid aliceblue;
+	border-radius:10px;	
+
+}
+
+#myTabContent2 {
+
+	width: 360px;
+	height: 125px;
+	margin-left: 900px;
+	margin-top:5px;
+	border:2px solid aliceblue;
+	border-radius:10px;	
+
+}
+
+#register {
+
+	width: 180px;
+	height: 41px;
+	margin-left: 1040px;
+	margin-top:-300px;	
+}
+
+
+#registerForm{    
+	width: 360px;
+	height: 210px;
+	margin-left: 910px;
+	margin-top:0px;
+	border:2px solid aliceblue;
+	border-radius:10px;
+
+}
+
+#registerGround{
+	width: 360px;
+	height: 85px;
+	margin-left: 910px;
+	margin-top:5px;
+	border:2px solid aliceblue;
+	border-radius:10px;	
+}
+
+#findPassword{
+	width: 180px;
+	height: 41px;
+	margin-left: 1040px;
+	margin-top:-300px;
+}
+
+#findPasForm{
+   	width: 360px;
+	height: 100px;
+	margin-left: 910px;
+	margin-top:0px;
+	border:2px solid aliceblue;
+	border-radius:10px;
+}
+
+#findPasBtn{
+	width: 360px;
+	height: 85px;
+	margin-left: 910px;
+	margin-top:5px;
+	border:2px solid aliceblue;
+	border-radius:10px;	
+}
+
+#loginPic {
+	width: 500px;
+	height: 500px;
+	margin-top: 100px;
+	margin-left: 200px
+}
+
+#logo {
+	width: 280px;
+	height: 130px;
+	margin-top: -160px;
+	margin-left: 260px
+}
+

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户注册</title>
+       <!-- bootstrap -->
+    <link href="../../../css/lib/bootstrap.min.css" rel="stylesheet">
+    <!-- animate -->
+    <link href="../../../css/lib/animate.css" rel="stylesheet">
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="../../../../css/lib/font-awesome/css/font-awesome.min.css">
+    <!-- my styles -->
+    <link rel="stylesheet" href="../../../css/user/user.css"/>
+    
+    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
+	<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+	<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
+	
+	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+<script>
+  $(function(){
+	  $("#username").focus(function(){
+		  $("#username").attr("placeholder","");
+	  }).blur(function(){
+		  $("#username").attr("placeholder","用户名"); //**********************异步判断用户名是否存在
+		  //TODO                               
+		 
+	  });
+	  
+	  $("#email").focus(function(){
+		  $("#email").attr("placeholder","");
+	  }).blur(function(){
+		  $("#email").attr("placeholder","邮箱");
+	  });
+	  
+	  $("#phone").focus(function(){
+		  $("#phone").attr("placeholder","");
+	  }).blur(function(){
+		  $("#phone").attr("placeholder","手机号码"); //********************************异步判断手机是否被注册
+		  //TODO
+	  });
+	  
+	  $("#code").focus(function(){
+		  $("#code").attr("placeholder","");
+	  }).blur(function(){
+		  $("#code").attr("placeholder","短信验证码");
+	  });
+	  
+	  $("#send").click(function(){
+		  var $phone=$("#phone");
+		  if($phone.val()==""){         //手机号码为空
+			  $phone.attr("placeholder","手机号码不能为空");
+		  }else{                     //发送验证码************************************
+			  //TODO
+		  }
+	  });
+	  
+	  $("#sub").click(function(){
+		  var $username=$("#username");
+		  var $email=$("#email");
+		  var $phone=$("#phone");
+		  var $code=$("#code");
+		  
+		  if($username.val()==""){
+			  $username.attr("placeholder","用户名不能为空");
+		  }
+		  if($email.val()==""){
+			  $email.attr("placeholder","email不能不空");
+		  }
+		  if($phone.val()==""){
+			  $phone.attr("placeholder","手机不能为空");
+		  }
+		  if($code.val()==""){
+			  $code.attr("placeholder","短信验证码不能为空");
+		  }
+		  if($username.val()!=""&&$email.val()!=""&&$phone.val()!=""&&$code.val()!=""){  //开始短信验证，注册************
+			  //TODO
+		  }
+	  });
+	  
+	  $("#back").click(function(){
+		  $(location).attr("href", "userLogin.html"); 
+	  });
+	  
+	  
+  });
+ 
+</script>
+    
+
+</head>
+<body>
+
+<img id="loginPic" src="../../../img/loginPic.png" alt="LoginPic">
+<img id="logo" src="../../../img/logo.png" alt="logo" >
+
+
+<div id="register">
+ <ul id="myTab" class="nav nav-tabs">	
+	 <li id="accountLogin" class="active" ><a  data-toggle="tab"> 注册信息</a></li>
+</div>
+<!-- 注册框 -->
+
+<div id="registerForm"  >    
+		<input id="username" type="text" style="width:340px;margin-left:10px;margin-top:5px" class="form-control"  name="username" placeholder="用户名" >
+	    <input id="email" type="text" style="width:340px;margin-top:20px;margin-left:10px" class="form-control" name="email" placeholder="邮箱">
+	    <input id="phone" type="text" style="width:340px;margin-top:20px;margin-left:10px" class="form-control" name="phone" placeholder="手机号码">
+	    <input id="code" name='code' type='text' style="width:220px;margin-top:20px;margin-left:10px" placeholder='输入短信验证码' class='form-control'></input>
+	    <button id="send" class='btn btn-default' style='width:110px;margin-left:240px;margin-top:-56px' onclick='send'>发送</button>
+
+</div>
+
+<!-- 注册按钮组 -->
+<div id="registerGround">
+  <button id="sub" class="btn btn-default"  style="width:340px;margin-top:5px;margin-left:10px" >提交</button>
+  <button id="back" class="btn btn-default"  style="width:340px;margin-top:5px;margin-left:10px" >返回</button>
+</div>
+
+
+
+</body>
+</html>

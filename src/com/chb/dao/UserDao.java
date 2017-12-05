@@ -11,5 +11,7 @@ import com.chb.entity.User;
 @Repository("userDao")
 public interface UserDao {
 	User findByUsername(String username);
+	
+	User findByUserPhone(String phone);
 
 }

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户登陆</title>
+    <!-- bootstrap -->
+    <link href="../../../css/lib/bootstrap.min.css" rel="stylesheet">
+    <!-- animate -->
+    <link href="../../../css/lib/animate.css" rel="stylesheet">
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="../../../../css/lib/font-awesome/css/font-awesome.min.css">
+    <!-- my styles -->
+    <link rel="stylesheet" href="../../../css/user/user.css"/>
+    
+    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
+	<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+	<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
+	
+	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+    <script>
+    $(function(){
+    	$("#loginBtn").click(function(){
+    	    var $username=$("#username").val();
+    		var $password=$("#password").val(); 
+    		if($username==""||$password==""){
+    			//TODO
+    		}
+    		
+    	});
+    	
+    	$("#phoneLoginBtn").click(function(){     //手机登陆
+         $("#form").html("<input name='phone' type='text' placeholder='请输入手机' class='form-control'></input>"+
+        		 "<input id='code' name='code' type='text' style='width:180px;margin-top:20px' placeholder='输入验证码' class='form-control'></input>"+
+        		 "<button id='send' class='btn btn-default' style='width:120px;margin-left:240px;margin-top:-56px' onclick='send'>发送</button>");   	
+    		
+    	});
+    	
+    
+    	
+    });
+    
+   function send(){     //发送短信
+	   //TODO
+   }
+    
+    
+    </script>
+    
+
+</head>
+<body>
+
+<img id="loginPic" src="../../../img/loginPic.png" alt="LoginPic">
+<img id="logo" src="../../../img/logo.png" alt="logo" >
+
+<!-- 账号登陆/手机登陆 -->
+<div id="iform">
+<ul id="myTab" class="nav nav-tabs">
+	
+	<li class="active " ><a href="#mydata" data-toggle="tab"> 账号登陆</a></li>
+
+	<li> <a href="#myorder" data-toggle="tab">手机登陆</a></li>
+	
+		
+</ul>
+</div>
+
+
+<!-- 账号登陆 -->
+<div id="myTabContent" class="tab-content" >    
+	<div class="tab-pane fade in active" id="mydata">
+		<input id="username" type="text" style="width:340px;margin-left:10px;margin-top:5px" class="form-control" name="username" placeholder="请输入用户名" >	
+	    <input id="password" type="password" style="width:340px;margin-top:20px;margin-left:10px" class="form-control" name="password" placeholder="请输入密码">
+	</div>
+<!-- 手机登陆 -->
+    <div class="tab-pane fade" id="myorder">
+		<input name='phone' type='text' style="width:340px;margin-left:10px;margin-top:5px" placeholder='请输入手机' class='form-control'></input>
+		<input id='code' name='code' type='text' style="width:220px;margin-top:20px;margin-left:10px" placeholder='输入验证码' class='form-control'></input>
+		<button id='send' class='btn btn-default' style='width:110px;margin-left:240px;margin-top:-56px' onclick='send'>发送</button>
+	</div>
+</div>
+
+<div id="myTabContent2">
+    <button id="loginBtn" class="btn btn-default"  style="width:340px;margin-top:5px;margin-left:10px" >登陆</button>	
+	<button id="registerBtn" class="btn btn-default"  style="width:340px;margin-top:5px;margin-left:10px" >注册</button>
+	<button id="forgetBtn" class="btn btn-default" style="width:340px;margin-top:5px;margin-left:10px" >忘记密码</button>
+</div>
+
+
+
+
+
+</body>
+</html>
