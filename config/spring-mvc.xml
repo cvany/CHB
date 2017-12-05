@@ -18,6 +18,8 @@
 	        <bean class="org.springframework.http.converter.StringHttpMessageConverter">  
 	            <property name="supportedMediaTypes" value = "text/html;charset=UTF-8" />  
 	        </bean>  
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
     	</mvc:message-converters> 
     </mvc:annotation-driven>
 
@@ -27,7 +29,5 @@
     <!-- 配置视图解析器，可以显式设置，也可以不设置，不设置会依据SpringMVC的默认设置 -->
     <bean id="viewResolver"
         class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/" />
-        <property name="suffix" value=".jsp" />
     </bean>
 </beans>

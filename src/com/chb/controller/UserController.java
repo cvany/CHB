@@ -21,9 +21,9 @@ public class UserController {
 
 	@RequestMapping("findUser")
 	@ResponseBody
-	public String findUser() throws IOException{
+	public User findUser() throws IOException{
 		User user = userService.findByUsername("小花");
-		return user.getPassword();
+		return user;
 	}
 	
 	@RequestMapping("test")
