@@ -7,9 +7,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.chb.entity.Page;
+import com.chb.entity.ResultMessage;
 import com.chb.entity.User;
 import com.chb.service.UserService;
 import com.chb.utils.*;
@@ -98,5 +102,9 @@ public class UserController {
 		}
 	}
 	
-
+	@RequestMapping("getUserListByPage")
+	@ResponseBody
+	public ResultMessage getUserByPage(String page) throws Exception {
+		return userService.getUserListByPage(JsonUtil.jsonToObject(page, Page.class));
+	}
 }
