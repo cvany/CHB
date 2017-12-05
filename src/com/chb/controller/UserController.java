@@ -12,7 +12,7 @@ import com.chb.service.UserService;
 /**
  * 用户控制类
  * @author 崔文元
- *2017年12月4日
+ * 2017年12月4日
  */
 @Controller
 public class UserController {
@@ -26,8 +26,4 @@ public class UserController {
 		return user;
 	}
 	
-	@RequestMapping("test")
-	public void test(User user){
-		System.out.println(user.toString());
-	}
 }
