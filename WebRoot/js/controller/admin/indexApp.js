@@ -23,5 +23,18 @@ indexApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvide
         };
         $httpProvider.defaults.headers.post = {
             'Content-Type': 'application/x-www-form-urlencoded',
-        }
+        };
+        $httpProvider.interceptors.push(["$window", function ($window) {
+            return {
+                response: function (response) {
+                    if (response.config.url.indexOf(".do") > 0 && response.config.url.indexOf("login") < 0) {
+                        if (response.data.userToken == false) {
+                            $window.location.href = "login.html";
+                        }
+                    }
+                    return response
+                },
+
+            }
+        }]);
     }]);

@@ -32,7 +32,13 @@
                          style="padding-right: 5px; line-height: 30px;">每页显示
                     </div>
                     <label class="pull-left"> <select
-                            class="form-control input-sm">
+                            class="form-control input-sm" ng-model="page.pageSize"
+                            ng-init="page.pageSize = tempPageSize"
+                            ng-change="changePageSize()"
+                            style="padding:0 10px">
+                        <option value="5">5条</option>
+                        <option value="10">10条</option>
+                        <option value="15">15条</option>
                     </select>
                     </label>
                     <div class="input-group pull-left" style="margin-left: 10px;">

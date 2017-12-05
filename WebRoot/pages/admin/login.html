@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>登录页面</title>
+
+    <link href="../../css/lib/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <!-- Toastr style -->
+    <link href="../../css/plugins/toastr/toastr.min.css" rel="stylesheet">
+    <link href="../../css/lib/animate.css" rel="stylesheet">
+    <link href="../../css/admin/style.css" rel="stylesheet">
+
+</head>
+
+<body ng-app="loginApp" ng-controller="login" class="gray-bg">
+
+<div class="middle-box text-center loginscreen animated fadeInDown">
+    <div style="margin-top: 100px">
+        <h3>欢迎使用吃货宝管理系统</h3>
+        <form class="m-t" role="form">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="账户"
+                       required="" ng-model="admin.userName">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="密码"
+                       required="" ng-model="admin.password">
+            </div>
+            <button class="btn btn-primary block full-width m-b"
+                    ng-click="login()">登录
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- Mainly scripts -->
+<script src="../../js/lib/jquery-2.1.1.js"></script>
+<script src="../../js/lib/bootstrap.min.js"></script>
+
+<!--angularjs-->
+<script src="../../js/angular/angular.js" type="text/javascript"
+        charset="utf-8"></script>
+
+<!--models-->
+<script src="../../js/models/AdminVo.js" type="text/javascript"
+        charset="utf-8"></script>
+
+<!--contorllers-->
+<script src="../../js/controller/admin/loginApp.js"
+        type="text/javascript" charset="utf-8"></script>
+
+<!-- Toastr -->
+<script src="../../js/plugins/toastr/toastr.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        toastr.options = {
+            closeButton: true,
+            showMethod: 'slideDown',
+            timeOut: 1000
+        };
+    });
+</script>
+
+</body>
+
+</html>
