@@ -15,11 +15,11 @@ loginApp
 }]);
 
 loginApp.controller("login", ['$scope','$http','$window',function($scope,$http,$window) {
-	$scope.admin = new AdminVo();
+	$scope.businessman = new BusinessmanVo();
 	
 	$scope.login = function() {
-		var url = baseUrl + "admin/login.do";
-		var data = {admin:$scope.admin.voToJson()};
+		var url = baseUrl + "business/login.do";
+		var data = {businessman:$scope.businessman.voToJson()};
 		$http.post(url,data)
 		.success(function(data) {
 			console.log(data);

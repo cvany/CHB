@@ -8,39 +8,40 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.chb.entity.Admin;
+import com.chb.entity.Businessman;
 import com.chb.entity.ResultMessage;
-import com.chb.service.AdminService;
+import com.chb.service.BusinessmanService;
 import com.chb.utils.JsonUtil;
 
 /**
- * 管理员控制类
+ * 商家控制类
  * 
  * @author shilim
  *
  */
 @Controller
-public class AdminController {
+public class BusinessmanController {
 	@Autowired
-	private AdminService adminService;
+	private BusinessmanService businessmanService;
 
 	// 管理员登录接口
-	@RequestMapping("admin/login")
+	@RequestMapping("business/login")
 	@ResponseBody
-	public ResultMessage login(String admin, HttpSession session) throws Exception {
-		return adminService.login(JsonUtil.jsonToObject(admin, Admin.class), session);
+	public ResultMessage login(String businessman, HttpSession session) throws Exception {
+		return businessmanService.login(JsonUtil.jsonToObject(businessman, Businessman.class), session);
 	}
 
 	// 管理员注销接口
-	@RequestMapping("admin/logout")
+	@RequestMapping("business/logout")
 	@ResponseBody
 	public ResultMessage logout(HttpSession session) throws Exception {
-		return adminService.logout(session);
+		return businessmanService.logout(session);
 	}
 
 	// 通过用户名获取管理员信息
-	@RequestMapping("admin/isLogin")
+	@RequestMapping("business/isLogin")
 	@ResponseBody
 	public ResultMessage isLogin(HttpSession session) throws Exception {
-		return adminService.isLogin(session);
+		return businessmanService.isLogin(session);
 	}
 }

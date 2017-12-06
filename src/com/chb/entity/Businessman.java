@@ -13,13 +13,14 @@ public class Businessman {
 	private String businessmanName;
 	private String password;
 	private String salt;
-	private Integer phone;
+	private String phone;
 	private String email;
 	private Date registerTime;
 	private String photo;
 	private Double accountBalance;
-	
+
 	public Businessman() {
+		super();
 	}
 
 	public Integer getId() {
@@ -54,11 +55,11 @@ public class Businessman {
 		this.salt = salt;
 	}
 
-	public Integer getPhone() {
+	public String getPhone() {
 		return phone;
 	}
 
-	public void setPhone(Integer phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 
@@ -93,7 +94,5 @@ public class Businessman {
 	public void setAccountBalance(Double accountBalance) {
 		this.accountBalance = accountBalance;
 	}
-	
-	
 
 }

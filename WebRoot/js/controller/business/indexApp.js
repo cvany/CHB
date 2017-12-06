@@ -7,10 +7,10 @@ indexApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvide
             url: "/welcome",
             templateUrl: "welcome/welcome.html"
         })
-        .state("userList", {
-            url: "/userList",
-            templateUrl: "user/user-list.html",
-            controller: "userList"
+        .state("orderList", {
+            url: "/orderList",
+            templateUrl: "order/order-list.html",
+            controller: "orderList"
         })
 }])
     .config(['$httpProvider', function ($httpProvider) {
