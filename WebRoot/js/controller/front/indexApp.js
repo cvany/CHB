@@ -5,7 +5,8 @@ indexApp.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$
 	$stateProvider
 	.state("location",{
 		url:"/location",
-		templateUrl:"location/location.html"
+		templateUrl:"location/location.html",
+		controller:"location"
 	})
 }])
 .config(['$httpProvider',function($httpProvider) {

@@ -82,3 +82,12 @@
 .menu span{
     padding-right: 10px;
 }
+
+.link{
+	text-decoration: none;
+	color: #ffffff;
+}
+.link:hover{
+	text-decoration: none;
+	color: #ffffff;
+}

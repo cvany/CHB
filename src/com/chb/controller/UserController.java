@@ -129,6 +129,7 @@ public class UserController {
 		}
 	}
 	
+	
 	@RequestMapping("judgeName.do")                  //判断用户名是否被占用
 	public void judgeName(HttpServletRequest request,HttpServletResponse response) throws IOException {
 		String username=request.getParameter("username");
