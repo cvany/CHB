@@ -22,4 +22,23 @@ public class UserServiceImpl implements UserService{
 		return userDao.findByUserPhone(phone);
 	}
 
+	@Override
+	public User findByUserEmail(String email) {
+		
+		return userDao.findByUserEmail(email);
+	}
+
+	@Override
+	public void insertUser(User user) {
+		
+		 userDao.insertUser(user);		
+	}
+
+	@Override
+	public void updateUser(User user) {
+		
+		userDao.updateUser(user);
+		
+	}
+
 }

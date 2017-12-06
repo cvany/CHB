@@ -9,4 +9,16 @@
     <select id="findByUserPhone" parameterType="string" resultType="User">
        SELECT * FROM user WHERE phone=#{phone}
     </select>
+    
+        <select id="findByUserEmail" parameterType="string" resultType="User">
+       SELECT * FROM user WHERE email=#{email}
+    </select>
+    
+    <insert id="insertUser" parameterType="com.chb.entity.User">
+       INSERT INTO user(userName,password,salt,email,phone,loginCount,registerTime,status) values(#{userName},#{password},#{salt},#{email},#{phone},#{loginCount},#{registerTime},#{status})
+    </insert>
+    
+    <update id="updateUser" parameterType="com.chb.entity.User">
+       UPDATE user SET password=#{password} WHERE id=#{id}
+    </update>
 </mapper>

@@ -21,94 +21,276 @@
 	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	
 <script>
+$(function () { $("[data-toggle='tooltip']").tooltip(); });   //加载tooltip
+
   $(function(){
+	  var isSendEmail=false;              //是否已发送短信标识，为false时点击注册按钮无效
+	  
 	  $("#username").focus(function(){
-		  $("#username").attr("placeholder","");
+		  $("#username").attr("placeholder","").tooltip('destroy');
+		 
 	  }).blur(function(){
+		  var $username=$("#username");
 		  $("#username").attr("placeholder","用户名"); //**********************异步判断用户名是否存在
-		  //TODO                               
+		  $.ajax({type:"post",url:rootPath+"/judgeName.do",data:"username="+$username.val(),success:function(result){
+			  if(result=="0"){
+				  $username.attr("title","该用户名被占用").tooltip('fixTitle').tooltip('show');
+			  }else if(result=="1"&&$username.val()!=""){
+				  $username.attr("title","√").tooltip('fixTitle').tooltip('show');;
+			  }
+		  }});                               
 		 
 	  });
 	  
+	  $("#password").focus(function(){
+		  $("#password").attr("placeholder","").tooltip('destroy');
+
+	  }).blur(function(){
+		  $("#password").attr("placeholder","密码");
+	  });
+	  
+	  $("#Conf_password").focus(function(){
+		  $("#Conf_password").attr("placeholder","").tooltip('destroy');
+	  }).blur(function(){
+		  $("#Conf_password").attr("placeholder","确认密码");
+	  });
+	  
 	  $("#email").focus(function(){
-		  $("#email").attr("placeholder","");
+		  $("#email").attr("placeholder","").tooltip('destroy');
+
 	  }).blur(function(){
 		  $("#email").attr("placeholder","邮箱");
+		  var $email=$("#email");               //**************************异步判断邮箱是否被注册
+		  $.ajax({type:"post",url:rootPath+"/judgeEmail.do",data:"email="+$email.val(),success:function(result){
+			  if(result=="0"){
+				  $email.attr("title","该邮箱已被注册，请直接登陆").tooltip('fixTitle').tooltip('show');
+			  }else if(result=="1"&&$email.val()!=""){
+				  $email.attr("title","√").tooltip('fixTitle').tooltip('show');
+			  }
+		  }});
 	  });
 	  
 	  $("#phone").focus(function(){
-		  $("#phone").attr("placeholder","");
+		  $("#phone").attr("placeholder","").tooltip('destroy');
+
 	  }).blur(function(){
+		  var $phone=$("#phone");
 		  $("#phone").attr("placeholder","手机号码"); //********************************异步判断手机是否被注册
-		  //TODO
+		  $.ajax({type:"post",url:rootPath+"/judgePhone.do",data:"phone="+$phone.val(),success:function(result){
+			  if(result=="0"){
+				  $phone.attr("title","该手机号被注册，请直接登陆").tooltip('fixTitle').tooltip('show');
+			  }else if(result=="1"&&$phone.val()!=""){
+				  $phone.tooltip('destroy');
+			  }
+		  }});
 	  });
 	  
 	  $("#code").focus(function(){
-		  $("#code").attr("placeholder","");
+		  $("#code").attr("placeholder","").tooltip('destroy');
 	  }).blur(function(){
 		  $("#code").attr("placeholder","短信验证码");
 	  });
 	  
-	  $("#send").click(function(){
-		  var $phone=$("#phone");
-		  if($phone.val()==""){         //手机号码为空
-			  $phone.attr("placeholder","手机号码不能为空");
-		  }else{                     //发送验证码************************************
-			  //TODO
+	  $("#send").click(function(){       //发送按钮
+          var $phone=$("#phone");
+		  var $password=$("#password");
+		  var $Conf_password=$("#Conf_password");
+	      var $username=$("#username");
+	      var $email=$("#email");  
+	      
+	      var $phone=$("#phone");
+	      var isRight=true;
+
+	      if(!verifyPhone($phone.val())){
+	    	  $phone.attr("title","请输入正确手机格式").tooltip('fixTitle').tooltip('show');
+	    	  isRight=false;
+	      }
+	      if(!verfyEmail($email.val())){
+	    	  $email.attr("title","请输入邮箱机格式").tooltip('fixTitle').tooltip('show');
+	    	  isRight=false;
+	      }
+	      if($password.val()==""){
+	    	  $password.attr("title","密码不能为空").tooltip('fixTitle').tooltip('show');
+	    	  isRight=false;
+	      }else if($Conf_password.val()==""){
+	    	  $Conf_password.attr("title","确认密码不能为空").tooltip('fixTitle').tooltip('show');
+	    	  isRight=false;
+	      }else if(!verfyEqual($password.val(),$Conf_password.val())){
+	    	  $Conf_password.attr("title","确认密码不相等").tooltip('fixTitle').tooltip('show');
+	    	  isRight=false;
+	      }
+	      
+	      if(isRight){  //发送验证码
+			  
+			  $.ajax({type:"post",url:rootPath+"/registerCode.do",data:"phone="+$phone.val()+"&username="+$username.val()+"&email="+$email.val(),success:function(result){
+				 
+				  if(result=="0"){
+					  $phone.attr("title","该手机号被注册，请直接登陆").tooltip('fixTitle').tooltip('show');
+				  }else if(result=="1"){
+					  $email.attr("title","该email被注册，请直接登陆").tooltip('fixTitle').tooltip('show');
+				  }else if(result=="2"){
+					  $username.attr("title","用户名被注册，请直接登陆").tooltip('fixTitle').tooltip('show');
+				  }else{
+					  $username.attr("disabled","disabled");
+					  $password.attr("disabled","disabled");
+					  $Conf_password.attr("disabled","disabled");
+					  $email.attr("disabled","disabled");
+					  $phone.attr("disabled","disabled");
+					  $("#send").attr("disabled","disabled");					  
+					  $("#backCode").val(result);           //保存验证码到隐藏域中
+					  CountDown();	                       //发送按钮倒计时
+					  isSendEmail=true;
+				  }
+			  }});
 		  }
 	  });
 	  
 	  $("#sub").click(function(){
-		  var $username=$("#username");
+/* 		  var $username=$("#username");
 		  var $email=$("#email");
 		  var $phone=$("#phone");
 		  var $code=$("#code");
+		  var $password=$("#password");
+		  var $Conf_password=$("#Conf_password");
+		  var $backCode=$("#backCode"); */
+		  var $phone=$("#phone");
+		  var $password=$("#password");
+		  var $Conf_password=$("#Conf_password");
+	      var $username=$("#username");
+	      var $email=$("#email");
 		  
-		  if($username.val()==""){
-			  $username.attr("placeholder","用户名不能为空");
+		  if(isSendEmail){                          //已经发送短信验证
+			  $.ajax({type:"post",url:rootPath+"/insertUser.do",data:"phone="+$phone.val()+"&password="+$password.val()+"&username="+$username.val()+"&email="+$email.val(),success:function(result){
+				  if(result=="0"){
+					  alert("插入数据库成功");
+				  }
+			  }});
+		  }else{
+			  alert("请正确操作");
 		  }
-		  if($email.val()==""){
-			  $email.attr("placeholder","email不能不空");
+		  
+/* 		  if($username.val()==""){      //用户名为空			  
+			  $username.attr("title","用户名不能为空").tooltip('fixTitle').tooltip('show');
 		  }
-		  if($phone.val()==""){
-			  $phone.attr("placeholder","手机不能为空");
+		  if($password.val()==""){      //密码为空
+			  $password.attr("title","密码不能为空").tooltip('fixTitle').tooltip('show');
 		  }
-		  if($code.val()==""){
-			  $code.attr("placeholder","短信验证码不能为空");
+		  if($Conf_password.val()==""){  //确认密码为空
+			  $Conf_password.attr("title","请输入确认密码").tooltip('fixTitle').tooltip('show');
 		  }
-		  if($username.val()!=""&&$email.val()!=""&&$phone.val()!=""&&$code.val()!=""){  //开始短信验证，注册************
-			  //TODO
+		  if($email.val()==""){        //email为空
+			  $email.attr("title","email不能为空").tooltip('fixTitle').tooltip('show');
 		  }
+		  if($phone.val()==""){         //手机为空
+			  $phone.attr("title","手机号码为空").tooltip('fixTitle').tooltip('show');
+		  }
+		  if($code.val()==""){          //验证码
+			  $code.attr("title","验证码不能为空").tooltip('fixTitle').tooltip('show');
+		  }
+		  if($username.val()!=""&&$email.val()!=""&&$phone.val()!=""&& $code.val()!=""){  //开始短信验证，注册************		
+
+			  if($code.val()==$backCode.val()){          //验证码正确，更新用户status=1
+				  $.ajax({type:"post",url:rootPath+"/updateStatus.do",data:"username="+$username.val(),success:function(result){
+					  if(result=="1"){
+						  alert("注册成功");
+						  $(location).attr("href", "../userLogin.html");
+					  }
+				  }});
+			  }else{                        //验证码码不正确
+				  $code.attr("title","验证码不正确").tooltip('fixTitle').tooltip('show');
+			  }
+		  } */
 	  });
-	  
-	  $("#back").click(function(){
-		  $(location).attr("href", "userLogin.html"); 
-	  });
-	  
+
 	  
   });
- 
+  
+  var rootPath=getRootPath_web();
+  function getRootPath_web() {
+      //获取当前网址，如： http://localhost:8083/uimcardprj/share/meun.jsp
+      var curWwwPath = window.document.location.href;
+      //获取主机地址之后的目录，如： uimcardprj/share/meun.jsp
+      var pathName = window.document.location.pathname;
+      var pos = curWwwPath.indexOf(pathName);
+      //获取主机地址，如： http://localhost:8083
+      var localhostPaht = curWwwPath.substring(0, pos);
+      //获取带"/"的项目名，如：/uimcardprj
+      var projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
+      return (localhostPaht + projectName);
+  }
+  
+  function verifyPhone(value){
+	  if(!isNaN(value) &&value.length==11){
+		  return true;
+	  }
+	  return false;
+  }
+  
+  function verfyEmail(value){
+	  var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+	  if(myreg.test(value)){
+		  return true;
+	  }
+	  return false;
+  }
+  
+  function verfyEqual(value1,value2){
+	  if(value1==value2){
+		  return true;
+	  }
+	  return false;
+  }
+  
+  function CountDown(){
+	  var $sendBtn=$("#send");
+      var $phone=$("#phone");
+	  var $password=$("#password");
+	  var $Conf_password=$("#Conf_password");
+      var $username=$("#username");
+      var $email=$("#email");
+	  var time=61;
+	  var timer=setInterval(function(){
+		  time-=1;
+		  if(time<=-1){       
+			  clearInterval(timer);                   //关闭定时器
+			  
+			  $sendBtn.text("send");                 //重新激活send按钮        
+			  $phone.removeAttr("disabled");           //重启文本框....         
+			  $password.removeAttr("disabled");
+			  $Conf_password.removeAttr("disabled");
+			  $username.removeAttr("disabled");
+			  $email.removeAttr("disabled");
+
+		  }else{                                                //倒计时
+			  $sendBtn.text(time);
+		  }
+	  },1000);
+  }
 </script>
     
 
 </head>
 <body>
 
-<img id="loginPic" src="../../../img/loginPic.png" alt="LoginPic">
-<img id="logo" src="../../../img/logo.png" alt="logo" >
+<img id="loginPic"  src="../../../img/loginPi.jpg" alt="LoginPic">
+<a href="userLogin.html"><img id="logo" src="../../../img/logo.png" alt="logo" ></a>
 
 
 <div id="register">
+<innput id="backCode" type="hiddee"></innput>
+
  <ul id="myTab" class="nav nav-tabs">	
-	 <li id="accountLogin" class="active" ><a  data-toggle="tab"> 注册信息</a></li>
+	 <li id="accountLogin" class="active" ><a data-toggle="tab"> 注册信息</a></li>
 </div>
 <!-- 注册框 -->
 
 <div id="registerForm"  >    
-		<input id="username" type="text" style="width:340px;margin-left:10px;margin-top:5px" class="form-control"  name="username" placeholder="用户名" >
-	    <input id="email" type="text" style="width:340px;margin-top:20px;margin-left:10px" class="form-control" name="email" placeholder="邮箱">
-	    <input id="phone" type="text" style="width:340px;margin-top:20px;margin-left:10px" class="form-control" name="phone" placeholder="手机号码">
-	    <input id="code" name='code' type='text' style="width:220px;margin-top:20px;margin-left:10px" placeholder='输入短信验证码' class='form-control'></input>
+		<input id="username" type="text" style="width:340px;margin-left:10px;margin-top:5px" class="form-control"  name="username" placeholder="用户名" data-toggle="tooltip" data-placement="right" >
+		<input id="password" type="password" style="width:340px;margin-left:10px;margin-top:10px" class="form-control"  name="password" placeholder="密码" data-toggle="tooltip" data-placement="right" >
+		<input id="Conf_password" type="password" style="width:340px;margin-left:10px;margin-top:10px" class="form-control"  name="Conf_password" placeholder="确认密码" data-toggle="tooltip" data-placement="right" >
+	    <input id="email" type="text" style="width:340px;margin-top:10px;margin-left:10px" class="form-control" name="email" placeholder="邮箱" data-toggle="tooltip" data-placement="right" >
+	    <input id="phone" type="text" style="width:340px;margin-top:10px;margin-left:10px" class="form-control" name="phone" placeholder="手机号码" data-toggle="tooltip" data-placement="right" >
+	    <input id="code" name='code' type='text' style="width:220px;margin-top:10px;margin-left:10px" placeholder='输入短信验证码' class='form-control' data-toggle="tooltip" data-placement="right" ></input>
 	    <button id="send" class='btn btn-default' style='width:110px;margin-left:240px;margin-top:-56px' onclick='send'>发送</button>
 
 </div>
@@ -116,7 +298,6 @@
 <!-- 注册按钮组 -->
 <div id="registerGround">
   <button id="sub" class="btn btn-default"  style="width:340px;margin-top:5px;margin-left:10px" >提交</button>
-  <button id="back" class="btn btn-default"  style="width:340px;margin-top:5px;margin-left:10px" >返回</button>
 </div>
 
 
