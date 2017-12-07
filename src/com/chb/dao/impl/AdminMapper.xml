@@ -8,7 +8,7 @@
 	</sql>
 	
 	<select id="findByUserName" parameterType="string" resultType="Admin">
-		SELECT <include refid="Base_Column_List" /> FROM admin WHERE userName=#{userName}
+		SELECT <include refid="Base_Column_List" /> FROM admin WHERE userName=#{adminname}
 	</select>
 
 </mapper>

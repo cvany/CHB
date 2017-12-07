@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>后台管理系统</title>
     <link href="../../css/lib/bootstrap.min.css" rel="stylesheet">
-    <link href="../../css/lib/bootstrap-theme.min.css" rel="stylesheet">
+    
     <link href="../../css/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
     <!-- Toastr style -->
     <link href="../../css/plugins/toastr/toastr.min.css" rel="stylesheet">
@@ -29,47 +29,48 @@
                     <div class="dropdown profile-element">
 							<span> <img alt="image" class="img-circle"
                                         src="../../img/avatar_default.jpg"/>
-							</span> <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+							</span> <a data-toggle="dropdown" class="dropdown-toggle" >
 								<span class="clear"> <span class="block m-t-xs"> <strong
                                         class="font-bold" >admin</strong>
-								</span> <span class="text-muted text-xs block" >超级管理员<b
+								</span> <span class="text-muted text-xs block" >管理员<b
                                         class="caret"></b></span>
 							</span>
                     </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                            <li><a href="#">个人信息</a></li>
                             <li><a href="#">管理记录</a></li>
                             <li class="divider"></li>
-                            <li><a href="#">注销</a></li>
+                            <li><a href="adminLogin.html">注销</a></li>
                         </ul>
                     </div>
                     <div class="logo-element">CHB</div>
                 </li>
                 <!--个人信息结束-->
                 <li>
-                    <a><i class="fa fa-users"></i> <span class="nav-label">用户管理</span></a>
+                    <a ui-sref="userList"><i class="fa fa-users"></i> <span class="nav-label">用户管理</span></a>
                 </li>
                 <li><a><i
                         class="fa fa-building"></i> <span class="nav-label">商家管理</span><span
                         class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        <li><a ui-sref="placeTypeList">商家管理</a></li>
-                        <li><a ui-sref="placeList">入驻审核</a></li>
+                        <li><a ui-sref="checkBusinessInData">商家审核</a></li>
+                        <li><a ui-sref="updateBusiness">商家修改</a></li>
+                        <li><a ui-sref="deleteBusiness">商家删除</a></li>
                     </ul>
                 </li>
-                <li><a><i
-                        class="fa fa-coffee"></i> <span class="nav-label">商品管理</span><span
+                <li><a ui-sref="checkGoods"><i class="fa fa-coffee"></i> <span class="nav-label">商品管理</span></a>
+                    
+                </li>
+                <li>
+                    <a ui-sref="dealComplain"><i class="fa fa-exclamation"></i> <span class="nav-label">投诉管理</span></a>
+                </li>
+                <li>
+                    <a><i class="fa fa-line-chart"></i> <span class="nav-label">数据中心</span><span
                         class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li><a ui-sref="equipmentTypeList">商品管理</a></li>
-                        <li><a ui-sref="equipmentList">上架审核</a></li>
+                     <ul class="nav nav-second-level">
+                        <li><a ui-sref="userData">用户数据</a></li>
+                        <li><a ui-sref="businessData">商家数据</a></li>
+                        <li><a ui-sref="orderData">订单数据</a></li>
                     </ul>
-                </li>
-                <li>
-                    <a><i class="fa fa-exclamation"></i> <span class="nav-label">投诉管理</span></a>
-                </li>
-                <li>
-                    <a><i class="fa fa-line-chart"></i> <span class="nav-label">数据中心</span></a>
                 </li>
             </ul>
 
@@ -96,9 +97,9 @@
                 <!--查询结束-->
                 <!--右侧菜单开始-->
                 <ul class="nav navbar-top-links navbar-right">
-                    <li><span class="m-r-sm text-muted welcome-message">欢迎使用吃货宝管理系统</span>
+                    <li><img alt="吃货宝后台管理" src="../../img/logo2.png" width="180" height="50"/>
                     </li>
-                    <li><a href="login.html"> <i class="fa fa-sign-out"></i>
+                    <li><a href="adminLogin.html"> <i class="fa fa-sign-out"></i>
                         注销
                     </a></li>
                 </ul>

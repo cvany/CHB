@@ -4,10 +4,11 @@ import com.chb.entity.Admin;
 
 /**
  * 管理员dao接口类
- * @author shilim
+ * @author 李卓宏
  *
  */
 public interface AdminDao {
-	// 通过用户名查询管理员 
-	Admin findByUserName(String userName);
+
+	Admin findByUserName(String adminname);
+	
 }
