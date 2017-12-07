@@ -9,6 +9,6 @@ import com.chb.entity.Admin;
  */
 public interface AdminDao {
 
-	Admin findByUserName(String adminname);
+	Admin findByAdminName(String adminname);
 	
 }

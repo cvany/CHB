@@ -4,13 +4,18 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.chb.entity.Admin;
+import com.chb.entity.ResultMessage;
 import com.chb.service.AdminService;
+import com.chb.utils.JsonUtil;
+import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
 
 /**
  * 管理员登录类
@@ -22,22 +27,11 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 	
-	@RequestMapping("adminLogin")           //账号密码登陆
-	public void adminLogin(HttpServletRequest request,HttpServletResponse response) throws IOException {
-		String adminname=request.getParameter("adminname");
-		String password=request.getParameter("password");
-		System.out.println("33333");
-		
-		Admin user=adminService.findByUserName(adminname);
-		if(user!=null) {                                  //用户不为空
-			if(user.getPassword().equals(password)) {       //密码正确
-				response.getWriter().write("1");
-			}else {                                        //密码不正确
-				response.getWriter().write("2");
-			}
-		}else {                                             //用户为空
-			response.getWriter().write("0");               // 用户名不存在
-		}
+	@RequestMapping("adminLogin")           //管理员账号密码登陆
+	@ResponseBody
+	public ResultMessage adminLogin(String admin,HttpSession session ) throws Exception {
+		System.out.println(admin+2);
+		return adminService.adminLogin(JsonUtil.jsonToObject(admin, Admin.class),session);
 	}
 	
 

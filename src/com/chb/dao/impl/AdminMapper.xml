@@ -7,7 +7,7 @@
 		id, userName, password
 	</sql>
 	
-	<select id="findByUserName" parameterType="string" resultType="Admin">
+	<select id="findByAdminName" parameterType="string" resultType="Admin">
 		SELECT <include refid="Base_Column_List" /> FROM admin WHERE userName=#{adminname}
 	</select>
 

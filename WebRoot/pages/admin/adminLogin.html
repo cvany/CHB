@@ -5,71 +5,51 @@
 <title>吃货宝后台</title>
  <link href="../../css/lib/bootstrap.min.css" rel="stylesheet">
  <link href="../../css/admin/style.css" rel="stylesheet">
+ 
+  <!-- Toastr style -->
+    <link href="../../css/plugins/toastr/toastr.min.css" rel="stylesheet">
+    <link href="../../css/lib/animate.css" rel="stylesheet">
  <script src="../../js/lib/jquery-2.1.1.js"></script>
 <script src="../../js/lib/bootstrap.min.js"></script>
-<script>
-$(function(){
-	$("#adminLoginBtn").click(function(){
-		var $adminname=$("#adminname");
-    	var $password=$("#password");
-    	 if($adminname.val()==""){                           //用户名为空
-         	alert("用户名不能为空");
-         } 
-         if($password.val()==""){
-         	alert("密码不能为空");
-         }
-         if($adminname.val()!=""&&$password.val()!=""){   //账号密码都不为空，进行验证
-          
-        	 $.ajax({type:"post",url:rootPath+"/adminLogin.do",data:"adminname="+$adminname.val()+"&password="+$password.val(),success:function(result){
-          		if(result=="0"){
-          			alert("用户不存在");
-          		}else if(result=="1"){
-          			$(location).attr("href", "index.html");
-          		}else if(result=="2"){
-          			alert("密码不正确");
-          		}
-          	}});
-         }
-	});
-});
-		//获取根路径
-		var rootPath=getRootPath_web();
-		function getRootPath_web() {
-		    //获取当前网址，如： http://localhost:8083/uimcardprj/share/meun.jsp
-		    var curWwwPath = window.document.location.href;
-		    //获取主机地址之后的目录，如： uimcardprj/share/meun.jsp
-		    var pathName = window.document.location.pathname;
-		    var pos = curWwwPath.indexOf(pathName);
-		    //获取主机地址，如： http://localhost:8083
-		    var localhostPaht = curWwwPath.substring(0, pos);
-		    //获取带"/"的项目名，如：/uimcardprj
-		    var projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
-		    return (localhostPaht + projectName);
-		}          
-</script>
+
+
+<!--angularjs-->
+<script src="../../js/angular/angular.js" type="text/javascript"
+        charset="utf-8"></script>
+
+<!--models-->
+<script src="../../js/models/AdminVo.js" type="text/javascript"
+        charset="utf-8"></script>
+ <!-- Toastr -->
+<script src="../../js/plugins/toastr/toastr.min.js"></script>
+<!--contorllers-->
+
+
+<script src="../../js/controller/admin/loginApp.js"
+        type="text/javascript" charset="utf-8"></script>
 </head>
 
   <body>
 
-    <div class="container">
+    <div class="container" ng-app="loginApp" ng-controller="login">
     	<div class="row col-md-offset-1">
         	<div class="col-md-5">
             <img src="../../img/loginPi.jpg" width="499" height="505"></img>
             </div>
           <div class="col-md-5 col-md-offset-2">
           <br /><br /><br /><br /><br />
-            	      
+            	    <form class="m-t" role="form">
                     <div class="login-wrap col-md-8">
                         <p class=""><img src="../../img/logo2.png" width="223" height="68"></img></p>
                        <div class="form-group">
-                       <input id="adminname" type="text" class="form-control" placeholder="用户名">
+                       <input type="text" class="form-control" placeholder="用户名" required=""ng-model="admin.userName" >
                       </div>
                       <div class="form-group">
-                        <input id="password" type="password" class="form-control"  placeholder="密码">
+                        <input  type="password" class="form-control"  placeholder="密码" required=""ng-model="admin.password">
                       </div>
-                        <button id="adminLoginBtn" class="btn btn-primary btn-lg btn-block">登录</button>
+                        <button class="btn btn-primary btn-lg btn-block" ng-click="login()">登录</button>
                     </div>
-                  
+                  </form>
             </div>
       </div>
 
