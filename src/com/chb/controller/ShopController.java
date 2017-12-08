@@ -23,8 +23,8 @@ public class ShopController {
 	@Autowired
 	private ShopService shopService;
 
-	// 管理员登录接口
-	@RequestMapping("shop/insertShop")
+	//
+	@RequestMapping("insertShop")
 	@ResponseBody
 	public void insertShop(Shop shop){
 		shopService.insertShop(shop);

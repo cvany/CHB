@@ -23,8 +23,8 @@ public class ShopInDataController {
 	@Autowired
 	private ShopInDataService shopInDataService;
 
-	// 管理员登录接口
-	@RequestMapping("shopInData/insertShopInData")
+	//
+	@RequestMapping("insertShopInData")
 	@ResponseBody
 	public void insertShopInData(ShopInData shopInData){
 		shopInDataService.insertShopInData(shopInData);
