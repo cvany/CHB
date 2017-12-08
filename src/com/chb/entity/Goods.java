@@ -20,6 +20,25 @@ public class Goods {
 	private Integer goodsNumber;
 	private Integer goodsRemain;
 	
+	private Shop shop;
+	private ClassifyGoods classifyGoods;
+	
+	public Shop getShop() {
+		return shop;
+	}
+
+	public void setShop(Shop shop) {
+		this.shop = shop;
+	}
+
+	public ClassifyGoods getClassifyGoods() {
+		return classifyGoods;
+	}
+
+	public void setClassifyGoods(ClassifyGoods classifyGoods) {
+		this.classifyGoods = classifyGoods;
+	}
+
 	public Goods() {
 	}
 

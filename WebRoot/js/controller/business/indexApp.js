@@ -12,6 +12,11 @@ indexApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvide
             templateUrl: "order/order-list.html",
             controller: "orderList"
         })
+        .state("goodsList", {
+            url: "/goodsList",
+            templateUrl: "goods/goods-list.html",
+            controller: "goodsList"
+        })
 }])
     .config(['$httpProvider', function ($httpProvider) {
         $httpProvider.defaults.transformRequest = function (obj) {

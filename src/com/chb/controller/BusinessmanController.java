@@ -22,7 +22,7 @@ import com.chb.utils.JsonUtil;
 @Controller
 public class BusinessmanController {
 	@Autowired
-	private BusinessmanService businessmanService;
+	BusinessmanService businessmanService;
 
 	// 管理员登录接口
 	@RequestMapping("business/login")

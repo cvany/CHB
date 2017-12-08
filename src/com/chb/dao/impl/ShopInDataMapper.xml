@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chb.dao.ShopInDataDao">
+
+	<sql id="Base_Column_List">
+		id, shopId,
+		frontPhoto,insidePhoto,IDFrontPhoto,IDBackPhoto,legalRepresentative,businessLicense,cateringServiceLicense
+	</sql>
+
+	
+	<insert id="insertShopInData" parameterType="com.chb.entity.ShopInData">
+	insert into businessman(shopId,
+		frontPhoto,insidePhoto,IDFrontPhoto,IDBackPhoto,legalRepresentative,businessLicense,cateringServiceLicense)
+		values(#{shopId,jdbcType=INTEGER},#{frontPhoto,jdbcType=VARCHAR},
+		#{insidePhoto,jdbcType=VARCHAR},#{IDFrontPhoto,jdbcType=VARCHAR},#{IDBackPhoto,jdbcType=VARCHAR},
+		#{legalRepresentative,jdbcType=DATE},#{businessLicense,jdbcType=VARCHAR},
+		#{cateringServiceLicense,jdbcType=VARCHAR})
+	</insert>
+
+</mapper>
