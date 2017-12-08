@@ -2,20 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chb.dao.UserDao">
-    <select id="findByUsername" parameterType="string" resultType="User">
-        SELECT * FROM user WHERE userName=#{userName}
-    </select>
-    <!-- 条件分页查询总条数 -->
+	<sql id="Base_Column_List">
+		id, userName,
+		email,phone,loginCount,photo,registerTime,status
+	</sql>
+
+	<select id="findByUsername" parameterType="string" resultType="User">
+		SELECT * FROM user WHERE username=#{username}
+	</select>
+
+	<!-- 条件分页查询总条数 -->
 	<select id="selectCount" parameterType="com.chb.entity.Page"
 		resultType="java.lang.Long">
 		SELECT count(0) FROM user
 		<where>
 			<if test="keyWords != null and keyWords != ''">
 				<if test="fuzzy == true">
-					place_name like '%' #{keyWords} '%'
+					userName like '%' #{keyWords} '%'
 				</if>
 				<if test="fuzzy == false">
-					place_name = #{keyWords}
+					userName = #{keyWords}
 				</if>
 			</if>
 		</where>
@@ -24,20 +30,22 @@
 	<!-- 条件分页查询用户列表 -->
 	<select id="selectUserByPage" parameterType="com.chb.entity.Page"
 		resultType="User">
-		SELECT * FROM user
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM user
 		<where>
 			<if test="keyWords != null and keyWords != ''">
 				<if test="fuzzy == true">
-					place_name like '%' #{keyWords} '%'
+					userName like '%' #{keyWords} '%'
 				</if>
 				<if test="fuzzy == false">
-					place_name = #{keyWords}
+					userName = #{keyWords}
 				</if>
 			</if>
 		</where>
 	</select>
-    
-    <select id="findByUserPhone" parameterType="string" resultType="User">
-       SELECT * FROM user WHERE phone=#{phone}
-    </select>
+
+	<select id="findByUserPhone" parameterType="string" resultType="User">
+		SELECT * FROM user WHERE phone=#{phone}
+	</select>
 </mapper>

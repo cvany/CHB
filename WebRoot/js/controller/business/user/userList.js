@@ -5,21 +5,23 @@ controllers.controller("userList", ['$scope','$http','$state',function($scope,$h
     $scope.checkAll = false;//全选
     $scope.userList = [];
     $scope.page = new PageVo();
+    $scope.tempPageSize = sessionStorage.userListPageSize || 5;
 
 
     $scope.userList.statusDescription = new UserVo();
 
     $scope.page.pageNum = 1;
-    $scope.page.pageSize = 3;
+    $scope.page.pageSize = 5;
     //获取用户列表
     $scope.getUserList = function() {
         //是否存在缓存页数
         if(sessionStorage.userListPageNum) $scope.page.pageNum = sessionStorage.userListPageNum;
+        //是否存在缓存显示数
+        if(sessionStorage.userListPageSize) $scope.page.pageSize = sessionStorage.userListPageSize;
         var url = baseUrl + "getUserListByPage.do"
         var data = {page:$scope.page.voToJson()}
         $http.post(url,data)
             .success(function(data) {
-                console.log(data);
                 if(data.serviceResult == 1) {
                     console.log(data.resultParam)
                     $scope.userList = data.resultParam;
@@ -36,6 +38,12 @@ controllers.controller("userList", ['$scope','$http','$state',function($scope,$h
             });
     }
     $scope.getUserList();
+
+    //修改显示条数
+    $scope.changePageSize = function () {
+        sessionStorage.userListPageSize = $scope.page.pageSize;
+        $scope.getUserList();
+    }
 
     //上一页
     $scope.lastPage = function(pageNum) {
