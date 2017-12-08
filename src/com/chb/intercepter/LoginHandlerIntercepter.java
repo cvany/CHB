@@ -37,6 +37,7 @@ public class LoginHandlerIntercepter implements HandlerInterceptor {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object arg2) throws Exception {
+		response.addHeader("Access-Control-Allow-Origin","*");
 		String requestURI = request.getRequestURI();
 		if (requestURI.indexOf("business") > 0 && requestURI.indexOf(".do") > 0 && requestURI.indexOf("login") <= 0) {
 			HttpSession session = request.getSession();

@@ -25,7 +25,7 @@
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>用户列表</h5>
+                    <h5>订单列表</h5>
                 </div>
                 <div class="ibox-content">
                     <div class="input-group pull-left"
@@ -42,13 +42,25 @@
                     </select>
                     </label>
                     <div class="input-group pull-left" style="margin-left: 10px;">
-                        <a data-toggle="modal" class="btn btn-sm  btn-primary"
-                           ui-sref="addUser"> <i class="fa fa-plus"></i> 新增用户
+                        <a data-toggle="modal" class="btn btn-sm  "
+                           ng-class="{true:'btn-primary',false:'btn-white'}[order.status == 1]"
+                           ng-click="changeOrderType(1)"
+                           style="margin-right: 10px">待接订单
+                        </a>
+                        <a data-toggle="modal" class="btn btn-sm  "
+                           ng-class="{true:'btn-primary',false:'btn-white'}[order.status == 2]"
+                           ng-click="changeOrderType(2)"
+                           style="margin-right: 10px">已接订单
+                        </a>
+                        <a data-toggle="modal" class="btn btn-sm "
+                           ng-class="{true:'btn-primary',false:'btn-white'}[order.status == 3]"
+                           ng-click="changeOrderType(3)"
+                        >完成订单
                         </a>
                     </div>
                     <div class="input-group col-lg-4 pull-right">
                         <input type="text" class="form-control input-sm" name="search"
-                               placeholder="输入用户姓名查找" ng-model="page.keyWords"
+                               placeholder="输入订单号查找" ng-model="page.keyWords"
                                ng-keyup="searchUser($event)">
                         <div class="input-group-btn">
                             <button class="btn btn-sm btn-primary" data-toggle="modal"
@@ -63,36 +75,27 @@
                             <th class="col-lg-1 text-center"><input type="checkbox"
                                                                     class="i-checks" ng-model="checkAll" i-check/></th>
                             <th>序号</th>
-                            <th>邮箱</th>
-                            <th>姓名</th>
-                            <th>头像</th>
-                            <th>电话</th>
-                            <th>注册时间</th>
-                            <th>登录次数</th>
+                            <th>订单号</th>
+                            <th>用户名</th>
+                            <th>总金额</th>
+                            <th>支付方式</th>
                             <th>状态</th>
-                            <th class="col-lg-1 text-center">操作</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="item in orderList.list">
+                        <tr ng-repeat="item in orderList.list" style="cursor: pointer" ng-click="toDetailPage(item.id)">
                             <td class="text-center"><input type="checkbox"
                                                            class="i-checks" ng-model="item.checked" i-check/></td>
                             <td
                                     ng-bind="(orderList.pageNum-1)*orderList.pageSize+$index+1 || 0"></td>
-                            <td ng-bind="item.email"></td>
-                            <td ng-bind="item.userName"></td>
-                            <td ng-bind="item.photo"></td>
-                            <td ng-bind="item.phone"></td>
-                            <td ng-bind="item.registerTime | dateFormat"></td>
-                            <td ng-bind="item.loginCount"></td>
+                            <td ng-bind="item.orderNo"></td>
+                            <td ng-bind="item.userId"></td>
+                            <td ng-bind="item.sumMoney"></td>
+                            <td ng-bind="item.payMode"></td>
                             <td ng-bind="item.status"></td>
-                            <td class="text-center"><a title="修改"
-                                                       ng-click="toEditPage(item.id)"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <a title="删除" ng-click="deleteTips('one',item.id)"><i
-                                        class="fa fa-trash"></i></a></td>
                         </tr>
                         <tr ng-show="orderList.list.length==0">
-                            <td class="text-center" colspan="8">没有记录</td>
+                            <td class="text-center" colspan="7">没有记录</td>
                         </tr>
                         </tbody>
                     </table>

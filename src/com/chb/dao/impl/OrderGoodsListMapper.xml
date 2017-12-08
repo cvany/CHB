@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chb.dao.OrderGoodsListDao">
+	<resultMap id="BaseResultMap" type="com.chb.entity.OrderGoodsList">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="orderId" jdbcType="INTEGER" property="orderId" />
+		<result column="goodsId" jdbcType="INTEGER" property="goodsId" />
+		<result column="count" jdbcType="INTEGER" property="count" />
+		<result column="sumMoney" jdbcType="DOUBLE" property="sumMoney" />
+		<result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+		<association column="goodsId" jdbcType="INTEGER" property="goods"
+			select="com.chb.dao.GoodsDao.selectByPrimaryKey" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, orderId, goodsId, count, sumMoney, createTime
+	</sql>
+
+	<select id="selectOrderGoodsListByOrderId" parameterType="Integer"
+		resultMap="BaseResultMap">
+		select <include refid="Base_Column_List"></include>
+		from order_goods_list
+		where
+		orderId = #{orderId}
+	</select>
+</mapper>

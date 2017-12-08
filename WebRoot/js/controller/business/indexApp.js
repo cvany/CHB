@@ -1,5 +1,6 @@
 var indexApp = angular.module("indexApp", ['ui.router', 'controllers']);
-var baseUrl = "/CHB/";
+// var baseUrl = "/CHB/";
+var baseUrl = "http://localhost:8080/CHB/";
 indexApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.when("", "/welcome");
     $stateProvider
@@ -11,6 +12,11 @@ indexApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvide
             url: "/orderList",
             templateUrl: "order/order-list.html",
             controller: "orderList"
+        })
+        .state("orderDetail", {
+            url: "/orderDetail/:id",
+            templateUrl: "order/order-detail.html",
+            controller: "orderDetail"
         })
 }])
     .config(['$httpProvider', function ($httpProvider) {
