@@ -17,7 +17,7 @@
 	</select>
 
 	<!-- 通过手机号查询商家 -->
-	<select id="findBusnessByPhone" parameterType="string" resultType="Businessman">
+	<select id="findByBusnessmanPhone" parameterType="string" resultType="Businessman">
 		SELECT
 		<include refid="Base_Column_List" />
 		FROM businessman WHERE phone=#{phone}
