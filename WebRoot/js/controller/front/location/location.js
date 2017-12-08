@@ -17,9 +17,11 @@ controllers.controller("location",['$scope','$timeout',function($scope,$timeout)
 	//搜索按钮事件
 	$scope.search =function(){
 		var val =$("#suggestId").val();
+		var encodeVal =encodeURIComponent(val);
 		loc.geoByAreaName(val,function(point){
 			if (point) {
-	          	alert("经度："+point.lng+"纬度："+point.lat);
+				window.location.href ="shopBrowse.html?lng="+point.lng+"&lat="+point.lat+"&loc="+val;
+//	          	alert("经度："+point.lng+"纬度："+point.lat);
 			}else{
 				alert("您选择地址没有解析到结果!");
 			}
