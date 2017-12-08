@@ -24,5 +24,12 @@
 		ORDER BY id DESC
 		LIMIT 0,3
     </select>
+    
+    <!-- 根据关键字模糊查询商店 -->
+    <select id="findShopByKeyWords" parameterType="Shop" resultType="Shop">
+    	SELECT <include refid="Base_Column_List" />
+		FROM shop
+		WHERE shopName LIKE '%'#{shopName}'%'
+    </select>
    
 </mapper>

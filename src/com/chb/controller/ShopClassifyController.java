@@ -75,6 +75,19 @@ public class ShopClassifyController {
 		return sgList;
 	}
 	
+	/**
+	 * 根据商店名称关键字模糊查询商店
+	 * @param shop
+	 * @return
+	 */
+	@RequestMapping("findShopByKeyWords")
+	@ResponseBody
+	public List<ShopAndGoodsVO> findShopByKeyWords(Shop shop){
+		System.out.println("请求到达了"+shop.getShopName());
+		List<Shop> list = shopClassifyService.findShopByKeyWords(shop);
+		System.out.println(list.size());
+		return null;
+	}
 	
 
 }

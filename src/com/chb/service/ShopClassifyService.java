@@ -28,5 +28,12 @@ public interface ShopClassifyService {
 	 * @return
 	 */
 	List<Goods> findGoodsByShopId(Shop shop);
+	
+	/**
+	 * 根据商店名称模糊查询商店
+	 * @param shop
+	 * @return
+	 */
+	List<Shop> findShopByKeyWords(Shop shop);
 
 }

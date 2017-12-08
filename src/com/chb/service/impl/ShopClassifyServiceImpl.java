@@ -34,4 +34,8 @@ public class ShopClassifyServiceImpl implements ShopClassifyService {
 		return shopClassifyDao.findGoodsByShopId(shop);
 	}
 
+	public List<Shop> findShopByKeyWords(Shop shop) {
+		return shopClassifyDao.findShopByKeyWords(shop);
+	}
+
 }
