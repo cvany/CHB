@@ -12,10 +12,10 @@
 		<where>
 			<if test="keyWords != null and keyWords != ''">
 				<if test="fuzzy == true">
-					place_name like '%' #{keyWords} '%'
+					userName like '%' #{keyWords} '%'
 				</if>
 				<if test="fuzzy == false">
-					place_name = #{keyWords}
+					userName = #{keyWords}
 				</if>
 			</if>
 		</where>
@@ -28,13 +28,14 @@
 		<where>
 			<if test="keyWords != null and keyWords != ''">
 				<if test="fuzzy == true">
-					place_name like '%' #{keyWords} '%'
+					userName like '%' #{keyWords} '%'
 				</if>
 				<if test="fuzzy == false">
-					place_name = #{keyWords}
+					userName = #{keyWords}
 				</if>
 			</if>
 		</where>
+		 LIMIT ${(pageNum-1)*pageSize},#{pageSize}
 	</select>
     
     <select id="findByUserPhone" parameterType="string" resultType="User">
@@ -52,4 +53,8 @@
     <update id="updateUser" parameterType="com.chb.entity.User">
        UPDATE user SET password=#{password} WHERE id=#{id}
     </update>
+    
+    <delete id="deleteUserById" parameterType="int">
+    	DELETE FROM user WHERE id=#{deleteResult}
+    </delete>
 </mapper>
