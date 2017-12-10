@@ -34,8 +34,6 @@ public class UserController {
 		return user;
 	}
 	
-
-	
 	@RequestMapping("sendEmail")
 	public void sendEmail(HttpServletRequest request,HttpServletResponse response) throws Exception{
 		request.setCharacterEncoding("utf-8");
@@ -108,3 +106,4 @@ public class UserController {
 		return userService.getUserListByPage(JsonUtil.jsonToObject(page, Page.class));
 	}
 }
+
