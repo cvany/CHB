@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.chb.entity.Admin;
 import com.chb.entity.Page;
 import com.chb.entity.ResultMessage;
+import com.chb.entity.Shop;
+import com.chb.entity.ShopInData;
 import com.chb.entity.User;
 import com.chb.service.AdminService;
 import com.chb.utils.JsonUtil;
@@ -50,5 +52,34 @@ public class AdminController {
 		System.out.println(user+"删除用户控制");
 		return adminService.deleteUserById(JsonUtil.jsonToObject(user , User.class));
 	}
+	//管理员分页查询所有待审核商家
+	@RequestMapping("getBusinessInDataListByPage")          
+	@ResponseBody
+	public ResultMessage getBusinessInDataListByPage(String page ) throws Exception {
+		System.out.println(page+"审核商家");
+		return adminService.getBusinessInDataListByPage(JsonUtil.jsonToObject(page, Page.class));
+	}
+	//管理员分页查询所有待审核商家
+	@RequestMapping("checkDetails")          
+	@ResponseBody
+	public ResultMessage checkDetailsById(String shopInData ) throws Exception {
+		System.out.println(shopInData+"审核商家");
+		return adminService.checkDetailsById(JsonUtil.jsonToObject(shopInData, ShopInData.class));
+	}
+	//管理员审核通过商家
+	@RequestMapping("checkBusinessOk")
+	@ResponseBody
+	public ResultMessage checkBusinessOk(String shop) throws Exception {
+		System.out.println(shop+"审核通过");
+		return adminService.checkBusinessOkById(JsonUtil.jsonToObject(shop , Shop.class));
+	}
+	//管理员审核通过商家
+	@RequestMapping("checkBusinessFail")
+	@ResponseBody
+	public ResultMessage checkBusinessFail(String shop) throws Exception {
+		System.out.println(shop+"审核不通过");
+		return adminService.checkBusinessFailById(JsonUtil.jsonToObject(shop , Shop.class));
+	}
+		
 
 }

@@ -14,7 +14,8 @@ indexApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvide
         })
          .state("checkBusinessInData", {
             url: "/checkBusinessInData",
-            templateUrl: "admin/checkBusinessInData.html"
+            templateUrl: "admin/checkBusinessInData.html",
+            controller: "checkBusinessInData"
         })
         .state("updateBusiness", {
             url: "/updateBusiness",
