@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chb.dao.GoodsDao">
+
+	<sql id="Base_Column_List">
+		id, businessmanId, shopName,phone,isPass
+	</sql>
+	 <!-- 条件分页查询审核总条数 -->
+	<select id="selectCount" parameterType="com.chb.entity.Page"
+		resultType="java.lang.Long">
+		SELECT count(0) FROM goods
+		<where>
+			<if test="keyWords != null and keyWords != ''">
+				<if test="fuzzy == true">
+					goodsName like '%' #{keyWords} '%' 
+				</if>
+				<if test="fuzzy == false">
+					goodsName = #{keyWords} 
+				</if>
+			</if>
+			and isPass=0
+		</where>
+	</select>
+	
+	<!-- 查询所有待审核商家 -->
+	<select id="getCheckGoodsListByPage" parameterType="com.chb.entity.Goods" resultType="Goods">
+		SELECT * FROM goods 
+		<where>
+			<if test="keyWords != null and keyWords != ''">
+				<if test="fuzzy == true">
+					goodsName like '%' #{keyWords} '%' 
+				</if>
+				<if test="fuzzy == false">
+					goodsName = #{keyWords} 
+				</if>
+			</if>
+			and isPass=0
+		</where>
+		 LIMIT ${(pageNum-1)*pageSize},#{pageSize}
+	</select>
+	
+	<!-- 审核商品通过 -->
+	<update id="updateGoodsById" parameterType="com.chb.entity.Goods" >
+		UPDATE goods SET isPass=1 WHERE id=#{id}
+	</update>
+	<!-- 审核商品不通过 -->
+	<delete id="deleteGoodsById" parameterType="int">
+		DELETE FROM goods WHERE id=#{id}
+	</delete>
+
+</mapper>

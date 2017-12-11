@@ -12,7 +12,7 @@
 <div class="row  border-bottom white-bg dashboard-header">
     <div class="col-lg-10">
         <ol class="breadcrumb">
-            <li><a href="welcome.html"><span class="fa fa-home"></span>主页</a></li>
+            <li><a href="#"><span class="fa fa-home"></span>主页</a></li>
             <li><a>商家管理</a></li>
             <li class="active"><strong>商家修改</strong></li>
         </ol>
@@ -25,59 +25,71 @@
        <div class="col-lg-12">
            <div class="ibox float-e-margins">
                  <div class="row"><!-- 搜索框 -->
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-xs-offset-2">
-                      <div class="input-group">
-                        <input type="text" class="form-control" placeholder="输入商家信息">
-                        <span class="input-group-btn">
-                          <button class="btn btn-success" type="button">
-                          <span class="fa fa-search"> 搜索</span></button>
-                        </span>
-                      </div><!-- /input-group -->
-                    </div><!-- /.col-lg-6 -->
-                  </div><!-- /.row -->
+                 <div class="row"><!-- 搜索框 -->
+	                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-xs-offset-2">
+	                   <div class="input-group">
+	                     <input type="text" class="form-control input-sm" name="search"
+                               placeholder="输入商家名称查找" ng-model="page.keyWords"
+                               ng-keyup="searchBusiness($event)">
+	                     <span class="input-group-btn">
+	                       <button class="btn btn-success btn-sm" type="button" ng-click="searchBusiness()">
+	                       <span class="fa fa-search"> 搜索</span></button>
+	                     </span>
+	                   </div><!-- /input-group -->
+	                 </div><!-- /.col-lg-6 -->
+	               </div><!-- /.row -->
                   <br />  <br />  <br /> 
                   <!-- 表格-->
                    <div class="row">
                   	<div class="col-md-12 ">
                       	<table class="table table-hover">
+                      	<thead>
                           	<tr>
-                              	<th>ID</th>
-                                  <th>商家名</th>
-                                  <th>手机号</th>
-                                  <th>注册人姓名</th>
-                                  <th>邮箱</th>
-                                  <th>地址</th>
+                              	<th>序号</th>
+	                               <th>商店名称</th>
+	                               <th>商店电话</th>
+	                               <th>法定代表人</th>
+	                               <th>商店简介</th>
+	                               <th>地址</th>
                                   <th  class="text-center">操作</th>
                               </tr>
-                              <tr>
-                              	<th>23</th>
-                                  <th>大家了肯定</th>
-                                  <th>290954547</th>
-                                  <th>落地架怪</th>
-                                  <th>@。com</th>
-                                  <th>似懂非懂址</th>
-                                  <th  class="text-center">
-                                  	<button type="button" class="btn btn-primary btn-sm" 
-                                      data-toggle="modal" data-target="#myModal">
-                                        <span class="fa fa-pencil"></span> 修改
-                                      </button>	
-                                  </th>
-                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr ng-repeat="item in businessList.list">
+	                           	<td ng-bind="(businessList.pageNum-1)*businessList.pageSize+$index+1 || 0"></th>
+	                               <td ng-bind="item.shopName"></td>
+	                               <td ng-bind="item.phone"></td>
+	                               <td ng-bind="item.legalRepresentative"></td>
+	                               <td ng-bind="item.shopDescription "></td>
+	                               <td ng-bind="item.address"></td>
+	                               <td  class="text-center">
+	                               	<button type="button" class="btn btn-primary btn-sm" 
+	                                   data-toggle="modal" data-target="#myModal" ng-click="checkDetails(item.id)">
+	                                   <span class="fa fa-pencil"></span>  修改
+	                                   </button>
+	                                   <button class="btn btn-danger btn-sm" ng-click="checkFail(item.id)">
+	                                   <span class="fa fa-trash"></span> 删除</button>
+	                               </td>
+	                           </tr>
+                              </tbody>
+                              <tr ng-show="businessList.list.length==0">
+                            <td class="text-center" colspan="8">没有记录</td>
+                        </tr>
                           </table>
                             <!--分页信息-->
                            <div class="pull-left">
-                        共<span ng-bind="userList.total"></span>条记录 共<span
-                            ng-bind="userList.pages"></span>页
+                        共<span ng-bind="businessList.total"></span>条记录 共<span
+                            ng-bind="businessList.pages"></span>页
                     </div>
                     <div class="text-right">
                         <button class="btn btn-white btn-sm"
-                                ng-click="lastPage(userList.pageNum-1)">上一页
+                                ng-click="lastPage(businessList.pageNum-1)">上一页
                         </button>
                         <input type="text" class="form-control page-cout"
                                ng-model="page.pageNum" ng-blur="toPage()"
                                ng-keyup="toPage($event)"/>
                         <button class="btn btn-white btn-sm"
-                                ng-click="nextPage(userList.pageNum+1)">下一页
+                                ng-click="nextPage(businessList.pageNum+1)">下一页
                         </button>
                     </div>
                       </div>

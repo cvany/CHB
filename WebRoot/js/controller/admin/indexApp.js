@@ -19,7 +19,9 @@ indexApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvide
         })
         .state("updateBusiness", {
             url: "/updateBusiness",
-            templateUrl: "admin/updateBusiness.html"
+            templateUrl: "admin/updateBusiness.html",
+            controller: "updateBusiness"
+        
         })
         .state("deleteBusiness", {
             url: "/deleteBusiness",
@@ -27,11 +29,13 @@ indexApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvide
         })
         .state("checkGoods", {
             url: "/checkGoods",
-            templateUrl: "admin/checkGoods.html"
+            templateUrl: "admin/checkGoods.html",
+            controller: "checkGoods"
         })
         .state("dealComplain", {
             url: "/dealComplain",
-            templateUrl: "admin/dealComplain.html"
+            templateUrl: "admin/dealComplain.html",
+            controller: "dealComplain"
         })
         .state("userData", {
             url: "/userData",

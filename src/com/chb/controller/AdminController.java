@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.chb.entity.Admin;
+import com.chb.entity.Complaint;
+import com.chb.entity.Goods;
 import com.chb.entity.Page;
 import com.chb.entity.ResultMessage;
 import com.chb.entity.Shop;
@@ -73,13 +75,66 @@ public class AdminController {
 		System.out.println(shop+"审核通过");
 		return adminService.checkBusinessOkById(JsonUtil.jsonToObject(shop , Shop.class));
 	}
-	//管理员审核通过商家
-	@RequestMapping("checkBusinessFail")
+	//管理员审核不通过商家
+	@RequestMapping("deleteBusiness")
 	@ResponseBody
-	public ResultMessage checkBusinessFail(String shop) throws Exception {
+	public ResultMessage deleteBusiness(String shop) throws Exception {
 		System.out.println(shop+"审核不通过");
-		return adminService.checkBusinessFailById(JsonUtil.jsonToObject(shop , Shop.class));
+		return adminService.deleteBusinessById(JsonUtil.jsonToObject(shop , Shop.class));
 	}
-		
+	//管理员分页查询所有商家
+	@RequestMapping("getBusinessListByPage")          
+	@ResponseBody
+	public ResultMessage getBusinessListByPage(String page ) throws Exception {
+		System.out.println(page+"商家");
+		return adminService.getBusinessListByPage(JsonUtil.jsonToObject(page, Page.class));
+	}
+	//管理员分页查询所有商品
+	@RequestMapping("getCheckGoodsListByPage")          
+	@ResponseBody
+	public ResultMessage getCheckGoodsListByPage(String page ) throws Exception {
+		System.out.println(page+"商品");
+		return adminService.getCheckGoodsListByPage(JsonUtil.jsonToObject(page, Page.class));
+	}
+	
+	//管理员审核通过商品
+	@RequestMapping("checkGoodsOk")
+	@ResponseBody
+	public ResultMessage checkGoodsOk(String goods) throws Exception {
+		System.out.println(goods+"审核通过");
+		return adminService.checkGoodsOkById(JsonUtil.jsonToObject(goods , Goods.class));
+	}
+	
+	//管理员审核不通过商品
+	@RequestMapping("deleteGoods")
+	@ResponseBody
+	public ResultMessage deleteGoods(String goods) throws Exception {
+		System.out.println(goods+"审核不通过");
+		return adminService.deleteGoodsById(JsonUtil.jsonToObject(goods , Goods.class));
+	}
+	
+	//管理员查询投诉信息
+	@RequestMapping("getDealComplainListByPage")
+	@ResponseBody
+	public ResultMessage getDealComplainListByPage(String page) throws Exception {
+		System.out.println(page+"投诉信息");
+		return adminService.getDealComplainListByPage(JsonUtil.jsonToObject(page , Page.class));
+	}
+	
+	//管理员审核通过投诉
+	@RequestMapping("checkComplaintOk")
+	@ResponseBody
+	public ResultMessage checkComplaintOk(String complaint) throws Exception {
+		System.out.println(complaint+"审核通过");
+		return adminService.checkComplaintOkById(JsonUtil.jsonToObject(complaint , Complaint.class));
+	}
+	
+	//管理员审核不通过商品
+	@RequestMapping("deleteComplaint")
+	@ResponseBody
+	public ResultMessage deleteComplaint(String complaint) throws Exception {
+		System.out.println(complaint+"审核不通过");
+		return adminService.deleteComplaintById(JsonUtil.jsonToObject(complaint , Complaint.class));
+	}
 
 }

@@ -6,7 +6,7 @@
 	<sql id="Base_Column_List">
 		id, businessmanId, shopName,phone,isPass
 	</sql>
-	 <!-- 条件分页查询总条数 -->
+	 <!-- 条件分页查询审核总条数 -->
 	<select id="selectCount" parameterType="com.chb.entity.Page"
 		resultType="java.lang.Long">
 		SELECT count(0) FROM shop
@@ -22,6 +22,22 @@
 			and isPass=0
 		</where>
 	</select>
+	<!-- 条件分页查询审核总条数 -->
+	<select id="selectAllCount" parameterType="com.chb.entity.Page"
+		resultType="java.lang.Long">
+		SELECT count(0) FROM shop
+		<where>
+			<if test="keyWords != null and keyWords != ''">
+				<if test="fuzzy == true">
+					shopName like '%' #{keyWords} '%' 
+				</if>
+				<if test="fuzzy == false">
+					shopName = #{keyWords} 
+				</if>
+			</if>
+			and isPass=1
+		</where>
+	</select>
 	<!-- 查询所有待审核商家 -->
 	<select id="getBusinessInDataListByPage" parameterType="com.chb.entity.Shop" resultType="Shop">
 		SELECT * FROM shop 
@@ -35,6 +51,22 @@
 				</if>
 			</if>
 			and isPass=0
+		</where>
+		 LIMIT ${(pageNum-1)*pageSize},#{pageSize}
+	</select>
+	<!-- 查询所有商家 -->
+	<select id="getBusinessListByPage" parameterType="com.chb.entity.Shop" resultType="Shop">
+		SELECT * FROM shop 
+		<where>
+			<if test="keyWords != null and keyWords != ''">
+				<if test="fuzzy == true">
+					shopName like '%' #{keyWords} '%' 
+				</if>
+				<if test="fuzzy == false">
+					shopName = #{keyWords} 
+				</if>
+			</if>
+			and isPass=1
 		</where>
 		 LIMIT ${(pageNum-1)*pageSize},#{pageSize}
 	</select>

@@ -128,7 +128,7 @@ controllers.controller("checkBusinessInData", ['$scope','$http','$state',functio
     	alert(333);
     	var shopVo = new ShopVo();
         shopVo.id=id;
-        var url = baseUrl + "checkBusinessFail.do";
+        var url = baseUrl + "deleteBusiness.do";
         var data={shop:shopVo.voToJson()};
         alert(data);
         $http.post(url,data)

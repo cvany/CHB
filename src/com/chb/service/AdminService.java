@@ -3,6 +3,8 @@ package com.chb.service;
 import javax.servlet.http.HttpSession;
 
 import com.chb.entity.Admin;
+import com.chb.entity.Complaint;
+import com.chb.entity.Goods;
 import com.chb.entity.Page;
 import com.chb.entity.ResultMessage;
 import com.chb.entity.Shop;
@@ -22,10 +24,24 @@ public interface AdminService {
 	ResultMessage getBusinessInDataListByPage(Page page);
 	//根据ID查询商家详情
 	ResultMessage checkDetailsById(ShopInData shopInData);
-	//审核通过
+	//审核商家通过
 	ResultMessage checkBusinessOkById(Shop shop);
-	//审核不通过
-	ResultMessage checkBusinessFailById(Shop shop);
+	//审核商家不通过
+	ResultMessage deleteBusinessById(Shop shop);
+	//查询所有商家
+	ResultMessage getBusinessListByPage(Page page);
+	//查询所有待审核商品
+	ResultMessage getCheckGoodsListByPage(Page page);
+	//审核商品通过
+	ResultMessage checkGoodsOkById(Goods goods);
+	//审核商品不通过
+	ResultMessage deleteGoodsById(Goods goods);
+	//分页查询审核投诉信息
+	ResultMessage getDealComplainListByPage(Page page);
+	//审核投诉信息通过
+	ResultMessage checkComplaintOkById(Complaint complaint);
+	//审核投诉信息不通过
+	ResultMessage deleteComplaintById(Complaint complaint);
 	
 
 

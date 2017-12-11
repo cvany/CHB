@@ -10,11 +10,15 @@ import org.springframework.stereotype.Service;
 import com.chb.constant.ResultCode;
 import com.chb.dao.AdminDao;
 import com.chb.dao.BusinessmanDao;
+import com.chb.dao.ComplaintDao;
+import com.chb.dao.GoodsDao;
 import com.chb.dao.ShopDao;
 import com.chb.dao.ShopInDataDao;
 import com.chb.dao.UserDao;
 import com.chb.entity.Admin;
 import com.chb.entity.Businessman;
+import com.chb.entity.Complaint;
+import com.chb.entity.Goods;
 import com.chb.entity.Page;
 import com.chb.entity.PageInfo;
 import com.chb.entity.ResultMessage;
@@ -37,6 +41,10 @@ public class AdminServiceImpl implements AdminService {
 	private ShopDao shopDao;
 	@Autowired
 	private ShopInDataDao shopInDataDao;
+	@Autowired
+	private GoodsDao goodsDao;
+	@Autowired
+	private ComplaintDao complaintDao;
 
 	public Admin findByAdminName(String adminname) {
 		return adminDao.findByAdminName(adminname);
@@ -112,14 +120,94 @@ public class AdminServiceImpl implements AdminService {
 		return new ResultMessage(false, ResultCode.FAIL, "审核失败", null);
 		
 	}
-	//审核通过
+	//审核不通过
 	@Override
-	public ResultMessage checkBusinessFailById(Shop shop) {
-		System.out.println(shop.getId()+"审核不通过服务接口");
+	public ResultMessage deleteBusinessById(Shop shop) {
+		System.out.println(shop.getId()+"删除商家服务接口");
 		Integer deleteShopResult=shopDao.deleteShopById(shop.getId());
 		System.out.println(deleteShopResult);
 		if (deleteShopResult == 1  ) {
 			return new ResultMessage(true, ResultCode.SUCCESS, "通过成功", deleteShopResult);
+		}
+		return new ResultMessage(false, ResultCode.FAIL, "审核失败", null);
+		
+	}
+	//管理员查询所有商家
+	@Override
+	public ResultMessage getBusinessListByPage(Page page) {
+		System.out.println("商家服务接口");
+		page.coutStartColum();
+		long total = shopDao.selectAllCount(page);
+		List<Shop> businessInDataList = shopDao.getBusinessListByPage(page);
+		PageInfo<Shop> pageInfo = new PageInfo<Shop>(page, total, businessInDataList);
+		return new ResultMessage(true, ResultCode.SUCCESS,"成功", pageInfo);
+	}
+	//管理员查询所有商家
+	@Override
+	public ResultMessage getCheckGoodsListByPage(Page page) {
+		System.out.println("商品服务接口");
+		page.coutStartColum();
+		long total = goodsDao.selectCount(page);
+		List<Shop> checkGoodsList = goodsDao.getCheckGoodsListByPage(page);
+		PageInfo<Shop> pageInfo = new PageInfo<Shop>(page, total, checkGoodsList);
+		return new ResultMessage(true, ResultCode.SUCCESS,"成功", pageInfo);
+	}
+	
+	//审核商品通过
+	@Override
+	public ResultMessage checkGoodsOkById(Goods goods) {
+		System.out.println(goods.getId()+"审核商品通过服务接口");
+		Integer updateResult=goodsDao.updateGoodsById(goods.getId());
+		System.out.println(updateResult);
+		if (updateResult == 1 ) {
+			return new ResultMessage(true, ResultCode.SUCCESS, "通过成功", updateResult);
+		}
+		return new ResultMessage(false, ResultCode.FAIL, "审核失败", null);
+		
+	}
+	//审核商品不通过
+	@Override
+	public ResultMessage deleteGoodsById(Goods goods) {
+		System.out.println(goods.getId()+"删除商家服务接口");
+		Integer deleteGoodsResult=goodsDao.deleteGoodsById(goods.getId());
+		System.out.println(deleteGoodsResult);
+		if (deleteGoodsResult == 1  ) {
+			return new ResultMessage(true, ResultCode.SUCCESS, "通过成功", deleteGoodsResult);
+		}
+		return new ResultMessage(false, ResultCode.FAIL, "审核失败", null);
+		
+	}
+	//审核商品
+	@Override
+	public ResultMessage getDealComplainListByPage(Page page) {
+		System.out.println("投诉服务接口");
+		page.coutStartColum();
+		long total = complaintDao.selectCount(page);
+		List<Complaint> checkGoodsList = complaintDao.getDealComplainListByPage(page);
+		PageInfo<Complaint> pageInfo = new PageInfo<Complaint>(page, total, checkGoodsList);
+		return new ResultMessage(true, ResultCode.SUCCESS,"成功", pageInfo);
+	}
+	
+	//审核投诉通过
+	@Override
+	public ResultMessage checkComplaintOkById(Complaint complaint) {
+		System.out.println(complaint.getId()+"审核投诉通过服务接口");
+		Integer updateResult=complaintDao.updateComplaintById(complaint.getId());
+		System.out.println(updateResult);
+		if (updateResult == 1 ) {
+			return new ResultMessage(true, ResultCode.SUCCESS, "通过成功", updateResult);
+		}
+		return new ResultMessage(false, ResultCode.FAIL, "审核失败", null);
+		
+	}
+	//审核投诉不通过
+	@Override
+	public ResultMessage deleteComplaintById(Complaint complaint) {
+		System.out.println(complaint.getId()+"删除投诉信息服务接口");
+		Integer deleteComplaintResult=complaintDao.deleteComplaintById(complaint.getId());
+		System.out.println(deleteComplaintResult);
+		if (deleteComplaintResult == 1  ) {
+			return new ResultMessage(true, ResultCode.SUCCESS, "通过成功", deleteComplaintResult);
 		}
 		return new ResultMessage(false, ResultCode.FAIL, "审核失败", null);
 		
