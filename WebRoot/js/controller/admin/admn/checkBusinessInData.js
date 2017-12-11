@@ -7,9 +7,6 @@ controllers.controller("checkBusinessInData", ['$scope','$http','$state',functio
     //$scope.checkAll = false;//全选
     $scope.businessInDataList = [];
     $scope.page = new PageVo();
-   
-    
-    //$scope.businessInDataList.statusDescription = new UserVo();
 
     $scope.page.pageNum = 1;
     $scope.page.pageSize = 3;
