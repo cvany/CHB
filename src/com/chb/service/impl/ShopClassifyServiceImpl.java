@@ -1,5 +1,6 @@
 package com.chb.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,22 @@ public class ShopClassifyServiceImpl implements ShopClassifyService {
 
 	public List<Shop> findShopByKeyWords(Shop shop) {
 		return shopClassifyDao.findShopByKeyWords(shop);
+	}
+
+	public List<Shop> findShopIdByGoodsName(Shop shop) {
+		return shopClassifyDao.findShopIdByGoodsName(shop);
+	}
+
+	public List<Shop> findShopByShopIdList(List<Shop> shop) {
+		List<Shop> list =new ArrayList<>();
+		for(int i=0;i<shop.size();i++){
+			list.add(shopClassifyDao.findShopByShopIdList(shop.get(i)));
+		}
+		return list;
+	}
+
+	public List<Shop> findShopByShopClassifyId(ShopClassify sc) {
+		return shopClassifyDao.findShopByShopClassifyId(sc);
 	}
 
 }

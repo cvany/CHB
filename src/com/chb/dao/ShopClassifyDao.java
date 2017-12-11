@@ -42,5 +42,24 @@ public interface ShopClassifyDao {
 	 * @return
 	 */
 	List<Shop> findShopByKeyWords(Shop shop);
+	
+	/**
+	 * 根据商品名称模糊查询商店id集合
+	 * @param shop 这里用shop作为参数主要是因为前台传递过来的是shopName属性，所以用它来设置shopName属性值
+	 * @return
+	 */
+	List<Shop> findShopIdByGoodsName(Shop shop);
+	/**
+	 * 根据商店id集合查找商店主要展示信息
+	 * @param shop
+	 * @return
+	 */
+	Shop findShopByShopIdList(Shop shop);
+	/**
+	 * 根据商店分类id查找商店信息
+	 * @param sc
+	 * @return
+	 */
+	List<Shop> findShopByShopClassifyId(ShopClassify sc);
 
 }

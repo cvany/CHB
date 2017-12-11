@@ -44,6 +44,54 @@ public class ShopClassifyController {
 	@ResponseBody
 	public List<ShopAndGoodsVO> findShopAndGoodsByPage(Page page){
 		List<Shop> list = shopClassifyService.findShopByPage(page);
+		return getShopList(list);
+	}
+	
+	/**
+	 * 根据商店名称或商品关键字模糊查询商店
+	 * @param shop
+	 * @return
+	 */
+	@RequestMapping("findShopByKeyWords")
+	@ResponseBody
+	public List<ShopAndGoodsVO> findShopByKeyWords(Shop shop){
+		List<Shop> list = shopClassifyService.findShopByKeyWords(shop);	//根据商店名称模糊查询到的商店信息
+		List<Shop> list2 = shopClassifyService.findShopIdByGoodsName(shop);	//根据商品名称模糊查询商店id集合
+		//将list集合和list3集合进行去重，剔除相同商店的信息
+		for(int i=0;i<list.size();i++){
+			for(int j=0;j<list2.size();j++){
+				if(list2.get(j).getId()==list.get(i).getId()){
+					list2.remove(j);
+					j--;
+				}
+			}
+		}
+		List<Shop> list3 = shopClassifyService.findShopByShopIdList(list2);	//根据商店id查询到商店信息
+		List<ShopAndGoodsVO> shopList = getShopList(list);
+		List<ShopAndGoodsVO> shopList2 = getShopList(list3);
+		shopList.addAll(shopList2);
+		return shopList;
+	}
+	
+	/**
+	 * 根据商店分类id查找商店信息
+	 * @param sc
+	 * @return
+	 */
+	@RequestMapping("findShopByShopClassifyId")
+	@ResponseBody
+	public List<ShopAndGoodsVO> findShopByShopClassifyId(ShopClassify sc){
+		List<Shop> list = shopClassifyService.findShopByShopClassifyId(sc);
+		return getShopList(list);
+	}
+	
+	
+	/**
+	 * 根据商店列表封装每一个商家展示信息
+	 * @param list 
+	 * @return
+	 */
+	private List<ShopAndGoodsVO> getShopList(List<Shop> list){
 		List<ShopAndGoodsVO> sgList =new ArrayList<>();
 		ShopAndGoodsVO sg =null;
 		for(int i=0;i<list.size();i++){
@@ -73,20 +121,6 @@ public class ShopClassifyController {
 			sgList.add(sg);
 		}
 		return sgList;
-	}
-	
-	/**
-	 * 根据商店名称关键字模糊查询商店
-	 * @param shop
-	 * @return
-	 */
-	@RequestMapping("findShopByKeyWords")
-	@ResponseBody
-	public List<ShopAndGoodsVO> findShopByKeyWords(Shop shop){
-		System.out.println("请求到达了"+shop.getShopName());
-		List<Shop> list = shopClassifyService.findShopByKeyWords(shop);
-		System.out.println(list.size());
-		return null;
 	}
 	
 

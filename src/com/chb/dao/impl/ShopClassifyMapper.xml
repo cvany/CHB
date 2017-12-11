@@ -29,7 +29,29 @@
     <select id="findShopByKeyWords" parameterType="Shop" resultType="Shop">
     	SELECT <include refid="Base_Column_List" />
 		FROM shop
-		WHERE shopName LIKE '%'#{shopName}'%'
+		WHERE shopName LIKE '%${shopName}%'
+    </select>
+    
+    <!-- 根据商品名称模糊查询商店id集合 -->
+    <!-- 这里用shop作为参数主要是因为前台传递过来的是shopName属性，所以用它来设置shopName属性值 -->
+    <select id="findShopIdByGoodsName" parameterType="Shop" resultType="Shop">
+    	SELECT DISTINCT shopId as id
+		from goods
+		WHERE goodsName LIKE '%${shopName}%'
+    </select>
+    
+    <!-- 根据商店id集合查找商店主要展示信息 -->
+    <select id="findShopByShopIdList" parameterType="Shop" resultType="Shop">
+    	SELECT <include refid="Base_Column_List" />
+		FROM shop
+		WHERE id =#{id}
+    </select>
+    
+    <!-- 根据商店分类id分页查找商店信息 -->
+    <select id="findShopByShopClassifyId" parameterType="ShopClassify" resultType="Shop">
+    	SELECT <include refid="Base_Column_List" />
+		FROM shop
+		WHERE shopClassifyId =#{id}
     </select>
    
 </mapper>
