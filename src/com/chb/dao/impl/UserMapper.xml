@@ -1,12 +1,11 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chb.dao.UserDao">
-    <select id="findByUsername" parameterType="string" resultType="User">
-        SELECT * FROM user WHERE userName=#{userName}
-    </select>
-    <!-- 条件分页查询总条数 -->
+	<select id="findByUsername" parameterType="string" resultType="User">
+		SELECT * FROM user WHERE userName=#{userName}
+	</select>
+	<!-- 条件分页查询总条数 -->
 	<select id="selectCount" parameterType="com.chb.entity.Page"
 		resultType="java.lang.Long">
 		SELECT count(0) FROM user
@@ -37,89 +36,38 @@
 			</if>
 		</where>
 	</select>
-    
-    <select id="findByUserPhone" parameterType="string" resultType="User">
-       SELECT * FROM user WHERE phone=#{phone}
-    </select>
-    
-        <select id="findByUserEmail" parameterType="string" resultType="User">
-       SELECT * FROM user WHERE email=#{email}
-    </select>
-    
-    <insert id="insertUser" parameterType="com.chb.entity.User">
-       INSERT INTO user(userName,password,salt,email,phone,loginCount,registerTime,status) values(#{userName},#{password},#{salt},#{email},#{phone},#{loginCount},#{registerTime},#{status})
-    </insert>
-    
-<!--     <update id="updateUser" parameterType="com.chb.entity.User">
-       UPDATE user SET password=#{password} WHERE id=#{id}
-    </update> -->
-    
-  <!-- 动态更新用户 -->  
-    <update id="updateUser" parameterType="com.chb.entity.User">
-      UPDATE user
-      <trim prefix="set" suffixOverrides=",">
-        <if test="userName!=null">userName=#{userName},</if>
-        <if test="password!=null">password=#{password},</if>
-  		<if test="salt!=null">salt=#{salt},</if>
- 		<if test="email!=null">email=#{email},</if>
-  		<if test="phone!=null">phone=#{phone},</if>
-  		<if test="loginCount!=null">loginCount=#{loginCount},</if>
- 		<if test="photo!=null">photo=#{photo},</if>
- 		<if test="registerTime!=null">registerTime=#{registerTime},</if> 
- 		<if test="status!=null">status=#{status},</if>     
-      </trim>
-      where id=#{id}
-    </update>
-=======
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.chb.dao.UserDao">
-	<sql id="Base_Column_List">
-		id, userName,
-		email,phone,loginCount,photo,registerTime,status
-	</sql>
-
-	<select id="findByUsername" parameterType="string" resultType="User">
-		SELECT * FROM user WHERE username=#{username}
-	</select>
-
-	<!-- 条件分页查询总条数 -->
-	<select id="selectCount" parameterType="com.chb.entity.Page"
-		resultType="java.lang.Long">
-		SELECT count(0) FROM user
-		<where>
-			<if test="keyWords != null and keyWords != ''">
-				<if test="fuzzy == true">
-					userName like '%' #{keyWords} '%'
-				</if>
-				<if test="fuzzy == false">
-					userName = #{keyWords}
-				</if>
-			</if>
-		</where>
-	</select>
-
-	<!-- 条件分页查询用户列表 -->
-	<select id="selectUserByPage" parameterType="com.chb.entity.Page"
-		resultType="User">
-		SELECT
-		<include refid="Base_Column_List" />
-		FROM user
-		<where>
-			<if test="keyWords != null and keyWords != ''">
-				<if test="fuzzy == true">
-					userName like '%' #{keyWords} '%'
-				</if>
-				<if test="fuzzy == false">
-					userName = #{keyWords}
-				</if>
-			</if>
-		</where>
-	</select>
 
 	<select id="findByUserPhone" parameterType="string" resultType="User">
 		SELECT * FROM user WHERE phone=#{phone}
 	</select>
->>>>>>> shilim
+
+	<select id="findByUserEmail" parameterType="string" resultType="User">
+		SELECT * FROM user WHERE email=#{email}
+	</select>
+
+	<insert id="insertUser" parameterType="com.chb.entity.User">
+		INSERT INTO
+		user(userName,password,salt,email,phone,loginCount,registerTime,status)
+		values(#{userName},#{password},#{salt},#{email},#{phone},#{loginCount},#{registerTime},#{status})
+	</insert>
+
+	<!-- <update id="updateUser" parameterType="com.chb.entity.User"> UPDATE 
+		user SET password=#{password} WHERE id=#{id} </update> -->
+
+	<!-- 动态更新用户 -->
+	<update id="updateUser" parameterType="com.chb.entity.User">
+		UPDATE user
+		<trim prefix="set" suffixOverrides=",">
+			<if test="userName!=null">userName=#{userName},</if>
+			<if test="password!=null">password=#{password},</if>
+			<if test="salt!=null">salt=#{salt},</if>
+			<if test="email!=null">email=#{email},</if>
+			<if test="phone!=null">phone=#{phone},</if>
+			<if test="loginCount!=null">loginCount=#{loginCount},</if>
+			<if test="photo!=null">photo=#{photo},</if>
+			<if test="registerTime!=null">registerTime=#{registerTime},</if>
+			<if test="status!=null">status=#{status},</if>
+		</trim>
+		where id=#{id}
+	</update>
 </mapper>
