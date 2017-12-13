@@ -1,5 +1,7 @@
 package com.chb.dao;
 
+import org.springframework.stereotype.Repository;
+
 import com.chb.entity.Admin;
 
 /**
@@ -7,6 +9,7 @@ import com.chb.entity.Admin;
  * @author 李卓宏
  *
  */
+@Repository("AdminDao")
 public interface AdminDao {
 
 	Admin findByUserName(String adminname);
