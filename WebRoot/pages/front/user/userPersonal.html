@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>个人主页</title>
+     <link rel="stylesheet" href="../../../css/user/user.css"/>
+    <!-- bootstrap -->
+    <link href="../../../css/lib/bootstrap.min.css" rel="stylesheet">
+    <!-- animate -->
+    <link href="../../../css/lib/animate.css" rel="stylesheet">
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="../../../../css/lib/font-awesome/css/font-awesome.min.css">
+    <!-- my styles -->
+    
+    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
+	<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+	<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>	
+	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/jquery.form/4.2.2/jquery.form.min.js"></script>
+	<script type="text/javascript" src="../../../js/user/jqPaginator.js"></script>
+	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+
+	
+</head>
+
+<style type="text/css">
+  a{ text-decoration:none;outline:none;}
+  a:hover{ text-decoration:none;outline:none;}
+  a:link:{ text-decoration:none;outline:none;}
+  a:visited:{ text-decoration:none;outline:none;}
+  a:hover:{ text-decoration:none;outline:none;}
+  a:active:{ text-decoration:none;outline:none;}
+ 
+  
+</style>
+
+<script>
+$(function(){                                            
+	var $name_title=$("#userN");
+	var $name=$("#name");
+	var $phone=$("#phone");
+	var $email=$("#email");
+	var $userPass=$("#hidden_pass");
+	var $register_time=$("#register_time");
+	var $head_fa=$("#head_favicon");
+	var $left_fa=$("#left_favicon");
+	var $favicon=$("#favicon");
+	
+
+	
+	$.ajax({type:"post",url:rootPath+"/getSession.do",success:function(result){      //数据初始化
+		$name_title.text(result.userName);
+		$name.text(result.userName);
+		$phone.text(result.phone);
+		$email.text(result.email);
+		$register_time.text(result.registerTime)
+		$userPass.val(result.password);
+		$head_fa.attr("src",result.photo);
+		$left_fa.attr("src",result.photo);
+		$favicon.attr("src",result.photo);
+	}});
+	
+	$("#udPass").click(function(){
+		var $oldPass=$("#oldPass"); 
+		var $newPass=$("#newPass");
+		var $Conf_Pass=$("#Conf_Pass");
+		var $userPass=$("#hidden_pass");
+		
+		if($oldPass.val()!=""){             //原密码不为空
+			if($newPass.val()==""){            //新密码为空
+				alert("新密码不能为空");
+			}else if($Conf_Pass.val()==""){   //确认密码为空
+				alert("确认密码不能为空");
+			}else{                            //都不为空
+				if(verfyEqual($newPass.val(),$Conf_Pass.val())){ //新密码和确认密码相同
+					if(verfyEqual($oldPass.val(),$userPass.val())){                 //原密码和真密码相同*******************************************
+						$.ajax({type:"post",url:rootPath+"/updatePass.do",data:"newPass="+$newPass.val(),success(result){
+							if(result="1"){
+								alert("修改成功");
+							}
+						}});
+					}else{                            //原密码和真密码不相同
+						alert("原密码错误");
+					}
+				
+					
+				}else{
+					alert("不相同");
+				}
+			}
+		}else{                       //原密码为空
+			alert("原密码不能为空");
+		}	
+	});
+	
+	$("#selectFavicon").change(function(){		    //选择文件后
+		var form = $("#faviconForm"); 
+	    var options  = { 
+	        type:'post',   
+	        success:function(data)           //表单提交成功回调，返回图片名
+	        {   
+	        	if(data=="0"){
+	        		alert("必须为图片类型");
+	        	}else{
+		        	var path="/pic/"+data;       //虚拟目录地址
+		        	var $favicon=$("#favicon");
+		        	$favicon.attr("src",path);   //设置
+	        	}
+				
+	        }   
+	    };   
+	      form.ajaxSubmit(options);               //提交表单
+	
+		});	
+	
+ 	$("#saveFavicon").click(function(){                 //保存头像
+		var $photoPath =$("#favicon").attr("src");
+		var $username=$("#name").text();
+		var $head_fa=$("#head_favicon");
+		var $left_fa=$("#left_favicon");
+		$.ajax({type:"post",url:rootPath+"/updatePhoto.do",data:"photoPath="+$photoPath+"&username="+$username,success:function(result){
+			 if(result=="1"){
+				 $head_fa.attr("src",$photoPath);
+				 $left_fa.attr("src",$photoPath);
+				 alert("保存成功");
+			 }				
+			}
+		});
+	}); 
+//=================================================================================================
+ 		var totalPage;             //总页数
+ 		var onePageOrdersCount=6    //一页显示的订单数
+ 	$("#order").click(function(){                           //点击我的订单，获取所有订单应有的页数
+ 		$.ajax({type:"post",url:rootPath+"/getOrderCount.do",success:function(result){
+ 			totalPage=Math.ceil(result/onePageOrdersCount);			
+ 				}	
+ 		});
+ 	});
+ 	
+ 	$("#allOrderBtn").click(function(){                //选择全部订单，分页显示
+		$.jqPaginator('#pagination', {
+		    totalPages: totalPage,
+		    visiblePages: 6,
+		    currentPage: 1,		    
+		    onPageChange: function (num) {
+		        getOrderData(num);
+		    }
+		});
+	});
+ 	
+  	$("#waitPayBtn").click(function(){                 //选择待付款，分页显示
+		$.jqPaginator('#pagination2', {
+		    totalPages: totalPage,
+		    visiblePages: 1,
+		    currentPage: 1,		    
+		    onPageChange: function (num) {
+		        getWaitPayData(num);
+		        
+		    }
+		})
+ 	});
+ 	
+  	 	$("#waitFaHuoBtn").click(function(){                 //选择待发货，分页显示
+		$.jqPaginator('#pagination3', {
+		    totalPages: totalPage,
+		    visiblePages: 1,
+		    currentPage: 1,		    
+		    onPageChange: function (num) {
+		        getWaitFaHuoData(num);
+		    }
+		})
+ 	});
+	
+ 	$("#waitShouHuoBtn").click(function(){                 //选择待收货，分页显示
+		$.jqPaginator('#pagination4', {
+		    totalPages: totalPage,
+		    visiblePages: 1,
+		    currentPage: 1,		    
+		    onPageChange: function (num) {
+		        getWaitShouHuoData(num);
+		    }
+		})
+ 	});
+ 	
+ 	$("#waitPingJiaBtn").click(function(){                 //选择待评价，分页显示
+		$.jqPaginator('#pagination5', {
+		    totalPages: totalPage,
+		    visiblePages: 1,
+		    currentPage: 1,		    
+		    onPageChange: function (num) {
+		        getWaitPingJiaData(num);
+		    }
+		})
+ 	});
+ 	
+ 	$("#tuihuoBtn").click(function(){                 //选择退货/售后，分页显示
+		$.jqPaginator('#pagination6', {
+		    totalPages: totalPage,
+		    visiblePages: 1,
+		    currentPage: 1,		    
+		    onPageChange: function (num) {
+		        getTuihuoData(num);
+		    }
+		})
+ 	}); 
+ 	
+ 	function getOrderData(pageIndex){                 //获取全部订单当前页的订单数据		
+ 		$.ajax({type:"post",url:rootPath+"/getCurrentPageOrderList.do",data:"currentPage="+pageIndex+"&totalPage="+totalPage+"&onePageOrdersCount="+onePageOrdersCount,success:function(result){
+ 				var $orderTable=$("#orderTable");
+ 				var dates="";
+ 				for(var i=0;i<result.length;i++){
+ 					var status=""
+ 	 				switch (result[i].status){
+ 	 				case 0:
+ 	 					status="待付款";
+ 	 					break;
+ 	 				case 1:
+ 	 					status="商家未接单";
+ 	 					break;
+ 	 				case 2:
+ 	 					status="待发货";
+ 	 					break;
+ 	 				case 3:
+ 	 					status="配送中";
+ 	 					break;	 					
+ 	 				case 4:
+ 	 					status="待收货";
+ 	 					break;
+ 	 				case 5:
+ 	 					status="待评价";
+ 	 					break;
+ 	 				case 6:
+ 	 					status="已评价";
+ 	 					break;
+ 	 				case -1:
+ 	 					status="退款/售后";
+ 	 					break;	 					
+ 	 				}
+ 					dates+="<tr><td>"+result[i].orderNo+"</td>";
+ 					dates+="<td>"+result[i].sumMoney+"</td>";
+ 					dates+="<td>"+result[i].notes+"</td>";
+ 					dates+="<td>"+status+"</td>";
+ 					dates+="<td>"+result[i].createTime+"</td></tr>";
+ 			} 
+ 				 $orderTable.html(dates); 
+ 		}});
+ 	}
+  	
+ 	function getWaitPayData(pageIndex){                     //获取待付款数据
+        $.ajax({type:"post",url:rootPath+"/getWaitPayData.do",data:"onePageOrdersCount="+onePageOrdersCount+"&currentPage="+pageIndex+"&totalPage="+totalPage,success:function(result){
+        	
+        	var $orderTable2=$("#orderTable2");
+        	var dates="";
+        	if(result==""){
+        		dates="无数据"
+        	}else{
+        		for(var i=0;i<result.length;i++){
+					dates+="<tr><td>"+result[i].orderNo+"</td>";
+ 					dates+="<td>"+result[i].sumMoney+"</td>";
+ 					dates+="<td>"+result[i].notes+"</td>";
+ 					dates+="<td>"+"待付款"+"</td>";
+ 					dates+="<td>"+result[i].createTime+"</td></tr>";
+        		}
+        	}
+        	
+        	$orderTable2.html(dates);
+        }});
+ 	}
+  	  function getWaitFaHuoData(pageIndex){                   //获取代发货数据
+ 		$.ajax({type:"post",url:rootPath+"/getWaitFaHuoData.do",data:"onePageOrdersCount="+onePageOrdersCount+"&currentPage="+pageIndex+"&totalPage="+totalPage,success:function(result){
+        	
+ 			var $orderTable3=$("#orderTable3");
+        	var dates="";
+        	if(result==""){
+        		dates="无数据"
+        	}else{
+            	for(var i=0;i<result.length;i++){
+					dates+="<tr><td>"+result[i].orderNo+"</td>";
+ 					dates+="<td>"+result[i].sumMoney+"</td>";
+ 					dates+="<td>"+result[i].notes+"</td>";
+ 					dates+="<td>"+"待发货"+"</td>";
+ 					dates+="<td>"+result[i].createTime+"</td></tr>";
+        		}
+        	}
+
+        	$orderTable3.html(dates);
+ 			
+ 		}});  		
+ 	}
+    
+   	 	function getWaitShouHuoData(pageIndex){                   //获取待收货数据
+ 		$.ajax({type:"post",url:rootPath+"/getWaitShouHuoData.do",data:"onePageOrdersCount="+onePageOrdersCount+"&currentPage="+pageIndex+"&totalPage="+totalPage,success:function(result){
+ 			
+ 			var $orderTable4=$("#orderTable4");
+        	var dates="";
+        	if(result==""){
+        		dates="无数据"
+        	}else{
+            	for(var i=0;i<result.length;i++){
+					dates+="<tr><td>"+result[i].orderNo+"</td>";
+ 					dates+="<td>"+result[i].sumMoney+"</td>";
+ 					dates+="<td>"+result[i].notes+"</td>";
+ 					dates+="<td>"+"待收货"+"</td>";
+ 					dates+="<td>"+result[i].createTime+"</td></tr>";
+        		}
+        	}
+
+        	$orderTable4.html(dates);
+ 			
+ 		}});  		
+ 	}
+ 	 	
+ 	 	function getWaitPingJiaData(pageIndex){                  //获取待评价数据
+ 		$.ajax({type:"post",url:rootPath+"/getWaitPingJiaData.do",data:"onePageOrdersCount="+onePageOrdersCount+"&currentPage="+pageIndex+"&totalPage="+totalPage,success:function(result){
+        	
+ 			var $orderTable5=$("#orderTable5");
+        	var dates="";
+        	if(result==""){
+        		dates="无数据"
+        	}else{
+        		for(var i=0;i<result.length;i++){
+					dates+="<tr><td>"+result[i].orderNo+"</td>";
+ 					dates+="<td>"+result[i].sumMoney+"</td>";
+ 					dates+="<td>"+result[i].notes+"</td>";
+ 					dates+="<td>"+"待评价"+"</td>";
+ 					dates+="<td>"+result[i].createTime+"</td></tr>";
+        		}
+        	}
+        	
+        	$orderTable5.html(dates);
+ 			
+ 		}});  		
+ 	}
+ 	 		
+ 	function getTuihuoData(pageIndex){                        //获取退货数据
+ 		$.ajax({type:"post",url:rootPath+"/getTuihuoData.do",data:"onePageOrdersCount="+onePageOrdersCount+"&currentPage="+pageIndex+"&totalPage="+totalPage,success:function(result){
+    	
+ 		var $orderTable6=$("#orderTable6");
+    	var dates="";
+    	if(result==""){
+    		dates="无数据"
+    	}else{
+    		for(var i=0;i<result.length;i++){
+				dates+="<tr><td>"+result[i].orderNo+"</td>";
+					dates+="<td>"+result[i].sumMoney+"</td>";
+					dates+="<td>"+result[i].notes+"</td>";
+					dates+="<td>"+"退订/售后"+"</td>";
+					dates+="<td>"+result[i].createTime+"</td></tr>";
+    		}
+    	}
+    	
+    	$orderTable6.html(dates);
+ 		}}); 		
+ 	}    
+	
+});
+
+
+var rootPath=getRootPath_web();
+function getRootPath_web() {
+    //获取当前网址，如： http://localhost:8083/uimcardprj/share/meun.jsp
+    var curWwwPath = window.document.location.href;
+    //获取主机地址之后的目录，如： uimcardprj/share/meun.jsp
+    var pathName = window.document.location.pathname;
+    var pos = curWwwPath.indexOf(pathName);
+    //获取主机地址，如： http://localhost:8083
+    var localhostPaht = curWwwPath.substring(0, pos);
+    //获取带"/"的项目名，如：/uimcardprj
+    var projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
+    return (localhostPaht + projectName);
+}
+
+function verfyEqual(value1,value2){
+	  if(value1==value2){
+		  return true;
+	  }
+	  return false;
+}
+</script>
+
+<body>
+<input id="hidden_pass"type="hidden"></input>
+<div id="all">
+
+<div id="head">
+       <a href="userLogin.html" style="outline:none"><img id="p_logo"src="../../../img/logowhilte.png" alt="logo"></a>
+       <a href="text.html"><label style="margin-left:500px;margin-top:60px;font-family:Times New Roman,Times,serif">首页</label></a>
+       <!-- <img id="head_favicon" class="img-circle" src="../../../img/log.png"></img>
+       <label id="userN" style="font-family:Times New Roman,Times,serif"></label> -->
+		///dshfksj
+</div>
+<!-- 导航栏 -->
+<div id="left">
+
+<ul id="myTab" class="nav " style="width:100%;height:100%" >
+	<img id="left_favicon" class="img-circle" src="../../../img/logo.png"/>
+	<li  class="dropdown" class="active" style="margin-top:30px;text-align:center;"><a href="#" id="me" class="dropdown-toggle" data-toggle="dropdown" style="color:white">个人信息<b class="caret"></b></a>
+		<ul class="dropdown-menu" role="menu" aria-labelledby="me" style="margin-left:12%">
+			<li style="text-align:center;"><a href="#data"  data-toggle="tab">个人资料</a></li>
+			<li style="text-align:center"><a href="#location"  data-toggle="tab">位置管理</a></li>
+		</ul>
+	</li>
+	
+	<li class="dropdown" style="margin-top:100px;text-align:center " ><a href="#" id="order" class="dropdown-toggle" data-toggle="dropdown" style="color:white">我的订单<b class="caret"></b></a>
+	    <ul class="dropdown-menu"  role="menu" aria-labelledby="order" style="margin-left:12%">
+			<li style="text-align:center"><a id="allOrderBtn"href="#allOrder"  data-toggle="tab" >全部订单</a></li>
+			<li style="text-align:center"><a id="waitPayBtn" href="#waitPay"  data-toggle="tab" >待付款</a></li>
+			<li style="text-align:center"><a id="waitFaHuoBtn" href="#waitFaHuo"  data-toggle="tab" >待发货</a></li>
+			<li style="text-align:center"><a id="waitShouHuoBtn" href="#waitShouHuo"  data-toggle="tab" >待收货</a></li>
+			<li style="text-align:center"><a id="waitPingJiaBtn" href="#waitPingJia"  data-toggle="tab" >待评价</a></li>			
+			<li style="text-align:center"><a id="tuihuoBtn"href="#tuihuo"  data-toggle="tab" >退货/售后</a></li>
+		</ul>
+	</li>
+	
+	<li class="dropdown" style="margin-top:100px;text-align:center"><a href="#" id="myMes" class="dropdown-toggle" data-toggle="dropdown"style="color:white">我的消息<b class="caret"></b></a>
+		<ul class="dropdown-menu" role="menu" aria-labelledby="myMes" style="margin-left:12%">
+			<li style="text-align:center"><a href="#mMes"  data-toggle="tab">查看消息</a></li>			
+		</ul>
+	</li>
+	
+</ul>
+</div>
+<!-- 分页 -->
+<div class="tab-content" id="container" >
+                                                         <!-- 个人资料-->
+<div class="tab-pane fade in active" id="data">
+	    <label style="font-family:Times New Roman,Times,serif;margin-left:200px;margin-top:150px">头像:</label>
+	    <img id="favicon" class="img-thumbnail"src="../../../img/defa_favicon.png" style="margin-left:150px;width:150px;height:150px"> </img>
+	    
+	    <!-- 头像上传 -->
+	    <form id="faviconForm" action="../../../uploadPhoto.do" enctype="multipart/form-data" method="post"  > 
+	    	<div style="width:120px;height:25px;margin-left:400px;margin-top:10px;">
+	    		<div id="fileBtn"class="btn btn-info" style="width:50px;height:25px;" >浏览<input id="selectFavicon" type="file" name="faviCon" value=></div> 
+	    		<div id="saveFavicon" class="btn btn-info"style="width:50px;height:25px;" >保存</div>
+	    	</div>           	         
+        </form> 
+        
+	    	    
+		<label style="font-family:Times New Roman,Times,serif;margin-left:200px;margin-top:10px">用户名:</label>
+		<label id="name" style="margin-left:190px"></label></br>
+		
+		<label style="font-family:Times New Roman,Times,serif;margin-left:200px;margin-top:30px">手机:</label>
+		<label id="phone" style="margin-left:190px"></label></br>
+		
+		<label style="font-family:Times New Roman,Times,serif;margin-left:200px;margin-top:30px">邮箱:</label>
+		<label id="email" style="margin-left:190px"></label></br>
+		
+		<label style="font-family:Times New Roman,Times,serif;margin-left:200px;margin-top:30px">注册时间:</label>
+		<label id="register_time" style="margin-left:165px"></label></br>
+		
+		<label style="font-family:Times New Roman,Times,serif;margin-left:200px;margin-top:30px">密码:</label>
+		<label id="pass" style="margin-left:165px"></label>
+		
+		<a href="#updatePass" data-toggle="tab" style="margin-left:50px">修改</a>
+		
+</div>
+	                                                       <!-- 位置管理 -->
+<div class="tab-pane fade" id="location">
+		<p>位置管理</p>
+
+</div>
+
+ <!-- 全部订单 -->	
+<div class="tab-pane fade" id="allOrder">
+	<div style="height:400px">
+		<table class="table table-hover">
+			<caption>我的订单-全部订单</caption>
+			<thead>
+				<tr>
+				<th>订单编号</th>
+				<th>总金额</th>
+				<th>备注</th>
+				<th>订单状态</th>
+				<th>创建时间</th>
+				</tr>
+			</thead>
+	
+			<tbody id="orderTable">
+
+			</tbody>
+		</table>		
+	</div>
+		
+		
+	<div style="width:400px;height:50px;margin-top:100px;margin-left:400px;position:absolute;">	
+		<div id="plansItemList" class="plans-item-list"> </div>
+		<div class="text-center margin-top-20">
+     		<ul class="pagination jq-pagination" id="pagination"> </ul>
+		</div>
+	</div>		
+
+</div>
+
+<!-- 待付款 -->
+<div class="tab-pane fade" id="waitPay">
+<div style="height:400px">
+<table class="table table-hover">
+			<caption>我的订单-待付款</caption>
+			<thead>
+				<tr>
+				<th>订单编号</th>
+				<th>总金额</th>
+				<th>备注</th>
+				<th>订单状态</th>
+				<th>创建时间</th>
+				</tr>
+			</thead>
+	
+			<tbody id="orderTable2">
+
+			</tbody>
+		</table>
+</div>
+	
+	
+	<div style="width:400px;height:50px;margin-top:100px;margin-left:400px;position:absolute;">
+		<div id="plansItemList2" class="plans-item-list"> </div>
+		<div class="text-center margin-top-20">
+     		<ul class="pagination jq-pagination" id="pagination2"> </ul>
+		</div>
+	</div>	
+</div>
+
+<!-- 待发货 -->
+<div class="tab-pane fade" id="waitFaHuo">
+<div style="height:400px">
+	<table class="table table-hover">
+			<caption>我的订单-待发货</caption>
+			<thead>
+				<tr>
+				<th>订单编号</th>
+				<th>总金额</th>
+				<th>备注</th>
+				<th>订单状态</th>
+				<th>创建时间</th>
+				</tr>
+			</thead>
+	
+			<tbody id="orderTable3">
+
+			</tbody>
+		</table>
+</div>
+
+	<div style="width:400px;height:50px;margin-top:100px;margin-left:400px;position:absolute;">
+		<div id="plansItemList3" class="plans-item-list"> </div>
+		<div class="text-center margin-top-20">
+     		<ul class="pagination jq-pagination" id="pagination3"> </ul>
+		</div>
+	</div>
+</div>
+                                                 <!-- 待收货 -->	
+<div class="tab-pane fade" id="waitShouHuo">
+<div style="height:400px">
+	<table class="table table-hover">
+			<caption>我的订单-待收货</caption>
+			<thead>
+				<tr>
+				<th>订单编号</th>
+				<th>总金额</th>
+				<th>备注</th>
+				<th>订单状态</th>
+				<th>创建时间</th>
+				</tr>
+			</thead>
+	
+			<tbody id="orderTable4">
+
+			</tbody>
+		</table>
+</div>
+
+	<div style="width:400px;height:50px;margin-top:100px;margin-left:400px;position:absolute;">
+		<div id="plansItemList4" class="plans-item-list"> </div>
+		<div class="text-center margin-top-20">
+     		<ul class="pagination jq-pagination" id="pagination4"> </ul>
+		</div>
+	</div>
+</div>
+                                                 <!-- 待评价 -->		
+<div class="tab-pane fade" id="waitPingJia">
+<div style="height:400px">
+	<table class="table table-hover">
+			<caption>我的订单-待评价</caption>
+			<thead>
+				<tr>
+				<th>订单编号</th>
+				<th>总金额</th>
+				<th>备注</th>
+				<th>订单状态</th>
+				<th>创建时间</th>
+				</tr>
+			</thead>
+	
+			<tbody id="orderTable5">
+
+			</tbody>
+	</table>
+</div>
+	
+	<div style="width:400px;height:50px;margin-top:100px;margin-left:400px;position:absolute;">
+		<div id="plansItemList5" class="plans-item-list"> </div>
+		<div class="text-center margin-top-20">
+     		<ul class="pagination jq-pagination" id="pagination5"> </ul>
+		</div>
+	</div>
+</div>
+                                                 <!-- 退货/售后 -->	
+<div class="tab-pane fade" id="tuihuo">
+<div style="height:400px">
+	<table class="table table-hover">
+			<caption>我的订单-退单/售后</caption>
+			<thead>
+				<tr>
+				<th>订单编号</th>
+				<th>总金额</th>
+				<th>备注</th>
+				<th>订单状态</th>
+				<th>创建时间</th>
+				</tr>
+			</thead>
+	
+			<tbody id="orderTable6">
+
+			</tbody>
+		</table>
+</div>
+
+		
+	<div style="width:400px;height:50px;margin-top:100px;margin-left:400px;position:absolute;">
+		<div id="plansItemList6" class="plans-item-list"> </div>
+		<div class="text-center margin-top-20">
+     		<ul class="pagination jq-pagination" id="pagination6"> </ul>
+		</div>
+	</div>
+</div> 
+	                                             <!-- 查看消息 -->
+<div class="tab-pane fade" id="mMes">
+		<p> 查看消息</p>
+</div>	
+	                                            
+<div class="tab-pane fade" id="updatePass">
+
+		<div  style="width:200px;margin-left:450px;margin-top:150px">
+			<div class="input-group">
+				<span class="input-group-addon">旧密码</span>
+				<input id="oldPass" type="password" class="form-control" placeholder="旧密码">
+			</div>
+			<br>
+			<div class="input-group">
+				<span class="input-group-addon">新密码</span>
+				<input id="newPass" type="password" class="form-control" placeholder="新密码">
+			</div>
+			<br>
+			<div class="input-group">
+				<span class="input-group-addon">新密码</span>
+				<input id="Conf_Pass" type="password" class="form-control" placeholder="确认新密码">
+			</div>
+		</div>
+
+
+		<button id="udPass" class="btn btn-danger" style="margin-top:20px;margin-left:500px">确认修改</button>
+</div>
+	
+</div>
+
+<div id="foot">
+
+</div>
+
+</div>
+
+</body>
+</html>
