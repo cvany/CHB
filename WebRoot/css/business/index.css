@@ -9,6 +9,32 @@
 	text-align: center;
 }
 
+/*欢迎页面*/
+#banner{
+	background: white;/*#F0F0F0*/
+	height: 600px;
+}
+
+#banner .inner {
+	max-width: 500px;
+	text-align: center;
+	margin:0 auto;
+	position: relative;
+	top: 180px;
+}
+
+#banner .inner img{
+	margin-bottom: -30px;
+	width: 72%;
+}
+
+#banner .inner h2{
+	padding-top: 80px;
+	color: #532382;
+	font-size: 40px;
+	margin: 0;
+}
+
 /*图片裁剪容器*/
 .cropper-container{
 	top:0 !important;
