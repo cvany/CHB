@@ -13,6 +13,14 @@ public class ClassifyGoods {
 	
 	public ClassifyGoods() {
 	}
+	
+	public ClassifyGoods(Integer id, String classifyName, String classifyDescription, Integer shopId) {
+		super();
+		this.id = id;
+		this.classifyName = classifyName;
+		this.classifyDescription = classifyDescription;
+		this.shopId = shopId;
+	}
 
 	public Integer getId() {
 		return id;

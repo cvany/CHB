@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chb.dao.GoodsDao">
+	<sql id="Base_Column_List">
+		id, shopId, goodsName, goodsPrice, goodsPhoto,
+		goodsDescription,
+		goodsSales, isPass, isOnline, goodsPoint,
+		classifyGoodsId,goodsNumber,
+		goodsRemain
+
+	</sql>
+
+	<!-- 通过id查询goods -->
+	<select id="selectByPrimaryKey" parameterType="Integer"
+		resultType="Goods">
+		SELECT
+		<include refid="Base_Column_List"></include>
+		FROM goods WHERE id = #{id}
+	</select>
+
+	<!-- 通过page分页查询goods总数 -->
+	<select id="selectCountByPage" parameterType="java.util.Map"
+		resultType="java.lang.Long">
+		SELECT count(0) FROM goods
+		<where>
+			<if test="page.keyWords != null and page.keyWords != ''">
+				<if test="page.fuzzy == true">
+					goodsName like '%' #{page.keyWords} '%'
+				</if>
+				<if test="page.fuzzy == false">
+					goodsName = #{page.keyWords}
+				</if>
+			</if>
+			<if test="goods.shopId != null and goods.shopId != ''">
+				AND shopId = #{goods.shopId}
+			</if>
+		</where>
+	</select>
+
+	<!-- 通过page分页查询goods -->
+	<select id="selectGoodsByPage" parameterType="java.util.Map"
+		resultType="Goods">
+		SELECT
+		<include refid="Base_Column_List"></include>
+		FROM goods
+		<where>
+			<if test="page.keyWords != null and page.keyWords != ''">
+				<if test="page.fuzzy == true">
+					goodsName like '%' #{page.keyWords} '%'
+				</if>
+				<if test="page.fuzzy == false">
+					goodsName = #{page.keyWords}
+				</if>
+			</if>
+			<if test="goods.shopId != null and goods.shopId != ''">
+				AND shopId = #{goods.shopId}
+			</if>
+		</where>
+		<if test="page.pageNum > 0 and page.pageSize > 0">
+			limit #{page.startColum},#{page.pageSize}
+		</if>
+	</select>
+
+	<!-- 添加菜品 -->
+	<insert id="addGoods" parameterType="Goods">
+		INSERT INTO goods
+		(shopId,goodsName,goodsPrice,goodsPhoto,goodsDescription,
+		classifyGoodsId,goodsNumber,goodsRemain)
+		VALUES
+		(#{shopId},#{goodsName},#{goodsPrice},#{goodsPhoto},
+		#{goodsDescription},#{classifyGoodsId},#{goodsNumber},
+		#{goodsRemain})
+	</insert>
+
+	<!-- 修改菜品 -->
+	<update id="updateGoods" parameterType="Goods">
+		update goods set
+		goodsName = #{goodsName},
+		goodsPrice = #{goodsPrice},
+		goodsPhoto = #{goodsPhoto},
+		goodsDescription = #{goodsDescription},
+		classifyGoodsId = #{classifyGoodsId},
+		goodsNumber = #{goodsNumber}
+		where id = #{id}
+	</update>
+	
+	<delete id="deleteGoods" parameterType="Goods">
+		delete from goods
+		where id = #{id}
+	</delete>
+</mapper>

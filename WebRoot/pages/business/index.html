@@ -7,14 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>后台管理系统</title>
     <link href="../../css/lib/bootstrap.min.css" rel="stylesheet">
-    
+
     <link href="../../css/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
     <!-- Toastr style -->
     <link href="../../css/plugins/toastr/toastr.min.css" rel="stylesheet">
     <link href="../../css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="../../css/plugins/cropper/cropper.min.css" rel="stylesheet">
     <link href="../../css/lib/animate.css" rel="stylesheet">
-    <link href="../../css/admin/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../css/admin/index.css"/>
+    <link href="../../css/business/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/business/index.css"/>
 
 </head>
 
@@ -29,48 +30,47 @@
                     <div class="dropdown profile-element">
 							<span> <img alt="image" class="img-circle"
                                         src="../../img/avatar_default.jpg"/>
-							</span> <a data-toggle="dropdown" class="dropdown-toggle" >
+                            </span> <a data-toggle="dropdown" class="dropdown-toggle" href="">
 								<span class="clear"> <span class="block m-t-xs"> <strong
-                                        class="font-bold" >admin</strong>
-								</span> <span class="text-muted text-xs block" >管理员<b
+                                        class="font-bold" ng-bind="businessman.businessmanName"></strong>
+								</span> <span class="text-muted text-xs block">商家<b
                                         class="caret"></b></span>
 							</span>
                     </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                            <li><a href="#">管理记录</a></li>
+                            <li><a>个人信息</a></li>
+                            <li><a>管理记录</a></li>
                             <li class="divider"></li>
-                            <li><a href="adminLogin.html">注销</a></li>
+                            <li><a ng-click="logout()">注销</a></li>
                         </ul>
                     </div>
                     <div class="logo-element">CHB</div>
                 </li>
                 <!--个人信息结束-->
-                <li>
-                    <a ui-sref="userList"><i class="fa fa-users"></i> <span class="nav-label">用户管理</span></a>
-                </li>
                 <li><a><i
-                        class="fa fa-building"></i> <span class="nav-label">商家管理</span><span
+                        class="fa fa-file"></i> <span class="nav-label">订单管理</span><span
                         class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        <li><a ui-sref="checkBusinessInData">商家审核</a></li>
-                        <li><a ui-sref="updateBusiness">商家修改</a></li>
-                        <li><a ui-sref="deleteBusiness">商家删除</a></li>
+                        <li><a ui-sref="orderList">订单管理</a></li>
+                        <li><a ui-sref="placeList">退单管理</a></li>
                     </ul>
                 </li>
-                <li><a ui-sref="checkGoods"><i class="fa fa-coffee"></i> <span class="nav-label">商品管理</span></a>
-                    
-                </li>
                 <li>
-                    <a ui-sref="dealComplain"><i class="fa fa-exclamation"></i> <span class="nav-label">投诉管理</span></a>
-                </li>
-                <li>
-                    <a><i class="fa fa-line-chart"></i> <span class="nav-label">数据中心</span><span
-                        class="fa arrow"></span></a>
-                     <ul class="nav nav-second-level">
-                        <li><a ui-sref="userData">用户数据</a></li>
-                        <li><a ui-sref="businessData">商家数据</a></li>
-                        <li><a ui-sref="orderData">订单数据</a></li>
+                    <a><i class="fa fa-coffee"></i> <span class="nav-label">菜品管理</span>
+                        <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a ui-sref="classifyGoodsList">分类管理</a></li>
+                        <li><a ui-sref="goodsList">菜品管理</a></li>
                     </ul>
+                </li>
+                <li>
+                    <a><i class="fa fa-building"></i> <span class="nav-label">商家信息管理</span></a>
+                </li>
+                <li>
+                    <a><i class="fa fa-money"></i> <span class="nav-label">财务管理</span></a>
+                </li>
+                <li>
+                    <a><i class="fa fa-line-chart"></i> <span class="nav-label">数据中心</span></a>
                 </li>
             </ul>
 
@@ -97,7 +97,7 @@
                 <!--查询结束-->
                 <!--右侧菜单开始-->
                 <ul class="nav navbar-top-links navbar-right">
-                    <li><img alt="吃货宝后台管理" src="../../img/logo2.png" width="180" height="50"/>
+                    <li><span class="m-r-sm text-muted welcome-message">欢迎使用吃货宝商家管理系统</span>
                     </li>
                     <li><a href="adminLogin.html"> <i class="fa fa-sign-out"></i>
                         注销
@@ -137,6 +137,8 @@
 <!-- iCheck -->
 <script src="../../js/plugins/iCheck/icheck.min.js"></script>
 
+<script src="../../js/plugins/cropper/cropper.min.js"></script>
+
 <!-- utils -->
 <script src="../../js/utils/utils.js"></script>
 
@@ -147,15 +149,32 @@
         type="text/javascript" charset="utf-8"></script>
 
 <!--models-->
+<script src="../../js/models/BusinessmanVo.js"></script>
 <script src="../../js/models/PageVo.js"></script>
-<script src="../../js/models/UserVo.js"></script>
+<script src="../../js/models/OrderVo.js"></script>
+<script src="../../js/models/ClassifyGoodsVo.js"></script>
+<script src="../../js/models/GoodsVo.js"></script>
 
 <!--contorllers-->
-<script src="../../js/controller/admin/index.js" type="text/javascript"
+<script src="../../js/controller/business/index.js" type="text/javascript"
         charset="utf-8"></script>
-<script src="../../js/controller/admin/indexApp.js"
+<script src="../../js/controller/business/indexApp.js"
         type="text/javascript" charset="utf-8"></script>
-<script src="../../js/controller/admin/user/userList.js"
+<script src="../../js/controller/business/order/orderList.js"
+        type="text/javascript" charset="utf-8"></script>
+<script src="../../js/controller/business/order/orderDetail.js"
+        type="text/javascript" charset="utf-8"></script>
+<script src="../../js/controller/business/classifyGoods/classifyGoodsList.js"
+        type="text/javascript" charset="utf-8"></script>
+<script src="../../js/controller/business/classifyGoods/classifyGoodsAddition.js"
+        type="text/javascript" charset="utf-8"></script>
+<script src="../../js/controller/business/classifyGoods/classifyGoodsEdition.js"
+        type="text/javascript" charset="utf-8"></script>
+<script src="../../js/controller/business/goods/goodsList.js"
+        type="text/javascript" charset="utf-8"></script>
+<script src="../../js/controller/business/goods/goodsAddition.js"
+        type="text/javascript" charset="utf-8"></script>
+<script src="../../js/controller/business/goods/goodsEdition.js"
         type="text/javascript" charset="utf-8"></script>
 
 <!-- services -->

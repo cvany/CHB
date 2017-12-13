@@ -18,8 +18,9 @@ public class Businessman {
 	private Date registerTime;
 	private String photo;
 	private Double accountBalance;
-	
+
 	public Businessman() {
+		super();
 	}
 
 	public Integer getId() {
@@ -93,7 +94,5 @@ public class Businessman {
 	public void setAccountBalance(Double accountBalance) {
 		this.accountBalance = accountBalance;
 	}
-	
-	
 
 }

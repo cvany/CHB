@@ -1,0 +1,25 @@
+.my-table{
+	margin-top: 10px;
+}
+
+.page-cout{
+	display: inline;
+	height: 30px;
+	width: 70px;
+	text-align: center;
+}
+
+/*图片裁剪容器*/
+.cropper-container{
+	top:0 !important;
+}
+
+/*图片悬浮框*/
+#tooltip{
+	position:absolute;
+	border:1px solid #eeeeee;
+	background:#eeeeee;
+	padding:1px 1px 1px 1px;
+	display:none;
+	z-index: 1111;
+}
