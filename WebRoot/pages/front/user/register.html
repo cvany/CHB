@@ -250,35 +250,39 @@ $(function () { $("[data-toggle='tooltip']").tooltip(); });   //加载tooltip
 </head>
 <body>
 
-<img id="loginPic"  src="../../../img/loginPi.jpg" alt="LoginPic">
-<a href="userLogin.html" style="outline:none"><img id="logo" src="../../../img/logo.png" alt="logo" ></a>
-
-
-<div id="register">
-<innput id="backCode" type="hiddee"></innput>
-
- <ul id="myTab" class="nav nav-tabs">	
-	 <li id="accountLogin" class="active" ><a data-toggle="tab"> 注册信息</a></li>
+<input id="backCode" type="hidden"/>
+<div class="main">
+	<div class="pic">
+		<img id="loginPic" src="../../../img/loginPi.jpg" alt="LoginPic">
+	</div>
+	<div class="register-form">
+		<div id="iform">
+			<img id="logo" src="../../../img/logo.png" alt="logo" >
+			<ul id="myTab" class="nav nav-tabs">
+				<li class="active" ><a data-toggle="tab" >注册信息</a></li>
+			</ul>
+			<div id="myTabContent">
+				<!-- 注册信息 -->
+				<div id="register">
+					<input id="username" type="text" style="width:340px;margin-left:10px;margin-top:5px" class="form-control"  name="username" placeholder="用户名" data-toggle="tooltip" data-placement="right" >
+					<input id="password" type="password" style="width:340px;margin-left:10px;margin-top:5px" class="form-control"  name="password" placeholder="密码" data-toggle="tooltip" data-placement="right" >
+					<input id="Conf_password" type="password" style="width:340px;margin-left:10px;margin-top:5px" class="form-control"  name="Conf_password" placeholder="确认密码" data-toggle="tooltip" data-placement="right" >
+					<input id="email" type="text" style="width:340px;margin-top:5px;margin-left:10px" class="form-control" name="email" placeholder="邮箱" data-toggle="tooltip" data-placement="right" >
+					<input id="phone" type="text" style="width:340px;margin-top:5px;margin-left:10px" class="form-control" name="phone" placeholder="手机号码" data-toggle="tooltip" data-placement="right" >
+					<div style="height: 39px;overflow: hidden">
+						<input id="code" name='code' type='text' style="width:220px;margin-top:5px;margin-left:10px" placeholder='输入短信验证码' class='form-control' data-toggle="tooltip" data-placement="right" title=""/>
+						<button id="send" class='btn btn-default' style='width:110px;margin-left:240px;margin-top:-56px' onclick='send'>发送</button>
+					</div>
+				</div>
+			</div>
+			<!-- 按钮组 -->
+			<div id="myTabContent2">
+				<button id="sub" class="btn btn-theme"  style="width:340px;margin-top:5px;margin-left:10px" >提交</button>
+				<a href="userLogin.html">登陆</a>
+			</div>
+		</div>
+	</div>
 </div>
-<!-- 注册框 -->
-
-<div id="registerForm"  >    
-		<input id="username" type="text" style="width:340px;margin-left:10px;margin-top:5px" class="form-control"  name="username" placeholder="用户名" data-toggle="tooltip" data-placement="right" >
-		<input id="password" type="password" style="width:340px;margin-left:10px;margin-top:10px" class="form-control"  name="password" placeholder="密码" data-toggle="tooltip" data-placement="right" >
-		<input id="Conf_password" type="password" style="width:340px;margin-left:10px;margin-top:10px" class="form-control"  name="Conf_password" placeholder="确认密码" data-toggle="tooltip" data-placement="right" >
-	    <input id="email" type="text" style="width:340px;margin-top:10px;margin-left:10px" class="form-control" name="email" placeholder="邮箱" data-toggle="tooltip" data-placement="right" >
-	    <input id="phone" type="text" style="width:340px;margin-top:10px;margin-left:10px" class="form-control" name="phone" placeholder="手机号码" data-toggle="tooltip" data-placement="right" >
-	    <input id="code" name='code' type='text' style="width:220px;margin-top:10px;margin-left:10px" placeholder='输入短信验证码' class='form-control' data-toggle="tooltip" data-placement="right" ></input>
-	    <button id="send" class='btn btn-default' style='width:110px;margin-left:240px;margin-top:-56px' onclick='send'>发送</button>
-
-</div>
-
-<!-- 注册按钮组 -->
-<div id="registerGround">
-  <button id="sub" class="btn btn-default"  style="width:340px;margin-top:5px;margin-left:10px" >提交</button>
-</div>
-
-
 
 </body>
 </html>
