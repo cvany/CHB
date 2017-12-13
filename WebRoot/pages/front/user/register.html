@@ -151,55 +151,33 @@ $(function () { $("[data-toggle='tooltip']").tooltip(); });   //加载tooltip
 		  var $phone=$("#phone");
 		  var $code=$("#code");
 		  var $password=$("#password");
-		  var $Conf_password=$("#Conf_password");
-		  var $backCode=$("#backCode"); */
+		  var $Conf_password=$("#Conf_password"); */
+		  var $backCode=$("#backCode");
 		  var $phone=$("#phone");
 		  var $password=$("#password");
 		  var $Conf_password=$("#Conf_password");
 	      var $username=$("#username");
 	      var $email=$("#email");
+	      var $code=$("#code");
 		  
-		  if(isSendEmail){                          //已经发送短信验证
-			  $.ajax({type:"post",url:rootPath+"/insertUser.do",data:"phone="+$phone.val()+"&password="+$password.val()+"&username="+$username.val()+"&email="+$email.val(),success:function(result){
-				  if(result=="0"){
-					  alert("插入数据库成功");
-				  }
-			  }});
+
+		  if(isSendEmail){                          //已经发送短信验证			  
+		      if($code.val()==$backCode.val()){   //如果验证码正确
+				  $.ajax({type:"post",url:rootPath+"/insertUser.do",data:"phone="+$phone.val()+"&password="+$password.val()+"&username="+$username.val()+"&email="+$email.val(),success:function(result){
+					  if(result=="0"){
+						  alert("插入数据库成功");
+						  isSendEmail=false;
+						  $(location).attr("href", "userLogin.html");
+					  }
+				  }});
+		      }else{                //验证码不正确
+		    	  $code.attr("title","验证码不正确").tooltip('fixTitle').tooltip('show');
+		      }
+
 		  }else{
 			  alert("请正确操作");
 		  }
 		  
-/* 		  if($username.val()==""){      //用户名为空			  
-			  $username.attr("title","用户名不能为空").tooltip('fixTitle').tooltip('show');
-		  }
-		  if($password.val()==""){      //密码为空
-			  $password.attr("title","密码不能为空").tooltip('fixTitle').tooltip('show');
-		  }
-		  if($Conf_password.val()==""){  //确认密码为空
-			  $Conf_password.attr("title","请输入确认密码").tooltip('fixTitle').tooltip('show');
-		  }
-		  if($email.val()==""){        //email为空
-			  $email.attr("title","email不能为空").tooltip('fixTitle').tooltip('show');
-		  }
-		  if($phone.val()==""){         //手机为空
-			  $phone.attr("title","手机号码为空").tooltip('fixTitle').tooltip('show');
-		  }
-		  if($code.val()==""){          //验证码
-			  $code.attr("title","验证码不能为空").tooltip('fixTitle').tooltip('show');
-		  }
-		  if($username.val()!=""&&$email.val()!=""&&$phone.val()!=""&& $code.val()!=""){  //开始短信验证，注册************		
-
-			  if($code.val()==$backCode.val()){          //验证码正确，更新用户status=1
-				  $.ajax({type:"post",url:rootPath+"/updateStatus.do",data:"username="+$username.val(),success:function(result){
-					  if(result=="1"){
-						  alert("注册成功");
-						  $(location).attr("href", "../userLogin.html");
-					  }
-				  }});
-			  }else{                        //验证码码不正确
-				  $code.attr("title","验证码不正确").tooltip('fixTitle').tooltip('show');
-			  }
-		  } */
 	  });
 
 	  
@@ -254,7 +232,7 @@ $(function () { $("[data-toggle='tooltip']").tooltip(); });   //加载tooltip
 		  if(time<=-1){       
 			  clearInterval(timer);                   //关闭定时器
 			  
-			  $sendBtn.text("send");                 //重新激活send按钮        
+			  $sendBtn.text("send");                 //重新显示send        
 			  $phone.removeAttr("disabled");           //重启文本框....         
 			  $password.removeAttr("disabled");
 			  $Conf_password.removeAttr("disabled");
@@ -273,7 +251,7 @@ $(function () { $("[data-toggle='tooltip']").tooltip(); });   //加载tooltip
 <body>
 
 <img id="loginPic"  src="../../../img/loginPi.jpg" alt="LoginPic">
-<a href="userLogin.html"><img id="logo" src="../../../img/logo.png" alt="logo" ></a>
+<a href="userLogin.html" style="outline:none"><img id="logo" src="../../../img/logo.png" alt="logo" ></a>
 
 
 <div id="register">
