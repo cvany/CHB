@@ -18,6 +18,36 @@ indexApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvide
             templateUrl: "order/order-detail.html",
             controller: "orderDetail"
         })
+        .state("classifyGoodsList", {
+            url: "/classifyGoodsList",
+            templateUrl: "classify-goods/classify-goods-list.html",
+            controller: "classifyGoodsList"
+        })
+        .state("classifyGoodsAddition", {
+            url: "/classifyGoodsAddition",
+            templateUrl: "classify-goods/classify-goods-addition.html",
+            controller: "classifyGoodsAddition"
+        })
+        .state("classifyGoodsEdition", {
+            url: "/classifyGoodsEdition/:id",
+            templateUrl: "classify-goods/classify-goods-edition.html",
+            controller: "classifyGoodsEdition"
+        })
+        .state("goodsList", {
+            url: "/goodsList",
+            templateUrl: "goods/goods-list.html",
+            controller: "goodsList"
+        })
+        .state("goodsAddition", {
+            url: "/goodsAddition",
+            templateUrl: "goods/goods-addition.html",
+            controller: "goodsAddition"
+        })
+        .state("goodsEdition", {
+            url: "/goodsEdition/:id",
+            templateUrl: "goods/goods-edition.html",
+            controller: "goodsEdition"
+        })
 }])
     .config(['$httpProvider', function ($httpProvider) {
         $httpProvider.defaults.transformRequest = function (obj) {

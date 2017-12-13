@@ -9,7 +9,7 @@ var controllers = angular.module("controllers", []);
 controllers.controller("index", ['$scope', '$http', '$window', function ($scope, $http, $window) {
     $scope.businessman = new BusinessmanVo();
 
-    // 登录判断和管理员信息获取
+    登录判断和管理员信息获取
     $http.get(baseUrl + "business/isLogin.do")
         .success(function (data) {
             if (data.serviceResult === 1) {

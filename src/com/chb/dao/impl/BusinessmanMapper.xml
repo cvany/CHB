@@ -8,6 +8,13 @@
 		password,phone,email,registerTime,photo,accountBalance
 	</sql>
 
+	<!-- 通过id查询商家 -->
+	<select id="findById" parameterType="Integer" resultType="Businessman">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM businessman WHERE id=#{id}
+	</select>
+
 	<!-- 通过商家名查询商家 -->
 	<select id="findByBusinessmanName" parameterType="string"
 		resultType="Businessman">
@@ -17,7 +24,8 @@
 	</select>
 
 	<!-- 通过手机号查询商家 -->
-	<select id="findBusnessByPhone" parameterType="string" resultType="Businessman">
+	<select id="findBusnessByPhone" parameterType="string"
+		resultType="Businessman">
 		SELECT
 		<include refid="Base_Column_List" />
 		FROM businessman WHERE phone=#{phone}

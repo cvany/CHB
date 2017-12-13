@@ -11,6 +11,7 @@
     <!-- Toastr style -->
     <link href="../../css/plugins/toastr/toastr.min.css" rel="stylesheet">
     <link href="../../css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="../../css/plugins/cropper/cropper.min.css" rel="stylesheet">
     <link href="../../css/lib/animate.css" rel="stylesheet">
     <link href="../../css/business/style.css" rel="stylesheet">
     <link rel="stylesheet" href="../../css/business/index.css"/>
@@ -54,7 +55,12 @@
                     </ul>
                 </li>
                 <li>
-                    <a ui-sref="userList"><i class="fa fa-coffee"></i> <span class="nav-label">菜品管理</span></a>
+                    <a><i class="fa fa-coffee"></i> <span class="nav-label">菜品管理</span>
+                        <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a ui-sref="classifyGoodsList">分类管理</a></li>
+                        <li><a ui-sref="goodsList">菜品管理</a></li>
+                    </ul>
                 </li>
                 <li>
                     <a><i class="fa fa-building"></i> <span class="nav-label">商家信息管理</span></a>
@@ -130,6 +136,8 @@
 <!-- iCheck -->
 <script src="../../js/plugins/iCheck/icheck.min.js"></script>
 
+<script src="../../js/plugins/cropper/cropper.min.js"></script>
+
 <!-- utils -->
 <script src="../../js/utils/utils.js"></script>
 
@@ -143,6 +151,8 @@
 <script src="../../js/models/BusinessmanVo.js"></script>
 <script src="../../js/models/PageVo.js"></script>
 <script src="../../js/models/OrderVo.js"></script>
+<script src="../../js/models/ClassifyGoodsVo.js"></script>
+<script src="../../js/models/GoodsVo.js"></script>
 
 <!--contorllers-->
 <script src="../../js/controller/business/index.js" type="text/javascript"
@@ -152,6 +162,18 @@
 <script src="../../js/controller/business/order/orderList.js"
         type="text/javascript" charset="utf-8"></script>
 <script src="../../js/controller/business/order/orderDetail.js"
+        type="text/javascript" charset="utf-8"></script>
+<script src="../../js/controller/business/classifyGoods/classifyGoodsList.js"
+        type="text/javascript" charset="utf-8"></script>
+<script src="../../js/controller/business/classifyGoods/classifyGoodsAddition.js"
+        type="text/javascript" charset="utf-8"></script>
+<script src="../../js/controller/business/classifyGoods/classifyGoodsEdition.js"
+        type="text/javascript" charset="utf-8"></script>
+<script src="../../js/controller/business/goods/goodsList.js"
+        type="text/javascript" charset="utf-8"></script>
+<script src="../../js/controller/business/goods/goodsAddition.js"
+        type="text/javascript" charset="utf-8"></script>
+<script src="../../js/controller/business/goods/goodsEdition.js"
         type="text/javascript" charset="utf-8"></script>
 
 <!-- services -->

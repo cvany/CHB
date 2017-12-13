@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chb.dao.ClassifyGoodsDao">
+	<sql id="Base_Column_List">
+		id, classifyName,classifyDescription,shopId
+	</sql>
+
+	<!-- 通过id查询ClassifyGoods -->
+	<select id="selectByPrimaryKey" parameterType="Integer"
+		resultType="ClassifyGoods">
+		select
+		<include refid="Base_Column_List"></include>
+		from classify_goods where id = #{id}
+	</select>
+
+	<!-- 通过page分页查询ClassifyGoods总数 -->
+	<select id="selectCountByPage" parameterType="java.util.Map"
+		resultType="java.lang.Long">
+		SELECT count(0) FROM classify_goods
+		<where>
+			<if test="page.keyWords != null and page.keyWords != ''">
+				<if test="page.fuzzy == true">
+					classifyName like '%' #{page.keyWords} '%'
+				</if>
+				<if test="page.fuzzy == false">
+					classifyName = #{page.keyWords}
+				</if>
+			</if>
+			<if test="classifyGoods.shopId != null and classifyGoods.shopId != ''">
+				AND shopId = #{classifyGoods.shopId}
+			</if>
+		</where>
+	</select>
+
+	<!-- 通过page分页查询goods -->
+	<select id="selectClassifyGoodsByPage" parameterType="java.util.Map"
+		resultType="ClassifyGoods">
+		SELECT
+		<include refid="Base_Column_List"></include>
+		FROM classify_goods
+		<where>
+			<if test="page.keyWords != null and page.keyWords != ''">
+				<if test="page.fuzzy == true">
+					classifyName like '%' #{page.keyWords} '%'
+				</if>
+				<if test="page.fuzzy == false">
+					classifyName = #{page.keyWords}
+				</if>
+			</if>
+			<if test="classifyGoods.shopId != null and classifyGoods.shopId != ''">
+				AND shopId = #{classifyGoods.shopId}
+			</if>
+		</where>
+		<if test="page.pageNum > 0 and page.pageSize > 0">
+			limit #{page.startColum},#{page.pageSize}
+		</if>
+	</select>
+
+	<!-- 添加菜品分类 -->
+	<insert id="addClassifyGoods" parameterType="ClassifyGoods">
+		INSERT INTO
+		classify_goods
+		(classifyName,classifyDescription,shopId)
+		VALUES
+		(#{classifyName},#{classifyDescription},#{shopId})
+	</insert>
+
+	<!-- 修改菜品分类 -->
+	<update id="updateClassifyGoods" parameterType="ClassifyGoods">
+		UPDATE
+		classify_goods SET
+		classifyName = #{classifyName},
+		classifyDescription =
+		#{classifyDescription}
+		WHERE id = #{id}
+	</update>
+
+	<!-- 删除分类 -->
+	<delete id="deleteClassifyGoods" parameterType="java.util.List">
+		DELETE FORM classify_goods
+		WHERE id in
+		<foreach item="classifyGoods" collection="list" open="("
+			separator="," close=")">
+			#{classifyGoods.id}
+		</foreach>
+	</delete>
+</mapper>

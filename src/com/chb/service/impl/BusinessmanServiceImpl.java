@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.chb.constant.ResultCode;
 import com.chb.dao.BusinessmanDao;
-import com.chb.entity.Admin;
 import com.chb.entity.Businessman;
 import com.chb.entity.ResultMessage;
 import com.chb.service.BusinessmanService;
@@ -21,6 +20,7 @@ public class BusinessmanServiceImpl implements BusinessmanService {
 	public ResultMessage login(Businessman businessman, HttpSession session) {
 		Businessman mBusinessman = businessmanDao.findBusnessByPhone(businessman.getPhone());
 		if (mBusinessman != null && mBusinessman.getPassword().equals(businessman.getPassword())) {
+			session.setAttribute("businessmanId", mBusinessman.getId());
 			session.setAttribute("businessmanName", mBusinessman.getPhone());
 			mBusinessman.setPassword(null);
 			return new ResultMessage(true, ResultCode.SUCCESS, "登录成功", mBusinessman);
