@@ -1,7 +1,7 @@
 var indexApp = angular.module("indexApp",['ui.router','controllers']);
 var baseUrl = "/CHB/";
 indexApp.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider) {
-//	$urlRouterProvider.when("","/location");
+	$urlRouterProvider.when("","/location");
 	$stateProvider
 	.state("location",{
 		url:"/location",

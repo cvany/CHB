@@ -2,27 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chb.dao.GoodsDao">
-
-	<sql id="Base_Column_List">
-		id, shopid,
-		goodsName,goodsPrice,goodsPhoto,goodsDescription,goodsSales,isPass,isOnline,goodsPoint,classifyGoodsId,goodsNumber,goodsRemain
-	</sql>
-
-	<!-- 通过菜品名查询菜品 -->
-	<select id="findByGoodsName" parameterType="string"
-		resultType="Goods">
-		SELECT
-		<include refid="Base_Column_List" />
-		FROM goods WHERE goodsName=#{goodsName}
-	</select>
-	
-	<!-- 查询所有菜品 -->
-	<select id="findByShopId" 
-		resultType="Goods">
-		SELECT
-		<include refid="Base_Column_List" />
-		FROM goods WHERE shopId=#{shopId}
-	</select>
 	<sql id="Base_Column_List">
 		id, shopId, goodsName, goodsPrice, goodsPhoto,
 		goodsDescription,
@@ -129,5 +108,4 @@
 		FROM goods
 		WHERE shopId =#{id} AND goodsName LIKE '%${goodsName}%'
     </select>
-
 </mapper>
