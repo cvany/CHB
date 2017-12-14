@@ -17,6 +17,7 @@ import com.chb.entity.Goods;
 import com.chb.entity.Page;
 import com.chb.entity.PageInfo;
 import com.chb.entity.ResultMessage;
+import com.chb.entity.Shop;
 import com.chb.service.GoodsService;
 import com.chb.utils.Base64Util;
 

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import com.chb.entity.Goods;
 import com.chb.entity.Page;
 import com.chb.entity.ResultMessage;
+import com.chb.entity.Shop;
 
 /**
  * 菜品服务接口类

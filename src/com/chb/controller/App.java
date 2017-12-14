@@ -9,5 +9,10 @@ public class App {
 	public String index(){
 		return "redirect:pages/front/index.html";
 	}
+	
+	@RequestMapping("business")
+	public String business(){
+		return "redirect:pages/business/login.html";
+	}
 
 }

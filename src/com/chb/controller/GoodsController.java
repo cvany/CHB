@@ -7,11 +7,13 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chb.entity.Goods;
 import com.chb.entity.Page;
 import com.chb.entity.ResultMessage;
+import com.chb.entity.Shop;
 import com.chb.service.GoodsService;
 import com.chb.utils.JsonUtil;
 import com.google.gson.reflect.TypeToken;
@@ -55,7 +57,7 @@ public class GoodsController {
 	@RequestMapping("findAllGoodsByShopId")
 	@ResponseBody
 	public List<Goods> findAllGoodsByShopId(Shop shop){
-		return goodsServie.findAllGoodsByShopId(shop);
+		return goodsService.findAllGoodsByShopId(shop);
 	}
 	
 	/**
@@ -66,6 +68,6 @@ public class GoodsController {
 	@RequestMapping("findGoodsByKeywords")
 	@ResponseBody
 	public List<Goods> findGoodsByKeywords(Goods goods){
-		return goodsServie.findGoodsByKeywords(goods);
+		return goodsService.findGoodsByKeywords(goods);
 	}
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.chb.entity.Goods;
+import com.chb.entity.Shop;
 
 /**
  * 菜品dao接口类
