@@ -142,7 +142,7 @@ public class HttpClientUtil {
 		maps.put("Key", "45aeb5407703bab90097");		
 		maps.put("smsText", content);
 		maps.put("smsMob", mobiles);
-		String result = sendHttpPost("http://utf8.api.smschinese.cn", maps, "utf-8");//修改
+		String result = sendHttpPost("http://utf8.sms.webchinese.cn", maps, "utf-8");//修改
 		return Integer.parseInt(result);
     }
     

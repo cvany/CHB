@@ -41,4 +41,33 @@
        SELECT * FROM user WHERE phone=#{phone}
     </select>
 
+	<select id="findByUserEmail" parameterType="string" resultType="User">
+		SELECT * FROM user WHERE email=#{email}
+	</select>
+
+	<insert id="insertUser" parameterType="com.chb.entity.User">
+		INSERT INTO
+		user(userName,password,salt,email,phone,loginCount,registerTime,status)
+		values(#{userName},#{password},#{salt},#{email},#{phone},#{loginCount},#{registerTime},#{status})
+	</insert>
+
+	<!-- <update id="updateUser" parameterType="com.chb.entity.User"> UPDATE 
+		user SET password=#{password} WHERE id=#{id} </update> -->
+
+	<!-- 动态更新用户 -->
+	<update id="updateUser" parameterType="com.chb.entity.User">
+		UPDATE user
+		<trim prefix="set" suffixOverrides=",">
+			<if test="userName!=null">userName=#{userName},</if>
+			<if test="password!=null">password=#{password},</if>
+			<if test="salt!=null">salt=#{salt},</if>
+			<if test="email!=null">email=#{email},</if>
+			<if test="phone!=null">phone=#{phone},</if>
+			<if test="loginCount!=null">loginCount=#{loginCount},</if>
+			<if test="photo!=null">photo=#{photo},</if>
+			<if test="registerTime!=null">registerTime=#{registerTime},</if>
+			<if test="status!=null">status=#{status},</if>
+		</trim>
+		where id=#{id}
+	</update>
 </mapper>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--面包屑导航开始-->
+<div class="row  border-bottom white-bg dashboard-header">
+    <div class="col-lg-10">
+        <h2>订单管理</h2>
+        <ol class="breadcrumb">
+            <li><a href="#">主页</a></li>
+            <li><a>订单管理</a></li>
+            <li><a>订单列表</a></li>
+            <li class="active"><strong>订单详情</strong></li>
+        </ol>
+    </div>
+    <div class="col-lg-2"></div>
+</div>
+<!--面包屑导航结束-->
+
+<!--列表开始-->
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>订单详情</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="input-group pull-left">
+                        <a class="btn btn-sm  btn-white" ng-click="back()"> <i
+                                class="fa fa-mail-reply"></i> 返回
+                        </a>
+                    </div>
+                    <div class="input-group pull-left" style="margin-left: 10px;">
+                        <a class="btn btn-sm  btn-primary" ng-click="submit()">接单</a>
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <div class="ibox-content forum-container" style="margin-top: 10px;padding: 5px!important;">
+                        <div class="forum-title">
+                            <div class="pull-right forum-desc">
+                                <h3>结算 : ￥ <span ng-bind="sumMoney"></span></h3>
+                            </div>
+                            <h3>菜品列表</h3>
+                        </div>
+                        <div class="forum-item active" ng-repeat="item in orderGoodsList">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="forum-icon">
+                                        <i class="fa fa-shield"></i>
+                                    </div>
+                                    <a class="forum-item-title" ng-bind="item.goods.goodsName"></a>
+                                    <div class="forum-sub-title">￥<span ng-bind="item.goods.goodsPrice"></span> /份</div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                        <span class="views-number" ng-bind="item.count">
+                                        </span>
+                                    <div>
+                                        <small>数量 (份)</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                        <span class="views-number" ng-bind="item.sumMoney">
+                                        </span>
+                                    <div>
+                                        <small>总价</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ibox-content m-b-sm border-bottom">
+                    <div class="p-xs">
+                        <h3>备注：</h3>
+                        <span>不加辣</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--列表结束-->
+</body>
+</html>

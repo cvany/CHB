@@ -1,7 +1,5 @@
 package com.chb.service;
 
-import com.chb.entity.Page;
-import com.chb.entity.ResultMessage;
 import com.chb.entity.User;
 
 public interface UserService {
@@ -9,6 +7,10 @@ public interface UserService {
 	
 	User findByUserPhone(String phone);
 	
-	// 分页查询用户列表
-	ResultMessage getUserListByPage(Page page);
+	User findByUserEmail(String email);
+	
+	void insertUser(User user);
+	
+	void updateUser(User user);
 }
+

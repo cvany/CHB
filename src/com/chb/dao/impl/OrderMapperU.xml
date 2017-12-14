@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chb.dao.OrderDaoU">
+	
+	<select id="getAllOrderById" parameterType="java.lang.Integer" resultType="com.chb.entity.Order">
+	      SELECT * FROM `order` WHERE userId=#{id};
+	</select>
+
+	
+	<select id="getOrderStatusById" parameterType="com.chb.entity.OrderUVo" resultType="com.chb.entity.Order">
+	      SELECT * FROM `order` WHERE userId=#{order.id} AND status=#{order.status};
+	</select>
+
+</mapper>

@@ -1,0 +1,160 @@
+body{
+	
+}
+.content{
+	position:absolute;
+	width: 86%;
+	height: 100%;
+	margin-left:7%;
+}
+.shopInfo{
+	position:relative;
+	margin:20px;
+}
+.shopInfo p{
+	padding-top: 8px;
+}
+.shopInfo span{
+	font-size: large;
+	padding: 2px;
+}
+
+.distribuInfo{
+	float: right;
+	margin-top: 10px;
+	margin-right: 50px;
+}
+
+.tool{
+	margin-top: 30px;
+	margin-bottom: 20px;
+	margin-left: 10px;
+}
+
+.goodsList{
+	float:left;
+	width: 75%;
+	
+}
+
+.goods{
+	background-color:#F5FFFA;
+	width: 48%;
+	float: left;
+	margin: 5px;
+}
+.goods .ginfo{
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 10px;
+}
+
+.goods p{
+	margin-top: 8px;
+	color: graytext;
+}
+.chebtn{
+	float: right;
+	margin-left:10px;
+	margin-top: 70px;
+	margin-right: 10px;
+	margin-bottom: 5px;
+}
+
+.notice{
+	float:right;
+	width: 20%;
+}
+.title{
+	background-color: red;
+	height: 30px;
+	color: white;
+	font-size: medium;
+	text-align: center;
+	padding-top: 8px;
+}
+
+.noticeContent{
+	padding: 10px;
+	background-color:#F8F8FF;
+	border-left: 1px solid gray;
+	border-right: 1px solid gray;
+	border-bottom: 1px solid gray;
+}
+.shopChe{
+	position:fixed;
+	width:300px;
+ 	right: 10px;
+ 	bottom: 0px;
+ 	border-top: 3px solid #CD0000;
+ 	border-left: 1px solid gray;
+ 	border-right: 1px solid gray;
+}
+.shopChe .headche{
+	height: 15px;
+	padding:10px;
+	background-color:#F5FFFA;
+	border-bottom: 1px solid gray;
+}
+.headche span{
+	cursor: pointer;
+	color: #4169E1;
+	margin-left: 10px;
+}
+.goodsCheList{
+	padding:8px;
+	background-color:#FCFCFC;
+}
+.goodsChe{
+	width:100%;
+	padding-bottom: 30px;
+}
+.goodsChe .goodsname{
+	float:left;
+	width: 50%;
+	margin:4px;
+	color:graytext;
+	text-align: left;
+}
+.goodsChe .goodsnum{
+	float:right;
+	width: 30%;
+	margin:4px;
+	text-align: right;
+}
+.goodsChe .goodspri{
+	float:right;
+	width: 10%;
+	color:red;
+	margin:4px;
+	text-align: center;
+}
+.goodsChe .goodsnum span{
+	cursor: pointer;
+	padding: 4px;
+}
+.goodsChe .goodsnum span:HOVER{
+	background-color: #668B8B;
+}
+
+.cheprice{
+	float:left;
+	background: #636363;
+	width: 70%;
+}
+.cheprice .priceSum{
+	font-size: 22px;
+	color: #ffffff;
+}
+.cheprice span{
+	margin-left: 5px;
+	color: gray;
+}
+.payche{
+	float: right;
+	width:30%;
+}
+.payche button{
+	width: 100%;
+}
+

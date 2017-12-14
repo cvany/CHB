@@ -1,5 +1,6 @@
 var indexApp = angular.module("indexApp", ['ui.router', 'controllers']);
-var baseUrl = "/CHB/";
+// var baseUrl = "/CHB/";
+var baseUrl = "http://localhost:8080/CHB/";
 indexApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.when("", "/welcome");
     $stateProvider
@@ -12,10 +13,41 @@ indexApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvide
             templateUrl: "order/order-list.html",
             controller: "orderList"
         })
+        .state("orderDetail", {
+            url: "/orderDetail/:id",
+            templateUrl: "order/order-detail.html",
+            controller: "orderDetail"
+        })
+        .state("classifyGoodsList", {
+            url: "/classifyGoodsList",
+            templateUrl: "classify-goods/classify-goods-list.html",
+            controller: "classifyGoodsList"
+        })
+        .state("classifyGoodsAddition", {
+            url: "/classifyGoodsAddition",
+            templateUrl: "classify-goods/classify-goods-addition.html",
+            controller: "classifyGoodsAddition"
+        })
+        .state("classifyGoodsEdition", {
+            url: "/classifyGoodsEdition/:id",
+            templateUrl: "classify-goods/classify-goods-edition.html",
+            controller: "classifyGoodsEdition"
+        })
         .state("goodsList", {
             url: "/goodsList",
             templateUrl: "goods/goods-list.html",
             controller: "goodsList"
+        })
+
+        .state("goodsAddition", {
+            url: "/goodsAddition",
+            templateUrl: "goods/goods-addition.html",
+            controller: "goodsAddition"
+        })
+        .state("goodsEdition", {
+            url: "/goodsEdition/:id",
+            templateUrl: "goods/goods-edition.html",
+            controller: "goodsEdition"
         })
 }])
     .config(['$httpProvider', function ($httpProvider) {

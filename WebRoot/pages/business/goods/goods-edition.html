@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body>
+<!--面包屑导航开始-->
+<div class="row  border-bottom white-bg dashboard-header">
+    <div class="col-lg-10">
+        <h2>菜品分类管理</h2>
+        <ol class="breadcrumb">
+            <li><a href="#">主页</a></li>
+            <li><a>菜品管理</a></li>
+            <li><a>菜品管理</a></li>
+            <li class="active"><strong>修改菜品</strong></li>
+        </ol>
+    </div>
+    <div class="col-lg-2"></div>
+</div>
+<!--面包屑导航结束-->
+
+<!--列表开始-->
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>修改菜品</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="input-group pull-left">
+                        <a class="btn btn-sm  btn-white" ng-click="goBackTips()"> <i
+                                class="fa fa-mail-reply"></i> 返回
+                        </a>
+                    </div>
+                    <div class="input-group pull-left" style="margin-left: 10px;">
+                        <a class="btn btn-sm  btn-primary" ng-click="submit()">确定 </a>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="hr-line-dashed"></div>
+                    <!-- 表单开始 -->
+                    <form class="form-horizontal" name="goodsForm" novalidate>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">菜品分类</label>
+                            <div class="col-sm-6">
+                                <select class="form-control" ng-model="goods.classifyGoodsId"
+                                        ng-options="item.id as item.classifyName for item in classifyGoodsList">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">菜品名称</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" name="goodsName"
+                                       ng-class="{error:valid && goodsForm.goodsName.$invalid}"
+                                       ng-model="goods.goodsName" required>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">菜品价格</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" name="goodsPrice"
+                                       ng-class="{error:valid && goodsForm.goodsPrice.$invalid}"
+                                       ng-model="goods.goodsPrice" required>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">菜品描述</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" name="goodsDescription"
+                                       ng-class="{error:valid && goodsForm.goodsDescription.$invalid}"
+                                       ng-model="goods.goodsDescription" required>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">菜品图片</label>
+                            <div class="col-sm-6">
+                                <label style="width:80px;height:80px;background: url({{goods.goodsPhoto}});
+                                    background-size:100% 100%;cursor: pointer" for="imgSelect"/>
+                                <input id="imgSelect" type="file" class="form-control hide" name="goodsPhoto"
+                                       accept="image/*"
+                                       ng-class="{error:valid && goodsForm.goodsPhoto.$invalid}"
+                                       ng-model="goods.goodsPhoto" required>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">菜品数量</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" name="goodsNumber"
+                                       ng-class="{error:valid && goodsForm.goodsNumber.$invalid}"
+                                       ng-model="goods.goodsNumber" required>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- 表单结束 -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--列表结束-->
+
+<div id="goBackTips" class="modal fade" aria-hidden="true"
+     data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <h3 class="m-t-none m-b">提示</h3>
+                    <h4>确定放弃修改菜品吗？</h4>
+                    <div class="pull-right">
+                        <button class="btn btn-sm btn-default" data-dismiss="modal">
+                            <strong>取消</strong>
+                        </button>
+                        <button class="btn btn-sm btn-primary"
+                                ng-click="goBack()">
+                            <strong>确定</strong>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="cropper" class="modal fade" aria-hidden="true"
+     data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <h3 class="m-t-none m-b">图片裁剪</h3>
+                    <div class="modal-body row">
+                        <div style="width: 400px;height: 300px;float: left;
+                        display: flex;justify-content: center;align-items: center">
+                            <img id="cropper-img" ng-src="{{imgSelectedUrl}}" width="400" alt="">
+                        </div>
+                        <div id="cropper-preview" style="width: 100px;height: 300px;float: right;
+                        display: flex;justify-content: center;align-items: center">
+                            <div class="img-preview" style="width: 80px;height: 80px"></div>
+                        </div>
+                    </div>
+                    <div class="pull-right">
+                        <button class="btn btn-sm btn-default"
+                            ng-click="cancelCropper()">
+                            <strong>取消</strong>
+                        </button>
+                        <button class="btn btn-sm btn-primary"
+                                ng-click="cropperImg()">
+                            <strong>确定</strong>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

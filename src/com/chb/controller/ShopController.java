@@ -31,6 +31,15 @@ public class ShopController {
 		shops=JsonUtil.jsonToObject(shop, Shop.class);
 		shopService.insertShop(shops);
 	}
-
+	/**
+	 * 根据商店id查找商店信息
+	 * @param shop
+	 * @return
+	 */
+	@RequestMapping("findShopInfoById")
+	@ResponseBody
+	public Shop findShopById(Shop shop){
+		return shopService.findShopById(shop);
+	}
 	
 }

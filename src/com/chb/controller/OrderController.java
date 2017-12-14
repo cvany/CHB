@@ -22,10 +22,25 @@ public class OrderController {
 	@Autowired
 	OrderService orderService;
 
+	// 分类分页获取订单列表
 	@RequestMapping("business/getOrderListByPage")
 	@ResponseBody
 	public ResultMessage getOrderListByPage(String page,String order) throws Exception {
 		return orderService.getOrderListByPage(JsonUtil.jsonToObject(page, Page.class), 
 				JsonUtil.jsonToObject(order, Order.class));
+	}
+	
+	// 下单(创建订单)
+	@RequestMapping("user/newOrder")
+	@ResponseBody
+	public ResultMessage newOrder(String order) {
+		return new ResultMessage();
+	}
+	
+	// 
+	@RequestMapping("user/updatePayStatus")
+	@ResponseBody
+	public ResultMessage updatePayStatus(String order) {
+		return new ResultMessage();
 	}
 }

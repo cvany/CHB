@@ -18,15 +18,44 @@
 	        <bean class="org.springframework.http.converter.StringHttpMessageConverter">  
 	            <property name="supportedMediaTypes" value = "text/html;charset=UTF-8" />  
 	        </bean>  
-            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+            	<property name="objectMapper">
+                    <bean class="com.fasterxml.jackson.databind.ObjectMapper">
+                        <property name="dateFormat">
+                            <bean class="java.text.SimpleDateFormat">
+                                <constructor-arg type="java.lang.String" value="yyyy-MM-dd"/>
+                            </bean>
+                        </property>
+                    </bean>
+                </property>
+            </bean>
     	</mvc:message-converters> 
     </mvc:annotation-driven>
 
     <!-- 静态资源可访问的设置方式 -->
     <mvc:default-servlet-handler />
+    
+    <!-- 配置拦截器 -->
+	<mvc:interceptors>
+		<!-- 配置登陆拦截器 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean class="com.chb.intercepter.LoginHandlerIntercepter"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
 
     <!-- 配置视图解析器，可以显式设置，也可以不设置，不设置会依据SpringMVC的默认设置 -->
     <bean id="viewResolver"
         class="org.springframework.web.servlet.view.InternalResourceViewResolver">
     </bean>
+    
+    <!-- 文件上传 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 设置上传文件的最大尺寸为5MB -->
+		<property name="maxUploadSize">
+			<value>5242880</value>
+		</property>
+	</bean>
+	
 </beans>

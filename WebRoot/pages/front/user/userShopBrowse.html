@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>浏览商店</title>
+<link rel="stylesheet" href="../../../layui/css/layui.css">
+<link rel="stylesheet" href="../../../css/front/shopBrowse.css">
+</head>
+<body>
+	<ul class="layui-nav" style="background-color: #FF4444" lay-filter="">
+		<li class="layui-nav-item"><a href="javascript:;"><img height="40px" src="../../../img/logowhilte.png"/></a></li>
+		<li class="layui-nav-item layui-this"><a href="../index.html">首页</a></li>
+		<li class="layui-nav-item"><a href="javascript:;" onclick="myOrder()">我的订单</a></li>
+		<li class="layui-nav-item" style="float: right;"><a href="javascript:;" onclick="logout()">退出</a></li>
+	</ul>
+		<!-- 内容区域 -->
+		<div class="content">
+		
+			<!-- 当前位置 和搜索框 -->
+			<div class="loc">
+				<div style="float: left;">
+					<span style="color: graytext;">当前位置：</span>
+					<span id="location">湛江广东海洋大学</span>&nbsp;
+					<span><a href="../index.html">切换地址</a></span>
+				</div>
+				<div style="float: right;"><input type="text" style="width: 300px" name="search" placeholder="搜索商家  美食" class="layui-input"></div>
+			</div>
+			
+			<!-- 商家分类 -->
+			<div class="classify">
+				<div class="classifyContent">
+					<div style="color: graytext;padding: 10px;">商家分类：</div>
+					<div id="shopClassifyDiv" style="color: graytext;">
+							<button onclick="findShopByShopClassifyId(0)" class="layui-btn ayui-btn-radius layui-btn-normal">全部商家</button>
+					</div>
+				</div>
+			</div>
+			
+			<!-- 商家列表 -->
+			<div class="shopList">
+				<!-- 每一个商家 -->
+				<div class="shop">
+					<div>
+						<div style="float: left;"><img width="80px" src="../../../img/yp.png"></div>
+						<div style="padding-left: 100px">
+							<p><h3><b>韩国料理</b></h3></p>
+							<p>★★★☆☆  月售100单</p>
+							<p>￥10起送</p>
+						</div>
+					</div><div></div>
+					<div class="notice">
+						<span><img width="20px" src="../../../img/notice.png" /></span>
+						&nbsp;&nbsp;这是新店哦
+					</div>
+					<div>
+						<div class="food">
+							<div><img width="100px" src="../../../img/yp2.png"></div>
+							<div>番茄炒鸡蛋</div>
+							<div class="price">￥9</div>
+						</div>
+						<div class="food">
+							<div><img width="100px" src="../../../img/yp2.png"></div>
+							<div>番茄炒鸡蛋</div>
+							<div class="price">￥9</div>
+						</div>
+						<div class="food">
+							<div><img width="100px" src="../../../img/yp2.png"></div>
+							<div>番茄炒鸡蛋</div>
+							<div class="price">￥9</div>
+						</div>
+					</div>
+				</div>
+				<div class="shop">
+					<div>
+						<div style="float: left;"><img width="80px" src="../../../img/yp.png"></div>
+						<div style="padding-left: 100px">
+							<p><h3><b>韩国料理</b></h3></p>
+							<p>★★★☆☆ 月售100单</p>
+							<p>￥10起送</p>
+						</div>
+					</div><div></div>
+					<div class="notice">
+						<span><img width="20px" src="../../../img/notice.png" /></span>
+						&nbsp;&nbsp;这是新店哦
+					</div>
+					<div>
+						<div class="food">
+							<div><img width="100px" src="../../../img/yp2.png"></div>
+							<div>番茄炒鸡蛋</div>
+							<div class="price">￥9</div>
+						</div>
+						<div class="food">
+							<div><img width="100px" src="../../../img/yp2.png"></div>
+							<div>番茄炒鸡蛋</div>
+							<div class="price">￥9</div>
+						</div>
+						<div class="food">
+							<div><img width="100px" src="../../../img/yp2.png"></div>
+							<div>番茄炒鸡蛋</div>
+							<div class="price">￥9</div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			
+		</div>
+		
+	
+	<script src="../../../layui/layui.js"></script>
+	<script src="../../../js/jquery/jquery-1.9.1.js"></script>
+	<script src="../../../js/utils/pathUtil.js"></script>
+	<script src="../../../js/controller/front/user/userShopBrowse.js"></script>
+</body>
+</html>

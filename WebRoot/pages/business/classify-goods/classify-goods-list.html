@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--面包屑导航开始-->
+<div class="row  bclassifyGoods-bottom white-bg dashboard-header">
+    <div class="col-lg-10">
+        <h2>菜品分类管理</h2>
+        <ol class="breadcrumb">
+            <li><a href="#">主页</a></li>
+            <li><a>菜品管理</a></li>
+            <li><a>分类管理</a></li>
+            <li class="active"><strong>分类列表</strong></li>
+        </ol>
+    </div>
+    <div class="col-lg-2"></div>
+</div>
+<!--面包屑导航结束-->
+
+<!--列表开始-->
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>分类列表</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="input-group pull-left"
+                         style="padding-right: 5px; line-height: 30px;">每页显示
+                    </div>
+                    <label class="pull-left"> <select
+                            class="form-control input-sm" ng-model="page.pageSize"
+                            ng-init="page.pageSize = tempPageSize"
+                            ng-change="changePageSize()"
+                            style="padding:0 10px">
+                        <option value="5">5条</option>
+                        <option value="10">10条</option>
+                        <option value="15">15条</option>
+                    </select>
+                    </label>
+                    <div class="input-group pull-left" style="margin-left: 10px;">
+                        <a data-toggle="modal" class="btn btn-sm  btn-primary"
+                           ui-sref="classifyGoodsAddition"> <i class="fa fa-plus"></i> 新增分类
+                        </a>
+                    </div>
+                    <div class="input-group col-lg-4 pull-right">
+                        <input type="text" class="form-control input-sm" name="search"
+                               placeholder="输入分类名称查找" ng-model="page.keyWords"
+                               ng-keyup="searchClassifyGoods($event)">
+                        <div class="input-group-btn">
+                            <button class="btn btn-sm btn-primary" data-toggle="modal"
+                                    ng-click="searchClassifyGoods()">查询
+                            </button>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <table class="table table-bordered table-hover my-table">
+                        <thead>
+                        <tr>
+                            <th class="col-lg-1 text-center"><input type="checkbox"
+                                                                    class="i-checks" ng-model="checkAll" i-check/></th>
+                            <th class="col-lg-1">序号</th>
+                            <th>分类名称</th>
+                            <th>分类描述</th>
+                            <th class="col-lg-1 text-center">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in classifyGoodsList.list" style="cursor: pointer" ng-click="toDetailPage(item.id)">
+                            <td class="text-center"><input type="checkbox"
+                                                           class="i-checks" ng-model="item.checked" i-check/></td>
+                            <td
+                                    ng-bind="(classifyGoodsList.pageNum-1)*classifyGoodsList.pageSize+$index+1 || 0"></td>
+                            <td ng-bind="item.classifyName"></td>
+                            <td ng-bind="item.classifyDescription"></td>
+                            <td class="text-center"><a title="修改"
+                                                       ng-click="toEditPage(item.id)"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a title="删除" ng-click="deleteTips('one',item.id)"><i
+                                        class="fa fa-trash"></i></a></td>
+                        </tr>
+                        <tr ng-show="classifyGoodsList.list.length==0">
+                            <td class="text-center" colspan="5">没有记录</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="pull-left">
+                        共<span ng-bind="classifyGoodsList.total"></span>条记录 共<span
+                            ng-bind="classifyGoodsList.pages"></span>页
+                    </div>
+                    <div class="text-right">
+                        <button class="btn btn-white btn-sm"
+                                ng-click="lastPage(classifyGoodsList.pageNum-1)">上一页
+                        </button>
+                        <input type="text" class="form-control page-cout"
+                               ng-model="page.pageNum" ng-blur="toPage()"
+                               ng-keyup="toPage($event)"/>
+                        <button class="btn btn-white btn-sm"
+                                ng-click="nextPage(classifyGoodsList.pageNum+1)">下一页
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--列表结束-->
+
+<!-- 确认删除框 -->
+<div id="deleteTips" class="modal fade" aria-hidden="true"
+     data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <h3 class="m-t-none m-b">提示</h3>
+                    <h4>确定删除这条记录？</h4>
+                    <div class="pull-right">
+                        <button class="btn btn-sm btn-default" data-dismiss="modal">
+                            <strong>取消</strong>
+                        </button>
+                        <button class="btn btn-sm btn-primary" data-dismiss="modal"
+                                ng-click="deleteClassifyGoods()">
+                            <strong>确定</strong>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

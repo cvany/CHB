@@ -1,3 +1,2 @@
-*.class
 WEB-INF/classes/
-/WebRoot/
+WebRoot/.idea
