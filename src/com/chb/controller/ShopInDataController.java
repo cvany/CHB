@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.chb.entity.ResultMessage;
+import com.chb.entity.Shop;
 import com.chb.entity.ShopInData;
 import com.chb.service.ShopInDataService;
 import com.chb.utils.JsonUtil;
@@ -26,9 +27,10 @@ public class ShopInDataController {
 	//
 	@RequestMapping("insertShopInData")
 	@ResponseBody
-	public void insertShopInData(ShopInData shopInData){
-		shopInDataService.insertShopInData(shopInData);
+	public void insertShopInData(String shopInData) throws Exception{
+		ShopInData shopInDatas = new ShopInData();
+		shopInDatas=JsonUtil.jsonToObject(shopInData, ShopInData.class);
+		shopInDataService.insertShopInData(shopInDatas);
 	}
-
 	
 }

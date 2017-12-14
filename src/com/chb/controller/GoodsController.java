@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.chb.entity.Admin;
-import com.chb.entity.Businessman;
 import com.chb.entity.Goods;
 import com.chb.entity.ResultMessage;
 import com.chb.service.BusinessmanService;

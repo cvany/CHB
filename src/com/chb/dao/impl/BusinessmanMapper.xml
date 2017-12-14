@@ -17,7 +17,7 @@
 	</select>
 
 	<!-- 通过手机号查询商家 -->
-	<select id="findByBusnessmanPhone" parameterType="string" resultType="Businessman">
+	<select id="findByBusinessmanPhone" parameterType="string" resultType="Businessman">
 		SELECT
 		<include refid="Base_Column_List" />
 		FROM businessman WHERE phone=#{phone}
@@ -27,7 +27,7 @@
 	insert into businessman(businessmanName,
 		password,salt,phone,email,registerTime,photo,accountBalance)
 		values(#{businessmanName,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},
-		#{phone,jdbcType=VARCHAR},#{salt,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR},
+		#{salt,jdbcType=VARCHAR},#{phone,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR},
 		#{registerTime,jdbcType=DATE},#{photo,jdbcType=VARCHAR},
 		#{accountBalance,jdbcType=DOUBLE})
 	</insert>

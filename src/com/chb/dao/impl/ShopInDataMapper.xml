@@ -10,9 +10,9 @@
 
 	
 	<insert id="insertShopInData" parameterType="com.chb.entity.ShopInData">
-	insert into businessman(shopId,
+	insert into shop_in_data (shopId,
 		frontPhoto,insidePhoto,IDFrontPhoto,IDBackPhoto,legalRepresentative,businessLicense,cateringServiceLicense)
-		values(#{shopId,jdbcType=INTEGER},#{frontPhoto,jdbcType=VARCHAR},
+		values (#{shopId,jdbcType=INTEGER},#{frontPhoto,jdbcType=VARCHAR},
 		#{insidePhoto,jdbcType=VARCHAR},#{IDFrontPhoto,jdbcType=VARCHAR},#{IDBackPhoto,jdbcType=VARCHAR},
 		#{legalRepresentative,jdbcType=DATE},#{businessLicense,jdbcType=VARCHAR},
 		#{cateringServiceLicense,jdbcType=VARCHAR})

@@ -4,24 +4,26 @@
 <mapper namespace="com.chb.dao.ShopDao">
 
 	<sql id="Base_Column_List">
-		id, shopId,
-		frontPhoto,insidePhoto,IDFrontPhoto,IDBackPhoto,legalRepresentative,businessLicense,
-		cateringServiceLicense
+		id, businessmanId,
+		shopName,shopPhoto,phone,credibility,lng,lat,
+		address,legalRepresentative,isPass,isOnline,isOpen,openTime,
+		shopNotice,startPrice,carriage,averageTime,dispatchDescription,takeoutAreaId,
+		monthSales,shopPoint,shopClassifyId
 	</sql>
 
 
 	<insert id="insertShop" parameterType="com.chb.entity.Shop">
-		insert into businessman(businessmanId,
+		insert into shop (id,businessmanId,
 		shopName,shopPhoto,phone,credibility,lng,lat,address,legalRepresentative,isPass,isOnline,
 		isOpen,openTime,shopNotice,startPrice,carriage,averageTime,dispatchDescription,
-		takeoutAreaId,monthSales,shopPoint,shopClassify)
-		values(#{businessmanId,jdbcType=INTEGER},#{shopName,jdbcType=VARCHAR},
+		takeoutAreaId,monthSales,shopPoint,shopClassifyId)
+		values (#{id,jdbcType=INTEGER},#{businessmanId,jdbcType=INTEGER},#{shopName,jdbcType=VARCHAR},
 		#{shopPhoto,jdbcType=VARCHAR},#{phone,jdbcType=VARCHAR},#{credibility,jdbcType=INTEGER},
 		#{lng,jdbcType=DOUBLE},#{lat,jdbcType=DOUBLE},
 		#{address,jdbcType=VARCHAR},#{legalRepresentative,jdbcType=VARCHAR},#{isPass,jdbcType=INTEGER},#{isOnline,jdbcType=INTEGER},
 		#{isOpen,jdbcType=INTEGER},#{openTime,jdbcType=VARCHAR},#{shopNotice,jdbcType=VARCHAR},#{startPrice,jdbcType=DOUBLE},
 		#{carriage,jdbcType=DOUBLE},#{averageTime,jdbcType=INTEGER},#{dispatchDescription,jdbcType=VARCHAR},
-		#{takeoutAreaId,jdbcType=INTEGER},#{monthSales,jdbcType=INTEGER},#{shopPoint,jdbcType=INTEGER},#{shopClassify,jdbcType=INTEGER})
+		#{takeoutAreaId,jdbcType=INTEGER},#{monthSales,jdbcType=INTEGER},#{shopPoint,jdbcType=INTEGER},#{shopClassifyId,jdbcType=INTEGER})
 	</insert>
 
 </mapper>

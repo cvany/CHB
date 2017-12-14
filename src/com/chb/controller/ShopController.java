@@ -26,8 +26,10 @@ public class ShopController {
 	//
 	@RequestMapping("insertShop")
 	@ResponseBody
-	public void insertShop(Shop shop){
-		shopService.insertShop(shop);
+	public void insertShop(String shop) throws Exception{
+		Shop shops = new Shop();
+		shops=JsonUtil.jsonToObject(shop, Shop.class);
+		shopService.insertShop(shops);
 	}
 
 	
