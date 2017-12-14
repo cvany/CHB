@@ -46,4 +46,26 @@ public class GoodsController {
 		return goodsService.deleteGoods(JsonUtil.jsonToObject(goods, new TypeToken<List<Goods>>() {
 		}.getType()));
 	}
+	
+	/**
+	 * 根据商店id查找所有商品信息
+	 * @param shop
+	 * @return
+	 */
+	@RequestMapping("findAllGoodsByShopId")
+	@ResponseBody
+	public List<Goods> findAllGoodsByShopId(Shop shop){
+		return goodsServie.findAllGoodsByShopId(shop);
+	}
+	
+	/**
+	 * 根据关键字模糊查询商品信息
+	 * @param goods
+	 * @return
+	 */
+	@RequestMapping("findGoodsByKeywords")
+	@ResponseBody
+	public List<Goods> findGoodsByKeywords(Goods goods){
+		return goodsServie.findGoodsByKeywords(goods);
+	}
 }

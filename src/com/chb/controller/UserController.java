@@ -275,6 +275,17 @@ public class UserController {
 		return (User) session.getAttribute("user");
 	}
 	
+	/**
+	 * 退出登录
+	 * @param session
+	 */
+	@RequestMapping("logout")
+	@ResponseBody
+	public String logout(HttpSession session){
+		session.invalidate();
+		return "1";
+	}
+	
 	@RequestMapping("updatePass.do")                     //修改密码
 	public void updatePass(HttpSession session,HttpServletRequest request,HttpServletResponse response) throws IOException {
 		User user=(User) session.getAttribute("user");

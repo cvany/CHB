@@ -94,5 +94,13 @@ public class GoodsServiceImpl implements GoodsService {
 		goodsDao.deleteGoods(goods);
 		return new ResultMessage(true, ResultCode.SUCCESS, "删除成功", null);
 	}
+	
+	public List<Goods> findAllGoodsByShopId(Shop shop) {
+		return goodsDao.findAllGoodsByShopId(shop);
+	}
+
+	public List<Goods> findGoodsByKeywords(Goods goods) {
+		return goodsDao.findGoodsByKeywords(goods);
+	}
 
 }

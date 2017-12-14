@@ -10,6 +10,11 @@
 		goodsRemain
 
 	</sql>
+	
+	<!-- 商品字段 -->
+    <sql id="Base_Column_List2">
+		id,shopId,goodsName,goodsPrice,goodsPhoto,goodsSales
+	</sql>
 
 	<!-- 通过id查询goods -->
 	<select id="selectByPrimaryKey" parameterType="Integer"
@@ -89,4 +94,18 @@
 		delete from goods
 		where id = #{id}
 	</delete>
+	
+	<!-- 查询所有商品信息 -->
+    <select id="findAllGoodsByShopId" parameterType="Shop" resultType="Goods">
+    	SELECT <include refid="Base_Column_List2" />
+		FROM goods
+		WHERE shopId =#{id}
+    </select>
+    
+    <!-- 根据关键字模糊查询商品 -->
+    <select id="findGoodsByKeywords" parameterType="Goods" resultType="Goods">
+    	SELECT <include refid="Base_Column_List2" />
+		FROM goods
+		WHERE shopId =#{id} AND goodsName LIKE '%${goodsName}%'
+    </select>
 </mapper>
