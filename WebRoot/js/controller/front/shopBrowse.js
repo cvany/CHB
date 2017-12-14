@@ -4,13 +4,21 @@
 $(function() {//页面初始化触发函数
 	// 定位地址
 	var value = decodeURIComponent(getParam("loc"));
-	var lng = getParam("lng");
-	var lat = getParam("lat");
-	$("#location").text(value);
-	//将数据存储在sessionStorage
-	sessionStorage.setItem("lng",lng);
-	sessionStorage.setItem("lat",lat);
-	sessionStorage.setItem("loc",value);
+	if(value=="null"){
+		//从sessionStorage获取数据
+		var lng =sessionStorage.getItem("lng");
+		var lat =sessionStorage.getItem("lat");
+		var loc =sessionStorage.getItem("loc");
+		$("#location").text(loc);
+	}else{
+		var lng = getParam("lng");
+		var lat = getParam("lat");
+		$("#location").text(value);
+		//将数据存储在sessionStorage
+		sessionStorage.setItem("lng",lng);
+		sessionStorage.setItem("lat",lat);
+		sessionStorage.setItem("loc",value);
+	}
 	//对搜索输入框进行监听
 	$("input[name='search']").keydown(function(e){
         if(e.keyCode ==13){
@@ -54,7 +62,10 @@ $(function() {//页面初始化触发函数
 
 //跳转个人中心页面
 function myOrder() {
-	isUserLogin2("user/userLogin.html","user/userPersonal.html");
+	isUserLogin("user/userLogin.html");
+	//保存当前的URL地址
+	var curUrl = window.document.location.href;
+	sessionStorage.setItem("curUrl",curUrl);
 }
 
 //根据页码来获取商店展示信息

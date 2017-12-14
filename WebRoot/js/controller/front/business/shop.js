@@ -6,7 +6,6 @@
 var id =0;
 $(function(){
 	var loc =sessionStorage.getItem("loc");
-	alert(loc);
 	id = getParam("id");
 	//请求商家信息
 	getShopInfo(id);
@@ -77,6 +76,15 @@ function getAllGoods(){
 function getAllComments() {
 	$(".goodsList").empty();
 	alert(id);
+}
+
+//我的订单
+function myOrder() {
+	isUserLogin("../user/userLogin.html");
+	//保存当前的URL地址
+	var curUrl = window.document.location.href;
+	sessionStorage.setItem("curUrl",curUrl);
+	window.location.href ="../user/userPersonal.html";
 }
 
 //加商品入购物车

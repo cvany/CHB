@@ -3,11 +3,23 @@
  */
 $(function() {//页面初始化触发函数
 	isUserLogin("userLogin.html");	//判断用户是否登录
-	//从sessionStorage获取数据
-	var lng =sessionStorage.getItem("lng");
-	var lat =sessionStorage.getItem("lat");
-	var loc =sessionStorage.getItem("loc");
-	$("#location").text(loc);
+	//如果URL后面有参数的话
+	var value = decodeURIComponent(getParam("loc"));
+	if(value=="null"){
+		//从sessionStorage获取数据
+		var lng =sessionStorage.getItem("lng");
+		var lat =sessionStorage.getItem("lat");
+		var loc =sessionStorage.getItem("loc");
+		$("#location").text(loc);
+	}else{
+		var lng = getParam("lng");
+		var lat = getParam("lat");
+		$("#location").text(value);
+		//将数据存储在sessionStorage
+		sessionStorage.setItem("lng",lng);
+		sessionStorage.setItem("lat",lat);
+		sessionStorage.setItem("loc",value);
+	}
 	//对搜索输入框进行监听
 	$("input[name='search']").keydown(function(e){
         if(e.keyCode ==13){
