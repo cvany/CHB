@@ -14,7 +14,10 @@
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
 		<property name="url" value="jdbc:mysql://localhost:3306/chb" />
 		<property name="username" value="root" />
+<<<<<<< HEAD
 		<property name="password" value="shilim" />
+=======
+>>>>>>> 55675e0e22d4abfb9deb10ed23d4ee0c57b26d0c
 		<property name="password" value="root" />
 	</bean>
 
