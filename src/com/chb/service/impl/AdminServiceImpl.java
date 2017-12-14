@@ -63,6 +63,27 @@ public class AdminServiceImpl implements AdminService {
 		}
 		return new ResultMessage(false, ResultCode.FAIL, "账号或者密码错误", null);
 	}
+	//后台管理员是否登录
+	@Override
+	public ResultMessage adminIsLogin(HttpSession session) {
+		String userName = (String) session.getAttribute("userName");
+		System.out.println(userName);
+		if(userName!= null) {
+			System.out.println("dhkdhkjdj");
+			Admin mAdmin = adminDao.findByAdminName(userName);
+			mAdmin.setPassword(null);
+			return new ResultMessage(true, ResultCode.SUCCESS, "获取成功", mAdmin);
+		}
+		return new ResultMessage(false, ResultCode.NO_LOGIN, "未登录", null);
+	}
+	//后台管理员注销
+	@Override
+	public ResultMessage adminLogout(HttpSession session) {
+		session.invalidate();
+		return new ResultMessage(false, ResultCode.SUCCESS, "注销成功", null);
+	}
+
+	
 	//管理员查询所有用户
 	@Override
 	public ResultMessage getUserListByPage(Page page) {
@@ -114,7 +135,7 @@ public class AdminServiceImpl implements AdminService {
 		System.out.println(shop.getId()+"审核通过服务接口");
 		Integer checkBusinessResult=shopDao.updateShopById(shop.getId());
 		System.out.println(checkBusinessResult);
-		if (checkBusinessResult == 1 ) {
+		if (checkBusinessResult ==1) {
 			return new ResultMessage(true, ResultCode.SUCCESS, "通过成功", checkBusinessResult);
 		}
 		return new ResultMessage(false, ResultCode.FAIL, "审核失败", null);
@@ -142,7 +163,19 @@ public class AdminServiceImpl implements AdminService {
 		PageInfo<Shop> pageInfo = new PageInfo<Shop>(page, total, businessInDataList);
 		return new ResultMessage(true, ResultCode.SUCCESS,"成功", pageInfo);
 	}
-	//管理员查询所有商家
+	//修改商家信息
+	@Override
+	public ResultMessage updateShopById(Shop shop) {
+		System.out.println(shop.getId()+shop.getCredibility()+shop.getIsOnline()+shop.getIsPass()+"修改商家服务接口");
+		Shop checkBusinessResult=shopDao.updateShop(shop);
+		System.out.println(checkBusinessResult);
+		if (checkBusinessResult !=null) {
+			return new ResultMessage(true, ResultCode.SUCCESS, "修改成功", checkBusinessResult);
+		}
+		return new ResultMessage(false, ResultCode.FAIL, "修改失败", null);
+		
+	}
+	//管理员查询所有商品
 	@Override
 	public ResultMessage getCheckGoodsListByPage(Page page) {
 		System.out.println("商品服务接口");
@@ -152,6 +185,7 @@ public class AdminServiceImpl implements AdminService {
 		PageInfo<Shop> pageInfo = new PageInfo<Shop>(page, total, checkGoodsList);
 		return new ResultMessage(true, ResultCode.SUCCESS,"成功", pageInfo);
 	}
+	
 	
 	//审核商品通过
 	@Override
@@ -177,7 +211,7 @@ public class AdminServiceImpl implements AdminService {
 		return new ResultMessage(false, ResultCode.FAIL, "审核失败", null);
 		
 	}
-	//审核商品
+	//审核投诉
 	@Override
 	public ResultMessage getDealComplainListByPage(Page page) {
 		System.out.println("投诉服务接口");

@@ -6,9 +6,8 @@
 </head>
 <body>
  <!-- 主要页面-->
- <div class="col-lg-12">  
-         <!--overview start-->
-        <!--面包屑导航开始-->
+ 
+<!--面包屑导航开始-->
 	<div class="row  border-bottom white-bg dashboard-header">
 	    <div class="col-lg-10">
 	        <ol class="breadcrumb">
@@ -36,7 +35,7 @@
 	                   </div><!-- /input-group -->
 	                 </div><!-- /.col-lg-6 -->
 	               </div><!-- /.row -->
-	               <br />  <br />  {{checkDetailsList}}
+	               <br />  <br />  
 	               <!-- 表格-->
 	                <div class="row ">
 	               	<div class="ibox float-e-margins col-md-12 ">
@@ -46,7 +45,7 @@
 	                           	<th>序号</th>
 	                               <th>商店名称</th>
 	                               <th>商店电话</th>
-	                               <th>法定代表人</th>
+	                               <th>商家姓名</th>
 	                               <th>商店简介</th>
 	                               <th>地址</th>
 	                               <th  class="text-center">操作</th>
@@ -57,12 +56,12 @@
 	                           	<td ng-bind="(businessInDataList.pageNum-1)*businessInDataList.pageSize+$index+1 || 0"></th>
 	                               <td ng-bind="item.shopName"></td>
 	                               <td ng-bind="item.phone"></td>
-	                               <td ng-bind="item.legalRepresentative"></td>
+	                               <td ng-bind="item.businessmanName"></td>
 	                               <td ng-bind="item.shopDescription "></td>
 	                               <td ng-bind="item.address"></td>
 	                               <td  class="text-center">
 	                               	<button type="button" class="btn btn-link btn-sm" 
-	                                   data-toggle="modal" data-target="#myModal" ng-click="checkDetails(item.id)">   详细信息
+	                                    ng-click="checkDetails(item.id)">   详细信息
 	                                   </button>
 	                                 
 	                               	<button class="btn btn-success btn-sm" ng-click="checkOk(item.id)">
@@ -100,9 +99,8 @@
 	        </div>
 	    </div>
 	</div>
-	            </div>
 			<!-- Modal -->
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
+	<div class="modal fade" id="checkDetails" tabindex="-1" role="dialog" 
 	    aria-labelledby="myModalLabel">
 	   <div class="modal-dialog" role="document">
 	       <div class="modal-content">
@@ -113,14 +111,14 @@
 	          </div>
 	           <div class="modal-body">
 	              <table class="table table-bordered" ">
-	                   <tr ><td>ID</td><td ng-bind="item.id"></td><td>商店名称</td><td>的框架福克斯</td></tr>
-	                        <tr><td>商店正面照</td><td ng-bind="item.frontPhoto"></td>
-	                             <td>商店室内照</td><td ng-bind="item.insidePhoto"></td></tr>
-	                        <tr><td>商家身份证正面照</td><td ng-bind="item.IDFrontPhoto"></td>
-	                             <td>商家身份证背面照</td><td ng-bind="item.IDBackPhoto"></td></tr>
-	                        <tr><td>营业执照</td><td ng-bind="item.businessLicense"></td>
-	                            <td>餐饮服务许可证</td><td ng-bind="item.cateringServiceLicense"></td></tr>
-	             </table>
+	                  
+                    <tr><td>商店正面照</td><td ng-bind="checkDetailsList.frontPhoto"></td>
+                         <td>商店室内照</td><td ng-bind="checkDetailsList.insidePhoto"></td></tr>
+                    <tr><td>商家身份证正面照</td><td ng-bind="checkDetailsList.idfrontPhoto"></td>
+                         <td>商家身份证背面照</td><td ng-bind="checkDetailsList.idbackPhoto"></td></tr>
+                    <tr><td>营业执照</td><td ng-bind="checkDetailsList.businessLicense"></td>
+                        <td>餐饮服务许可证</td><td ng-bind="checkDetailsList.cateringServiceLicense"></td></tr>
+        		 </table>
 	           </div>
 	        </div>
 	    </div>

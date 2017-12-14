@@ -6,6 +6,10 @@
 	<sql id="Base_Column_List">
 		id, businessmanId, shopName,phone
 	</sql>
+	<sql id="WithOrder_Colume_list">
+		c.id,c.orderId,c.complaintTime,c.content,c.status
+		
+	</sql>
 	 <!-- 条件分页查询审核总条数 -->
 	<select id="selectCount" parameterType="com.chb.entity.Page"
 		resultType="java.lang.Long">
@@ -23,19 +27,20 @@
 		</where>
 	</select>
 	
-	<!-- 查询所有待审核商品 -->
+	<!-- 查询所有待审核商投诉-->
 	<select id="getDealComplainListByPage" parameterType="com.chb.entity.Complaint" resultType="Complaint">
-		SELECT * FROM complaint 
+		SELECT <include refid="WithOrder_Colume_list"></include>
+		FROM complaint  c
 		<where>
 			<if test="keyWords != null and keyWords != ''">
 				<if test="fuzzy == true">
-					orderId like '%' #{keyWords} '%' 
+					c.orderId like '%' #{keyWords} '%' 
 				</if>
 				<if test="fuzzy == false">
-					orderId = #{keyWords} 
+					c.orderId = #{keyWords} 
 				</if>
 			</if>
-			and status=1
+			and c.status=1
 		</where>
 		 LIMIT ${(pageNum-1)*pageSize},#{pageSize}
 	</select>

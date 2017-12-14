@@ -40,6 +40,21 @@ public class AdminController {
 		System.out.println(admin+2);
 		return adminService.adminLogin(JsonUtil.jsonToObject(admin, Admin.class),session);
 	}
+	
+	// 通过用户名获取管理员信息
+	@RequestMapping("adminIsLogin")
+	@ResponseBody
+	public ResultMessage adminIsLogin(HttpSession session) throws Exception {
+		return adminService.adminIsLogin(session);
+	}
+	// 管理员注销接口
+	@RequestMapping("adminLogout")
+	@ResponseBody
+	public ResultMessage adminLogout(HttpSession session) throws Exception {
+		return adminService.adminLogout(session);
+	}
+
+	
 	//分页查询所有用户
 	@RequestMapping("getUserListByPage")
 	@ResponseBody
@@ -88,6 +103,13 @@ public class AdminController {
 	public ResultMessage getBusinessListByPage(String page ) throws Exception {
 		System.out.println(page+"商家");
 		return adminService.getBusinessListByPage(JsonUtil.jsonToObject(page, Page.class));
+	}
+	//管理员修改商家
+	@RequestMapping("updateShop")
+	@ResponseBody
+	public ResultMessage updateShop(String shop) throws Exception {
+		System.out.println(shop+"审核通过");
+		return adminService.updateShopById(JsonUtil.jsonToObject(shop , Shop.class));
 	}
 	//管理员分页查询所有商品
 	@RequestMapping("getCheckGoodsListByPage")          

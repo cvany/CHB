@@ -5,8 +5,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div class="col-lg-12">         
-      <!--面包屑导航开始-->
+<!--面包屑导航开始-->
 	<div class="row  border-bottom white-bg dashboard-header">
 	    <div class="col-lg-10">
 	        <ol class="breadcrumb">
@@ -55,10 +54,10 @@
 			                 <tr ng-repeat="item in checkGoodsList.list">
 	                           	<td ng-bind="(checkGoodsList.pageNum-1)*checkGoodsList.pageSize+$index+1 || 0"></th>
 	                               <td ng-bind="item.goodsName"></td>
-	                               <td ng-bind="item.shopId"></td>
+	                               <td ng-bind="item.shopName"></td>
 	                               <td ng-bind="item.goodsPrice"></td>
 	                               <td ng-bind="item.goodsPhoto"></td>
-	                               <td ng-bind="item.classifyGoodsId"></td>
+	                               <td ng-bind="item.classifyName"></td>
 	                               <td ng-bind="item.goodsDescription "></td>
 			                     <td  class="text-center">
 	                                 
@@ -120,6 +119,6 @@
         </div>
       </div>
     </div>
-   </div>
+  
 </body>
 </html>

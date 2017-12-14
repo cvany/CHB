@@ -16,6 +16,10 @@ public interface AdminService {
 	Admin findByAdminName(String adminname);
 	//登录接口
 	ResultMessage adminLogin(Admin admin,HttpSession session);
+	//判定后台管理员是否登录
+	ResultMessage adminIsLogin(HttpSession session);
+	//后台管理员注销
+	ResultMessage adminLogout(HttpSession session);
 	//查询用户
 	ResultMessage getUserListByPage(Page page);
 	//删除用户
@@ -42,6 +46,9 @@ public interface AdminService {
 	ResultMessage checkComplaintOkById(Complaint complaint);
 	//审核投诉信息不通过
 	ResultMessage deleteComplaintById(Complaint complaint);
+	//修改商家信息
+	ResultMessage updateShopById(Shop shop);
+	
 	
 
 

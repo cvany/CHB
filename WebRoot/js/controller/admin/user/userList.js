@@ -11,7 +11,7 @@ controllers.controller("userList", ['$scope','$http','$state',function($scope,$h
     $scope.userList.statusDescription = new UserVo();
 
     $scope.page.pageNum = 1;
-    $scope.page.pageSize = 3;
+    $scope.page.pageSize = 9;
     //获取用户列表
     $scope.getUserList = function() {
         //是否存在缓存页数

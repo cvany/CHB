@@ -18,6 +18,7 @@
 					userName = #{keyWords}
 				</if>
 			</if>
+			and status=1
 		</where>
 	</select>
 
@@ -34,6 +35,7 @@
 					userName = #{keyWords}
 				</if>
 			</if>
+			and status=1
 		</where>
 		 LIMIT ${(pageNum-1)*pageSize},#{pageSize}
 	</select>
@@ -54,7 +56,7 @@
        UPDATE user SET password=#{password} WHERE id=#{id}
     </update>
     
-    <delete id="deleteUserById" parameterType="int">
-    	DELETE FROM user WHERE id=#{deleteResult}
-    </delete>
+    <update id="deleteUserById" parameterType="int">
+    	UPDATE user SET status=2 WHERE  id=#{deleteResult}
+    </update>
 </mapper>

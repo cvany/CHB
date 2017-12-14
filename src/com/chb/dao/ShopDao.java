@@ -18,5 +18,7 @@ public interface ShopDao {
 	List<Shop> getBusinessListByPage(Page page);
 	//查询所有商家页数
 	long selectAllCount(Page page);
+	//更新商家信息
+	Shop updateShop(Shop shop);
 
 }

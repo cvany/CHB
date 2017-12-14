@@ -2,12 +2,12 @@
  * 李卓宏 2017/12/09.
  */
 controllers.controller("updateBusiness", ['$scope','$http','$state',function($scope,$http,$state) {
-	
+	$scope.checkAll = false;//全选
     $scope.businessList = [];
     $scope.page = new PageVo();
 
     $scope.page.pageNum = 1;
-    $scope.page.pageSize = 3;
+    $scope.page.pageSize = 6;
     //获取商家列表
     $scope.getBusinessList = function() {
         //是否存在缓存页数
@@ -69,7 +69,7 @@ controllers.controller("updateBusiness", ['$scope','$http','$state',function($sc
     }
 
 
-    //审核商家查询
+    //商家查询
     $scope.searchBusiness = function(e) {
         if(e && e.keyCode != 13) return;
         sessionStorage.businessListPageNum = 1;
@@ -120,40 +120,85 @@ controllers.controller("updateBusiness", ['$scope','$http','$state',function($sc
             
         
     }
-    //删除商家
-    $scope.checkFail= function(id) {
-    	var shopVo = new ShopVo();
-        shopVo.id=id;
-        var url = baseUrl + "deleteBusiness.do";
+  //商家删除
+    $scope.deleteShop= function() {
+        var shopList = [];
+        if($scope.deleteType == "one") {
+            var shopVo = new ShopVo();
+            shopVo.id = $scope.deleteId;
+            //alert(userVo.id);
+            shopList.push(shopVo);
+            var url = baseUrl + "deleteBusiness.do";
+            var data = {shop:shopList[0].voToJson()};
+            
+            $http.post(url,data)
+                .success(function(data) {
+                    toastr.success('删除商家1', '成功');
+                    $scope.getBusinessList();
+                })
+                .error(function(data) {
+                    toastr.error('删除失败3', '失败');
+                });
+            
+        } else if ($scope.deleteType == "batch") {
+            for(var i=0;i<$scope.businessList.list.length;i++) {
+                if($scope.businessList.list[i].checked) {
+                    var shopVo = new ShopVo();
+                    shopVo.id = $scope.businessList.list[i].id;
+                    shopList.push(shopVo);
+                    var url = baseUrl + "deleteBusiness.do";
+                    var data = {shop:shopList[i].voToJson()};
+                    
+                    $http.post(url,data)
+                        .success(function(data) {
+                            toastr.success('删除商家1', '成功');
+                            $scope.getBusinessList();
+                        })
+                        .error(function(data) {
+                            toastr.error('删除失败3', '失败');
+                        });
+                }
+                
+            }
+        }
+    }
+   
+    //查看商家详情
+    $scope.updateShow=function(item){
+    	
+    	$scope.shopDetails=item;
+    	$("#editBusiness").modal("show");
+    	
+    	
+    }
+  //商家信息修改
+    $scope.updateShop=function(credibility,isPass,isOnline){
+    	if(credibility==null){
+    		credibility=$scope.shopDetails.credibility;
+    	}
+    	if(isPass==null){
+    		isPass=$scope.shopDetails.isPass;
+    	}
+    	if(isOnline==null){
+    		isOnline=$scope.shopDetails.isOnline;
+    	}
+    	var shopVo=new ShopVo();
+    	shopVo.id=$scope.shopDetails.id;
+    	shopVo.credibility=credibility;
+    	shopVo.isPass=isPass;
+    	shopVo.isOnline=isOnline;
+        var url = baseUrl + "updateShop.do";
         var data={shop:shopVo.voToJson()};
         $http.post(url,data)
-            .success(function(data) {
-                toastr.success('删除商家1', '成功');
-                $scope.getBusinessList();
-            })
-            .error(function(data) {
-                toastr.error('删除失败3', '失败');
-            });
-            
-        
-    }
-  //查看审核商家详情
-    $scope.checkDetails=function(id){
-    	alert(ghkdg);
-    	$scope.checkDetailsList = null;
-        var shopInDataVo = new ShopInDataVo();
-        shopVo.id=id;
-        var url = baseUrl + "checkDetails.do";
-        var data={shopInData:ShopInDataVo.voToJson()};
-        $http.post(url,data)
         .success(function(data) {
-            toastr.success('查询详情1', '成功');
-            $scope.checkDetailsList=data.result;
+            toastr.success('修改信息1', '成功');
+           // $("#editBusiness").modal("hide");
+            window.location.reload();
         })
         .error(function(data) {
-            toastr.error('查询失败3', '失败');
+            toastr.error('修改失败3', '失败');
         });
-        
+       
     }
     //跳转修改页
     $scope.toEditPage = function(id) {

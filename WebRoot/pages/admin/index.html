@@ -31,7 +31,7 @@
                                         src="../../img/avatar_default.jpg"/>
 							</span> <a data-toggle="dropdown" class="dropdown-toggle" >
 								<span class="clear"> <span class="block m-t-xs"> <strong
-                                        class="font-bold" >admin</strong>
+                                        class="font-bold" ng-bind="admin.userName"></strong>
 								</span> <span class="text-muted text-xs block" >管理员<b
                                         class="caret"></b></span>
 							</span>
@@ -39,7 +39,7 @@
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
                             <li><a href="#">管理记录</a></li>
                             <li class="divider"></li>
-                            <li><a href="adminLogin.html">注销</a></li>
+                            <li><a ng-click="adminLogout()">注销</a></li>
                         </ul>
                     </div>
                     <div class="logo-element">CHB</div>
@@ -54,7 +54,7 @@
                     <ul class="nav nav-second-level">
                         <li><a ui-sref="checkBusinessInData">商家审核</a></li>
                         <li><a ui-sref="updateBusiness">商家修改</a></li>
-                        <li><a ui-sref="deleteBusiness">商家删除</a></li>
+                        
                     </ul>
                 </li>
                 <li><a ui-sref="checkGoods"><i class="fa fa-coffee"></i> <span class="nav-label">商品管理</span></a>
@@ -145,6 +145,10 @@
         charset="utf-8"></script>
 <script src="../../js/angular/angular-ui-router.min.js"
         type="text/javascript" charset="utf-8"></script>
+ 
+ <!-- Chartjs -->
+ <script src="../../js/plugins/chartJs/Chart.min.js"
+        type="text/javascript" charset="utf-8"></script>
 
 <!--models-->
 <script src="../../js/models/PageVo.js"></script>
@@ -169,6 +173,12 @@
 <script src="../../js/controller/admin/admin/checkGoods.js"
 		type="text/javascript" charset="utf-8"></script>
 <script src="../../js/controller/admin/admin/dealComplain.js"
+		type="text/javascript" charset="utf-8"></script>
+<script src="../../js/controller/admin/admin/userData.js"
+		type="text/javascript" charset="utf-8"></script>
+<script src="../../js/controller/admin/admin/businessData.js"
+		type="text/javascript" charset="utf-8"></script>
+<script src="../../js/controller/admin/admin/orderData.js"
 		type="text/javascript" charset="utf-8"></script>
 <!-- services -->
 

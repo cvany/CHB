@@ -29,8 +29,28 @@ public class Shop {
 	private Integer monthSales;
 	private Integer shopPoint;
 	private Integer shopClassify;
+	//添加商家姓名属性商家分类名，联合查询
+	private String businessmanName;
+	private String name;
 	
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public Shop() {
+	}
+	
+	public String getBusinessmanName() {
+		return businessmanName;
+	}
+
+	public void setBusinessmanName(String businessmanName) {
+		this.businessmanName = businessmanName;
 	}
 
 	public Integer getId() {

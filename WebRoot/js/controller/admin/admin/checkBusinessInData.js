@@ -9,7 +9,7 @@ controllers.controller("checkBusinessInData", ['$scope','$http','$state',functio
     $scope.page = new PageVo();
 
     $scope.page.pageNum = 1;
-    $scope.page.pageSize = 3;
+    $scope.page.pageSize = 8;
     //获取商家审核列表
     $scope.getBusinessInDataList = function() {
         //是否存在缓存页数
@@ -108,8 +108,10 @@ controllers.controller("checkBusinessInData", ['$scope','$http','$state',functio
     }
     //审核通过
     $scope.checkOk= function(id) {
+    	
     	var shopVo = new ShopVo();
-        shopVo.id=id;
+        shopVo.id=id; 
+        
         var url = baseUrl + "checkBusinessOk.do";
         var data={shop:shopVo.voToJson()};
         $http.post(url,data)
@@ -125,12 +127,12 @@ controllers.controller("checkBusinessInData", ['$scope','$http','$state',functio
     }
     //审核不通过
     $scope.checkFail= function(id) {
-    	alert(333);
+    	
     	var shopVo = new ShopVo();
         shopVo.id=id;
         var url = baseUrl + "deleteBusiness.do";
         var data={shop:shopVo.voToJson()};
-        alert(data);
+       
         $http.post(url,data)
             .success(function(data) {
                 toastr.success('审核不通过1', '成功');
@@ -144,16 +146,20 @@ controllers.controller("checkBusinessInData", ['$scope','$http','$state',functio
     }
   //查看审核商家详情
     $scope.checkDetails=function(id){
-    	alert(ghkdg);
+    	
     	$scope.checkDetailsList = null;
         var shopInDataVo = new ShopInDataVo();
-        shopVo.id=id;
+        shopInDataVo.id=id;
+        alert(shopInDataVo.id);
         var url = baseUrl + "checkDetails.do";
-        var data={shopInData:ShopInDataVo.voToJson()};
+        var data={shopInData:shopInDataVo.voToJson()};
+        
         $http.post(url,data)
         .success(function(data) {
             toastr.success('查询详情1', '成功');
-            $scope.checkDetailsList=data.result;
+            $scope.checkDetailsList=data.resultParam;
+            $("#checkDetails").modal("show");
+            
         })
         .error(function(data) {
             toastr.error('查询失败3', '失败');

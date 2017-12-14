@@ -1,7 +1,9 @@
 if(typeof ShopVo == 'undefined') {
 	function ShopVo() {
 		this.id;
-		
+		this.credibility;
+		this.isPass;
+		this.isOnline;
 	}
 }
 

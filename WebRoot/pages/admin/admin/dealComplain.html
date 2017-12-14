@@ -5,8 +5,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div class="col-lg-12">
-    <!--面包屑导航开始-->
+<!--面包屑导航开始-->
 <div class="row  border-bottom white-bg dashboard-header">
     <div class="col-lg-10">
         <ol class="breadcrumb">
@@ -52,8 +51,8 @@
 				               <tbody>
 				               <tr ng-repeat="item in dealComplainList.list">
 	                           	<td ng-bind="(dealComplainList.pageNum-1)*dealComplainList.pageSize+$index+1 || 0"></th>
-	                               <td ng-bind="item.id"></td>
-	                               <td ng-bind="item.acceptTime"></td>
+	                               <td ng-bind="item.userId"></td>
+	                               <td ng-bind="item.shopId"></td>
 	                               <td ng-bind="item.complaintTime"></td>
 	                               <td ng-bind="item.content"></td>
 				                   <th>
@@ -92,6 +91,6 @@
 			  </div>
 				   
 
- </section></div>
+ </section>
 </body>
 </html>

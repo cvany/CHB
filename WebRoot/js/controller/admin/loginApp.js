@@ -26,6 +26,7 @@ loginApp.controller("login", ['$scope','$http','$window',function($scope,$http,$
 		.success(function(data) {
 			console.log(data);
 			if(data.serviceResult == 1) {
+				$scope.admin.userName = data.resultParam.userName;
 				$window.location.href = "index.html";
 			} else {
 				toastr.error('失败', data.resultInfo);
