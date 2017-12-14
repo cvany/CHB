@@ -36,7 +36,8 @@
 </style>
 
 <script>
-$(function(){                                            
+$(function(){  
+	isUserLogin("userLogin.html");
 	var $name_title=$("#userN");
 	var $name=$("#name");
 	var $phone=$("#phone");
@@ -377,18 +378,34 @@ function verfyEqual(value1,value2){
 	  }
 	  return false;
 }
-</script>
 
+
+/**
+ * 退出登录
+ * @returns
+ */
+function logout(){
+	$.ajax({
+		url : rootPath+"/logout.do",
+		dataType:"json",
+		success : function(data) {
+			window.location.href= "../index.html";
+		}
+	});
+}
+
+</script>
+<script src="../../../js/utils/pathUtil.js"></script>
 <body>
 <input id="hidden_pass"type="hidden"></input>
 <div id="all">
 
 <div id="head">
-       <a href="userLogin.html" style="outline:none"><img id="p_logo"src="../../../img/logowhilte.png" alt="logo"></a>
-       <a href="text.html"><label style="margin-left:500px;margin-top:60px;font-family:Times New Roman,Times,serif">首页</label></a>
+       <a href="userShopBrowse.html" style="outline:none"><img id="p_logo"src="../../../img/logowhilte.png" alt="logo"></a>
+       <a href="../index.html"><label style="margin-left:500px;margin-top:60px;font-family:Times New Roman,Times,serif">首页</label></a>
+       <a href="javascript:;" onclick="logout("../index.html")"><label style="margin-left:500px;margin-top:60px;font-family:Times New Roman,Times,serif">登出</label></a>
        <!-- <img id="head_favicon" class="img-circle" src="../../../img/log.png"></img>
        <label id="userN" style="font-family:Times New Roman,Times,serif"></label> -->
-		///dshfksj
 </div>
 <!-- 导航栏 -->
 <div id="left">

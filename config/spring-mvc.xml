@@ -49,4 +49,13 @@
 		</property>
 	</bean>
 	
+	<!-- 配置拦截器 -->
+    <mvc:interceptors>
+        <!-- 登录认证拦截器 -->
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.chb.intercepter.LoginHandlerIntercepter"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+	
 </beans>

@@ -23,3 +23,37 @@ function getParam(name)
      var r = window.location.search.substr(1).match(reg);
      if(r!=null)return  r[2]; return null;
 }
+
+/**
+ * 判断用户是否登录
+ * @returns
+ */
+function isUserLogin(loginUrl) {
+	$.ajax({
+		url : rootPath+"/isUserLogin.do",
+		dataType:"json",
+		success : function(data) {
+			if(data=="0"){	//未登录情况
+				window.location.href=loginUrl;
+			}
+		}
+	});
+}
+/**
+ * 判断用户是否登录
+ * @param pageUrl 已登录需要跳转页面的URL
+ * @returns
+ */
+function isUserLogin2(loginUrl,desUrl) {
+	$.ajax({
+		url : rootPath+"/isUserLogin.do",
+		dataType:"json",
+		success : function(data) {
+			if(data=="0"){	//未登录情况
+				window.location.href=loginUrl;
+			}else{
+				window.location.href= desUrl;
+			}
+		}
+	});
+}

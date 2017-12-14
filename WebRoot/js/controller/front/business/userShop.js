@@ -1,12 +1,11 @@
 /**
  * 商家展示页面JS
  * 崔文元
- * 2017年12月11日
+ * 2017年12月13日
  */
 var id =0;
 $(function(){
 	var loc =sessionStorage.getItem("loc");
-	alert(loc);
 	id = getParam("id");
 	//请求商家信息
 	getShopInfo(id);
@@ -42,7 +41,23 @@ $(function(){
         }
     });
 });
-
+//跳转个人中心页面
+function myOrder() {
+	isUserLogin2("../user/userLogin.html","../user/userPersonal.html");
+}
+/**
+ * 退出登录
+ * @returns
+ */
+function logout(){
+	$.ajax({
+		url : rootPath+"/logout.do",
+		dataType:"json",
+		success : function(data) {
+			window.location.href= "../index.html";
+		}
+	});
+}
 //根据id获取商店信息
 function getShopInfo() {
 	$.ajax({

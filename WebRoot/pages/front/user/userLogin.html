@@ -78,7 +78,7 @@
                 			$username.attr("title","该用户名不存在").tooltip('fixTitle').tooltip('show');
                 			$password.tooltip('destroy');
                 		}else if(result=="1"){                    //验证通过
-                			$(location).attr("href", "text.html");
+                			$(location).attr("href", "userShopBrowse.html");
                 		}else if(result=="2"){                   //密码不正确
                 			$password.attr("title","密码不正确").tooltip('fixTitle').tooltip('show');
                 			$username.tooltip('destroy');

@@ -1,16 +1,13 @@
 /**
- * 浏览商店页面JS 崔文元 2017年12月7日
+ * 浏览商店页面JS 崔文元 2017年12月13日
  */
 $(function() {//页面初始化触发函数
-	// 定位地址
-	var value = decodeURIComponent(getParam("loc"));
-	var lng = getParam("lng");
-	var lat = getParam("lat");
-	$("#location").text(value);
-	//将数据存储在sessionStorage
-	sessionStorage.setItem("lng",lng);
-	sessionStorage.setItem("lat",lat);
-	sessionStorage.setItem("loc",value);
+	isUserLogin("userLogin.html");	//判断用户是否登录
+	//从sessionStorage获取数据
+	var lng =sessionStorage.getItem("lng");
+	var lat =sessionStorage.getItem("lat");
+	var loc =sessionStorage.getItem("loc");
+	$("#location").text(loc);
 	//对搜索输入框进行监听
 	$("input[name='search']").keydown(function(e){
         if(e.keyCode ==13){
@@ -54,9 +51,21 @@ $(function() {//页面初始化触发函数
 
 //跳转个人中心页面
 function myOrder() {
-	isUserLogin2("user/userLogin.html","user/userPersonal.html");
+	isUserLogin2("userLogin.html","userPersonal.html");
 }
-
+/**
+ * 退出登录
+ * @returns
+ */
+function logout(){
+	$.ajax({
+		url : rootPath+"/logout.do",
+		dataType:"json",
+		success : function(data) {
+			window.location.href= "../index.html";
+		}
+	});
+}
 //根据页码来获取商店展示信息
 function getAllShopByPage(pageNum){
 	//分页请求所有商店和商品，每页9条记录
@@ -73,13 +82,13 @@ function getAllShopByPage(pageNum){
 function produceShop(data){
 	$(".shopList").empty();
 	for(var i=0;i<data.length;i++){
-		$(".shopList").append("<div onclick='findShopById("+data[i].shopId+")' class='shop'><div><div style='float: left;'><img width='80px' src='../../img/yp.png'></div><div style='padding-left: 100px'><p><h3><b>"+data[i].shopName+"</b></h3></p><p>★★★☆☆ 月售"+data[i].monthSales+"单</p><p>￥"+data[i].startPrice+"起送</p></div></div><div></div><div class='notice'><span><img width='20px' src='../../img/notice.png' /></span>&nbsp;&nbsp;"+data[i].shopNotice+" </div><div><div class='food'><div><img width='100px' src='../../img/yp2.png'></div><div class='goodsNam'>"+data[i].goodsName1+"</div><div class='price'>￥"+data[i].price1+"</div></div><div class='food'><div><img width='100px' src='../../img/yp2.png'></div><div  class='goodsNam'>"+data[i].goodsName2+"</div><div class='price'>￥"+data[i].price2+"</div></div><div class='food'><div><img width='100px' src='../../img/yp2.png'></div><div  class='goodsNam'>"+data[i].goodsName3+"</div><div class='price'>￥"+data[i].price3+"</div></div></div></div>");
+		$(".shopList").append("<div onclick='findShopById("+data[i].shopId+")' class='shop'><div><div style='float: left;'><img width='80px' src='../../../img/yp.png'></div><div style='padding-left: 100px'><p><h3><b>"+data[i].shopName+"</b></h3></p><p>★★★☆☆ 月售"+data[i].monthSales+"单</p><p>￥"+data[i].startPrice+"起送</p></div></div><div></div><div class='notice'><span><img width='20px' src='../../../img/notice.png' /></span>&nbsp;&nbsp;"+data[i].shopNotice+" </div><div><div class='food'><div><img width='100px' src='../../../img/yp2.png'></div><div class='goodsNam'>"+data[i].goodsName1+"</div><div class='price'>￥"+data[i].price1+"</div></div><div class='food'><div><img width='100px' src='../../../img/yp2.png'></div><div  class='goodsNam'>"+data[i].goodsName2+"</div><div class='price'>￥"+data[i].price2+"</div></div><div class='food'><div><img width='100px' src='../../../img/yp2.png'></div><div  class='goodsNam'>"+data[i].goodsName3+"</div><div class='price'>￥"+data[i].price3+"</div></div></div></div>");
 	}
 }
 
 //根据商家id跳转到商家页面
 function findShopById(id) {
-	window.location.href="business/shop.html?id="+id;
+	window.location.href="../business/userShop.html?id="+id;
 }
 
 //根据商店分类id查找相对应商店
