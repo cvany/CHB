@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>商店展示</title>
+<link rel="stylesheet" href="../../../layui/css/layui.css">
+<link rel="stylesheet" href="../../../css/front/business/shop.css">
+</head>
+<body>
+	<ul class="layui-nav" style="background-color: #FF4444" lay-filter="">
+		<li class="layui-nav-item"><a href="#"><img height="40px" src="../../../img/logowhilte.png"/></a></li>
+		<li class="layui-nav-item layui-this"><a href="../index.html">首页</a></li>
+		<li class="layui-nav-item"><a href="javascript:;" onclick="myOrder()">我的订单</a></li>
+		<li class="layui-nav-item" style="float: right;"><a href="javascript:;" onclick="logout()">退出</a></li>
+	</ul>
+		<!-- 内容区域 -->
+		<div class="content">
+			<!-- 商家展示信息 -->
+			<div class="shopInfo">
+				<div>
+					<div style="float: left;"><img width="100px" src="../../../img/yp.png"></div>
+					<div style="float: left;padding-left: 10px;">
+						<p><h2><b><span id="shopNameSpan">韩国料理</span></b></h2></p>
+						<p>★★★☆☆  月售<span id="mouthSalesSpan">100</span>单</p>	
+					</div>
+					<div class="distribuInfo">
+						<p><b><span id="averangeTimeSpan">30</span></b>分钟内</p>
+						<p>送达</p>
+					</div>
+					<div class="distribuInfo">
+						<p><b><span id="startPriceSpan">10</span></b>元</p>
+						<p>配送</p>
+					</div>
+				</div>
+			</div>
+			<hr/>
+			<!-- 工具栏 -->
+			<div class="tool">
+				<button class="layui-btn ayui-btn-radius layui-btn-normal">所有商品</button>
+				<button class="layui-btn ayui-btn-radius layui-btn-primary">全部评价</button>
+				<div style="float: right;">
+					<input type="text" style="width: 250px" name="search" placeholder="搜索美食" class="layui-input">
+				</div>
+			</div>
+			<hr/>
+			<!-- 菜品列表 -->
+			<div class="goodsList">
+				<!-- 商品 -->
+				<div class="goods">
+					<div style="float: left;"><img width="80px" src="../../../img/yp2.png"/></div>
+					<div class="ginfo" style="float: left;">
+						<p><h4><b>碳烤鸭腿肉+馋嘴土豆青菜饭</b></h4></p>
+						<p>★★★☆☆  月售100单</p>
+						<p style="color: red;"><b>￥10</b></p>
+					</div>
+					<div class="chebtn">
+						<button class="layui-btn layui-btn-sm layui-btn-radius layui-btn-normal">加入购物车</button>
+					</div>
+				</div>
+				<div class="goods">
+					<div style="float: left;"><img width="80px" src="../../../img/yp2.png"/></div>
+					<div class="ginfo" style="float: left;">
+						<p><h4><b>碳烤鸭腿肉+馋嘴土豆青菜饭</b></h4></p>
+						<p>★★★☆☆  月售100单</p>
+						<p style="color: red;"><b>￥10</b></p>
+					</div>
+					<div class="chebtn">
+						<button class="layui-btn layui-btn-sm layui-btn-radius layui-btn-normal">加入购物车</button>
+					</div>
+				</div>
+				<div class="goods">
+					<div style="float: left;"><img width="80px" src="../../../img/yp2.png"/></div>
+					<div class="ginfo" style="float: left;">
+						<p><h4><b>隆江猪脚饭</b></h4></p>
+						<p>★★★☆☆  月售100单</p>
+						<p style="color: red;"><b>￥10</b></p>
+					</div>
+					<div class="chebtn">
+						<button class="layui-btn layui-btn-sm layui-btn-radius layui-btn-normal">加入购物车</button>
+					</div>
+				</div>
+				<div class="goods">
+					<div style="float: left;"><img width="80px" src="../../../img/yp2.png"/></div>
+					<div class="ginfo" style="float: left;">
+						<p><h4><b>隆江猪脚饭</b></h4></p>
+						<p>★★★☆☆  月售100单</p>
+						<p style="color: red;"><b>￥10</b></p>
+					</div>
+					<div class="chebtn">
+						<button class="layui-btn layui-btn-sm layui-btn-radius layui-btn-normal">加入购物车</button>
+					</div>
+				</div>
+				
+				
+			</div>
+			<!-- 商家公告 -->
+			<div class="notice">
+				<div class="title">商家公告</div>
+				<div class="noticeContent">
+					叫外卖，上饿了么！餐厅联系电话：18802508719；
+					短号：668719 不好意思同学们，
+					使用红包者无效一律不接单，使用红包不能超过5元，超过5元一律无效
+				</div>
+			</div>
+		</div>
+		<!-- 购物车 -->
+		<div class="shopChe">
+			<div class="headche"><b>购物车</b><span>[清空]</span></div>
+			<div class="goodsCheList">
+				
+				<!-- <div class="goodsChe">
+					<div class="goodsname">隆江猪脚饭</div>
+					<div class="goodsnum">
+						<span onclick="subGoodsNum(this)">-</span>
+						<input style="width: 20px" type="text" value="1"/>
+						<span onclick="addGoodsNum(this)">+</span>
+					</div>
+					<div class="goodspri">￥13</div>
+				</div> -->
+				
+			</div>
+			<div class="cheprice">
+				<span><img width="38px" src="../../../img/chewhile.png"></span>
+				<span class="priceSum">0</span>
+				<span>|</span>
+				<span>配送费￥0</span>
+			</div>
+			<div class="payche">
+				<button onclick="layOrder()" class="layui-btn layui-btn-normal">下单</button>
+			</div>
+		</div>
+	
+	<script src="../../../layui/layui.js"></script>
+	<script src="../../../js/jquery/jquery-1.9.1.js"></script>
+	<script src="../../../js/utils/pathUtil.js"></script>
+	<script src="../../../js/controller/front/business/userShop.js"></script>
+</body>
+</html>

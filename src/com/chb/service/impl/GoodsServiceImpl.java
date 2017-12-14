@@ -17,6 +17,7 @@ import com.chb.entity.Goods;
 import com.chb.entity.Page;
 import com.chb.entity.PageInfo;
 import com.chb.entity.ResultMessage;
+import com.chb.entity.Shop;
 import com.chb.service.GoodsService;
 import com.chb.utils.Base64Util;
 
@@ -93,6 +94,14 @@ public class GoodsServiceImpl implements GoodsService {
 	public ResultMessage deleteGoods(List<Goods> goods) {
 		goodsDao.deleteGoods(goods);
 		return new ResultMessage(true, ResultCode.SUCCESS, "删除成功", null);
+	}
+	
+	public List<Goods> findAllGoodsByShopId(Shop shop) {
+		return goodsDao.findAllGoodsByShopId(shop);
+	}
+
+	public List<Goods> findGoodsByKeywords(Goods goods) {
+		return goodsDao.findGoodsByKeywords(goods);
 	}
 
 }

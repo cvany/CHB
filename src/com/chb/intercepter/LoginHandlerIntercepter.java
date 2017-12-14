@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.chb.constant.ResultCode;
 import com.chb.entity.ResultMessage;
+import com.chb.entity.User;
 import com.chb.utils.JsonUtil;
 
 /**
@@ -24,21 +25,18 @@ public class LoginHandlerIntercepter implements HandlerInterceptor {
 	@Override
 	public void afterCompletion(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2, Exception arg3)
 			throws Exception {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void postHandle(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2, ModelAndView arg3)
 			throws Exception {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object arg2) throws Exception {
 		response.addHeader("Access-Control-Allow-Origin","*");
 		String requestURI = request.getRequestURI();
+		System.out.println(requestURI+"###########");
 		if (requestURI.indexOf("business") > 0 && requestURI.indexOf(".do") > 0 && requestURI.indexOf("login") <= 0) {
 			HttpSession session = request.getSession();
 			String username = (String) session.getAttribute("businessmanName");
@@ -53,7 +51,18 @@ public class LoginHandlerIntercepter implements HandlerInterceptor {
 				out.close();
 				return false;
 			}
-		} else {
+		}else if(requestURI.indexOf("isUserLogin.do")>0){	//判断用户是否登录
+			HttpSession session = request.getSession();
+			User user = (User) session.getAttribute("user");
+			response.setContentType("text/html;charset=UTF8");
+			PrintWriter out = response.getWriter();
+			if(user!=null){	
+				out.write("1");//已经登录，返回状态1
+			}else{
+				out.write("0");//没有登录，返回状态0
+			}
+			return false;	//总是返回false，不放行，因为没有该isUserLogin.do路径
+		}else {
 			return true;
 		}
 	}
