@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../../css/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../layui/css/layui.css">
+    <link rel="stylesheet" href="../../../css/lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../../css/front/order/order-check.css">
+</head>
+<body ng-app="orderCheck" ng-controller="orderCheck">
+<ul class="layui-nav" style="background-color: #FF4444" lay-filter="">
+    <li class="layui-nav-item"><a href="#"><img height="40px" src="../../../img/logowhilte.png"/></a></li>
+    <li class="layui-nav-item"><a href="../index.html">首页</a></li>
+    <li class="layui-nav-item"><a href="">我的订单</a></li>
+    <li class="layui-nav-item" style="float: right;"><a href="../user/userLogin.html">登录</a></li>
+    <li class="layui-nav-item" style="float: right;"><a href="../user/register.html">注册</a></li>
+</ul>
+
+<!-- 内容区域 -->
+<div class="content" ng-show="!orderSuccess">
+    <!-- 商家展示信息 -->
+    <div class="shopInfo">
+        <div>
+            <div style="float: left;">
+                <img width="100px" src="../../../img/yp.png">
+            </div>
+            <div style="float: left;padding-left: 10px;padding-top: 15px">
+                <p>
+                <h2><b><span class="shopNameSpan" ng-bind="order.shopInfo.shopName"></span></b></h2></p>
+                <p>小炒美食</p>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div>
+        <div class="t-row table-header">
+            <div class="order-name">订单列表</div>
+            <div>单价</div>
+            <div>数量</div>
+            <div>总计</div>
+        </div>
+        <div class="t-row table-list" ng-repeat="item in orderGoodsList">
+            <div class="order-name" ng-bind="item.goods.goodsName"></div>
+            <div>￥ <span ng-bind="item.goods.goodsPrice"></span></div>
+            <div ng-bind="item.count"></div>
+            <div>￥ <span ng-bind="item.sumMoney"></span></div>
+        </div>
+        <div class="sum-money">
+            <span>共<span ng-bind="orderGoodsList.length"></span>份美食</span>
+            <span>总金额：<span class="money">￥ <span ng-bind="orderVo.sumMoney"></span></span></span>
+        </div>
+        <div class="address-box">
+            <div class="order-title">
+                <i class="fa fa-map-marker"></i>
+                <span class="order-label">配送地址:</span>
+            </div>
+            <div class="address-list">
+                <div class="active">
+                    <div class="name">小明小明小明(1379749374)
+                        <i class="fa fa-pencil pull-right"></i>
+                    </div>
+                    <div class="address">
+                        广东省海洋大学钟海楼
+                    </div>
+                    <div class="check check-box"></div>
+                    <i class="check fa fa-check"></i>
+                </div>
+                <div class="">
+                    <div class="name">小明小明小明(1379749374)
+                        <i class="fa fa-pencil pull-right"></i>
+                    </div>
+                    <div class="address">
+                        广东省海洋大学钟海楼
+                    </div>
+                    <div class="check check-box"></div>
+                    <i class="check fa fa-check"></i>
+                </div>
+                <div class="add">
+                    <i class="fa fa-plus"></i><br>
+                </div>
+            </div>
+        </div>
+        <div class="pay-type-box" style="margin-top: 20px">
+            <div class="order-title">
+                <i class="fa fa-credit-card"></i>
+                <span class="order-label">支付方式:</span>
+            </div>
+            <div class="pay-type-list">
+                <div ng-class="{0:'active'}[orderVo.payMode]"
+                     ng-click="changePayMode(0)">
+                    在线支付
+                    <div class="check check-box"></div>
+                    <i class="check fa fa-check"></i>
+                </div>
+                <div ng-class="{1:'active'}[orderVo.payMode]"
+                     ng-click="changePayMode(1)">
+                    货到付款
+                    <div class="check check-box"></div>
+                    <i class="check fa fa-check"></i>
+                </div>
+            </div>
+        </div>
+        <div class="remain-box" style="margin-top: 20px">
+            <div class="order-title">
+                <i class="fa fa-comment-o"></i>
+                <span class="order-label">备注信息:</span>
+            </div>
+            <textarea class="remain" type="text" rows="3"
+                      placeholder="备注信息填写" ng-model="orderVo.notes"></textarea>
+        </div>
+        <hr>
+        <div class="submit-box">
+            <div class="submit pull-right" ng-click="submit()">
+                提交订单
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 下单成功 -->
+<div class="content" ng-show="orderSuccess">
+    <!-- 商家展示信息 -->
+    <div class="shopInfo">
+        <div>
+            <div style="float: left;">
+                <img width="100px" src="../../../img/yp.png">
+            </div>
+            <div style="float: left;padding-left: 10px;padding-top: 15px">
+                <p>
+                <h2><b><span class="shopNameSpan" ng-bind="order.shopInfo.shopName"></span></b></h2></p>
+                <p>小炒美食</p>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="tips">
+        <div>下单成功!</div>
+        <button type="button" class="btn btn-address">查看订单</button>
+        <button type="button" class="btn btn-address" ng-show="orderVo.payMode == 0">去支付</button>
+    </div>
+</div>
+<script src="../../../js/lib/jquery-2.1.1.js"></script>
+<script src="../../../js/lib/bootstrap.min.js"></script>
+<script src="../../../js/models/OrderVo.js"></script>
+<script src="../../../js/angular/angular.js"></script>
+<script src="../../../js/controller/front/order/orderCheck.js"></script>
+</body>
+
+<!-- 添加地址 -->
+<div class="modal fade" id="add-address" tabindex="-1"
+     role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">新增收货地址</h4>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control" placeholder="收货人">
+                <input type="text" class="form-control" placeholder="手机号">
+                <input type="text" class="form-control" placeholder="省份">
+                <input type="text" class="form-control" placeholder="市">
+                <input type="text" class="form-control" placeholder="区">
+                <input type="text" class="form-control" placeholder="具体地址">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-square" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-address">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

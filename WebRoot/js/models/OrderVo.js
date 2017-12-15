@@ -1,6 +1,7 @@
 if(typeof OrderVo == 'undefined') {
 	function OrderVo() {
 		this.status;
+		this.sumMoney;
 	}
 }
 

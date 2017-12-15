@@ -1,15 +1,21 @@
 package com.chb.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.chb.entity.Order;
+import com.chb.entity.OrderGoodsList;
 import com.chb.entity.Page;
 import com.chb.entity.ResultMessage;
 import com.chb.service.OrderService;
 import com.chb.utils.JsonUtil;
+import com.google.gson.reflect.TypeToken;
 
 /**
  * 订单管理控制器
@@ -33,11 +39,12 @@ public class OrderController {
 	// 下单(创建订单)
 	@RequestMapping("user/newOrder")
 	@ResponseBody
-	public ResultMessage newOrder(String order) {
-		return new ResultMessage();
+	public ResultMessage newOrder(String order,String orderGoodsList,HttpSession session) throws Exception {
+		return orderService.newOrder(JsonUtil.jsonToObject(order, Order.class), 
+				JsonUtil.jsonToObject(orderGoodsList, new TypeToken<List<OrderGoodsList>>(){}.getType()), session);
 	}
 	
-	// 
+	// 修改支付状态
 	@RequestMapping("user/updatePayStatus")
 	@ResponseBody
 	public ResultMessage updatePayStatus(String order) {
