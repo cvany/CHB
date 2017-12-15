@@ -10,7 +10,11 @@ import com.chb.entity.ResultMessage;
 import com.chb.entity.Shop;
 import com.chb.entity.ShopInData;
 import com.chb.entity.User;
-
+/**
+ * 管理员服务接口类
+ * @author 李卓宏
+ *2017年12月6日
+ */
 public interface AdminService {
 
 	Admin findByAdminName(String adminname);

@@ -10,5 +10,10 @@
 	<select id="findByAdminName" parameterType="string" resultType="Admin">
 		SELECT <include refid="Base_Column_List" /> FROM admin WHERE userName=#{adminname}
 	</select>
+	
+	<!-- 插入返回信息 -->
+	<insert id="insertMessage" parameterType="com.chb.entity.Message">
+		INSERT INTO message(sender,receiver,type,content) values (#{sender},#{receiver},#{type},#{content})
+	</insert>
 
 </mapper>

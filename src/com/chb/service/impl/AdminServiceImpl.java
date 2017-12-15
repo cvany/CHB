@@ -19,6 +19,7 @@ import com.chb.entity.Admin;
 import com.chb.entity.Businessman;
 import com.chb.entity.Complaint;
 import com.chb.entity.Goods;
+import com.chb.entity.Message;
 import com.chb.entity.Page;
 import com.chb.entity.PageInfo;
 import com.chb.entity.ResultMessage;
@@ -27,7 +28,11 @@ import com.chb.entity.ShopInData;
 import com.chb.entity.User;
 import com.chb.service.AdminService;
 
-
+/**
+ * 管理员服务接口实现类
+ * @author 李卓宏
+ *2017年12月6日
+ */
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -134,7 +139,12 @@ public class AdminServiceImpl implements AdminService {
 	public ResultMessage checkBusinessOkById(Shop shop) {
 		System.out.println(shop.getId()+"审核通过服务接口");
 		Integer checkBusinessResult=shopDao.updateShopById(shop.getId());
-		System.out.println(checkBusinessResult);
+		Message message=new Message();
+		message.setSender(1);
+		message.setReceiver(shop.getId());
+		message.setType(5);
+		message.setContent("你的商店"+shop.getShopName()+"已上线");
+		Integer inMessage=adminDao.insertMessage(message);
 		if (checkBusinessResult ==1) {
 			return new ResultMessage(true, ResultCode.SUCCESS, "通过成功", checkBusinessResult);
 		}
@@ -146,7 +156,12 @@ public class AdminServiceImpl implements AdminService {
 	public ResultMessage deleteBusinessById(Shop shop) {
 		System.out.println(shop.getId()+"删除商家服务接口");
 		Integer deleteShopResult=shopDao.deleteShopById(shop.getId());
-		System.out.println(deleteShopResult);
+		Message message=new Message();
+		message.setSender(1);
+		message.setReceiver(shop.getId());
+		message.setType(5);
+		message.setContent("你的商店"+shop.getShopName()+"未通过审核");
+		Integer inMessage=adminDao.insertMessage(message);
 		if (deleteShopResult == 1  ) {
 			return new ResultMessage(true, ResultCode.SUCCESS, "通过成功", deleteShopResult);
 		}
@@ -168,7 +183,12 @@ public class AdminServiceImpl implements AdminService {
 	public ResultMessage updateShopById(Shop shop) {
 		System.out.println(shop.getId()+shop.getCredibility()+shop.getIsOnline()+shop.getIsPass()+"修改商家服务接口");
 		Shop checkBusinessResult=shopDao.updateShop(shop);
-		System.out.println(checkBusinessResult);
+		Message message=new Message();
+		message.setSender(1);
+		message.setReceiver(shop.getId());
+		message.setType(5);
+		message.setContent("你的商店信息"+shop.getShopName()+"已修改");
+		Integer inMessage=adminDao.insertMessage(message);
 		if (checkBusinessResult !=null) {
 			return new ResultMessage(true, ResultCode.SUCCESS, "修改成功", checkBusinessResult);
 		}
@@ -193,6 +213,12 @@ public class AdminServiceImpl implements AdminService {
 		System.out.println(goods.getId()+"审核商品通过服务接口");
 		Integer updateResult=goodsDao.updateGoodsById(goods.getId());
 		System.out.println(updateResult);
+		Message message=new Message();
+		message.setSender(1);
+		message.setReceiver(goods.getId());
+		message.setType(5);
+		message.setContent("你的商品"+goods.getGoodsName()+"已上线");
+		Integer inMessage=adminDao.insertMessage(message);
 		if (updateResult == 1 ) {
 			return new ResultMessage(true, ResultCode.SUCCESS, "通过成功", updateResult);
 		}
@@ -205,6 +231,12 @@ public class AdminServiceImpl implements AdminService {
 		System.out.println(goods.getId()+"删除商家服务接口");
 		Integer deleteGoodsResult=goodsDao.deleteGoodsById(goods.getId());
 		System.out.println(deleteGoodsResult);
+		Message message=new Message();
+		message.setSender(1);
+		message.setReceiver(goods.getId());
+		message.setType(5);
+		message.setContent("你的商品"+goods.getGoodsName()+"不合要求，请重新申请");
+		Integer inMessage=adminDao.insertMessage(message);
 		if (deleteGoodsResult == 1  ) {
 			return new ResultMessage(true, ResultCode.SUCCESS, "通过成功", deleteGoodsResult);
 		}
@@ -228,6 +260,12 @@ public class AdminServiceImpl implements AdminService {
 		System.out.println(complaint.getId()+"审核投诉通过服务接口");
 		Integer updateResult=complaintDao.updateComplaintById(complaint.getId());
 		System.out.println(updateResult);
+		Message message=new Message();
+		message.setSender(1);
+		message.setReceiver(complaint.getId());
+		message.setType(5);
+		message.setContent("你的投诉信息已受理");
+		Integer inMessage=adminDao.insertMessage(message);
 		if (updateResult == 1 ) {
 			return new ResultMessage(true, ResultCode.SUCCESS, "通过成功", updateResult);
 		}
@@ -240,6 +278,12 @@ public class AdminServiceImpl implements AdminService {
 		System.out.println(complaint.getId()+"删除投诉信息服务接口");
 		Integer deleteComplaintResult=complaintDao.deleteComplaintById(complaint.getId());
 		System.out.println(deleteComplaintResult);
+		Message message=new Message();
+		message.setSender(1);
+		message.setReceiver(complaint.getId());
+		message.setType(5);
+		message.setContent("你的投诉信息无效");
+		Integer inMessage=adminDao.insertMessage(message);
 		if (deleteComplaintResult == 1  ) {
 			return new ResultMessage(true, ResultCode.SUCCESS, "通过成功", deleteComplaintResult);
 		}

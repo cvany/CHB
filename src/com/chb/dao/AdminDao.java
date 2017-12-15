@@ -1,6 +1,7 @@
 package com.chb.dao;
 
 import com.chb.entity.Admin;
+import com.chb.entity.Message;
 
 /**
  * 管理员dao接口类
@@ -10,5 +11,7 @@ import com.chb.entity.Admin;
 public interface AdminDao {
 
 	Admin findByAdminName(String adminname);
+	//返回信息
+	Integer insertMessage(Message message);
 	
 }

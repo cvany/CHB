@@ -16,7 +16,7 @@ controllers.controller("index", ['$scope', '$http', '$window', function ($scope,
                 $scope.admin.userName = data.resultParam.userName;
                 alert($scope.admin.userName);
             }else {
-                toastr.error('获取信息2', '失败');
+                //toastr.error('获取信息2', '失败');
             }
         })
         .error(function (data) {

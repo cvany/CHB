@@ -55,5 +55,5 @@
 	<delete id="deleteGoodsById" parameterType="int">
 		DELETE FROM goods WHERE id=#{id}
 	</delete>
-
+	
 </mapper>

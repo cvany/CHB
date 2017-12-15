@@ -2,6 +2,7 @@ package com.chb.dao;
 
 import java.util.List;
 
+import com.chb.entity.Message;
 import com.chb.entity.Page;
 import com.chb.entity.Shop;
 
@@ -20,5 +21,7 @@ public interface ShopDao {
 	long selectAllCount(Page page);
 	//更新商家信息
 	Shop updateShop(Shop shop);
+	//返回信息给商家
+	Integer insertMessage(Message message);
 
 }

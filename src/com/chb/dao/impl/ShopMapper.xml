@@ -94,5 +94,6 @@
 	<delete id="deleteShopById" parameterType="int">
 		DELETE FROM shop WHERE id=#{id}
 	</delete>
+	
 
 </mapper>
