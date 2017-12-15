@@ -1,0 +1,68 @@
+/**
+ * Created by shilim on 2017/12/14.
+ */
+var orderCheck = angular.module("orderCheck", []);
+// var baseUrl = "/CHB/";
+var baseUrl = "http://localhost:8080/CHB/";
+orderCheck
+    .config(['$httpProvider', function ($httpProvider) {
+        $httpProvider.defaults.transformRequest = function (obj) {
+            var str = [];
+            for (var p in obj) {
+                str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+            }
+            return str.join("&");
+        };
+        $httpProvider.defaults.headers.post = {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        }
+    }]);
+
+orderCheck.controller("orderCheck", ['$scope', '$http', '$window', function ($scope, $http, $window) {
+    if (sessionStorage.order) {
+        $scope.order = JSON.parse(sessionStorage.order)
+    } else {
+        $scope.order = {
+            shopInfo: {},
+            shopCartList: {}
+        }
+    }
+
+    // 下单成功标志
+    $scope.orderSuccess = false;
+
+    $scope.orderGoodsList = []
+    $scope.orderVo = new OrderVo();
+    $scope.orderVo.sumMoney = 0;
+    $scope.orderVo.payMode = 0;
+    Object.keys($scope.order.shopCartList).forEach(function (key, index) {
+        $scope.orderGoodsList.push($scope.order.shopCartList[key])
+        $scope.orderVo.sumMoney += $scope.order.shopCartList[key].sumMoney * 1
+    })
+
+    $scope.changePayMode = function (payMode) {
+        $scope.orderVo.payMode = payMode;
+    }
+
+    $scope.submit = function () {
+        $scope.orderVo.shopId = $scope.order.shopInfo.id;
+        var url = baseUrl + "user/newOrder.do";
+        var data = {
+            order: $scope.orderVo.voToJson(),
+            orderGoodsList: JSON.stringify($scope.orderGoodsList)
+        };
+        $http.post(url, data)
+            .success(function (data) {
+                console.log(data);
+                if (data.serviceResult == 1) {
+                    $scope.orderSuccess = true;
+                } else {
+                    alert('下单失败')
+                }
+            })
+            .error(function (data) {
+                alert('下单失败')
+            });
+    }
+
+}]);

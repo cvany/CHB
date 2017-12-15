@@ -19,15 +19,15 @@ public interface OrderDao {
 	List<Order> selectOrderListByPage(Map<String, Object> map);
 	
 	// 增加订单
-	Void addOrder(Order order);
+	Integer addOrder(Order order);
 	
 	// 修改订单编号
-	Void updateOrderNum(Order order);
+	Integer updateOrderNum(Order order);
 	
 	// 修改订单状态
-	Void updateOrderStatus(Order order);
+	Integer updateOrderStatus(Order order);
 	
 	// 修改支付状态
-	Void updateOrderPayStatus(Order order);
+	Integer updateOrderPayStatus(Order order);
 	
 }

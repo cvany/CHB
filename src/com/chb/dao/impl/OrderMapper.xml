@@ -5,7 +5,7 @@
 
 	<sql id="Base_Column_List">
 		id, orderNo,
-		userId,shopId,shopId,notes,sumMoney,payMode,createTime,
+		userId,shopId,shopId,status,notes,sumMoney,payMode,createTime,
 		acceptTime,shopConfirmTime,userConfirmTime,isPay,paySerialsNumber
 	</sql>
 
@@ -26,7 +26,15 @@
 				</if>
 			</if>
 			<if test="order.status != null and order.status != ''">
-				AND status = #{order.status}
+				<if test="order.status == 1">
+					AND status = 0 OR status = 1
+				</if>
+				<if test="order.status == 2">
+					AND status = 2 OR status = 3 OR status = 4
+				</if>
+				<if test="order.status == 3">
+					AND status = 5
+				</if>
 			</if>
 		</where>
 	</select>
@@ -48,38 +56,57 @@
 				</if>
 			</if>
 			<if test="order.status != null and order.status != ''">
-				AND status = #{order.status}
+				<if test="order.status == 1">
+					AND status = 0 OR status = 1
+				</if>
+				<if test="order.status == 2">
+					AND status = 2 OR status = 3 OR status = 4
+				</if>
+				<if test="order.status == 3">
+					AND status = 5
+				</if>
 			</if>
 		</where>
 	</select>
 
 	<!-- 增加订单 -->
 	<insert id="addOrder" parameterType="Order">
+		<selectKey resultType="java.lang.Integer" keyProperty="id"
+			order="AFTER">
+			select @@IDENTITY as id
+		</selectKey>
 		INSERT INTO
 		<include refid="t_order" />
 		(orderNo,userId,shopId,notes,sumMoney,payMode)
 		VALUES
 		(#{orderNo},#{userId},#{shopId},#{notes},#{sumMoney},#{payMode})
 	</insert>
-	
+
 	<!-- 修改订单编号 -->
 	<update id="updateOrderNum">
-		UPDATE <include refid="t_order" /> SET
-		orderNo = #{orderNo} WHERE id = id
+		UPDATE
+		<include refid="t_order" />
+		SET
+		orderNo = #{orderNo} WHERE id = #{id}
 	</update>
-	
+
 	<!-- 修改订单状态 -->
 	<update id="updateOrderStatus" parameterType="Order">
-		UPDATE <include refid="t_order" /> SET
+		UPDATE
+		<include refid="t_order" />
+		SET
 		status = #{status} WHERE id = #{id}
 	</update>
-	
+
 	<!-- 修改支付状态 -->
 	<update id="updateOrderPayStatus" parameterType="Order">
-		UPDATE <include refid="t_order" /> SET
+		UPDATE
+		<include refid="t_order" />
+		SET
 		isPay = #{isPay},
 		paySerialsNumber = #{paySerialsNumber}
-		WHERE id = #{id}
+		WHERE id =
+		#{id}
 	</update>
 
 </mapper>

@@ -19,9 +19,20 @@
 
 	<select id="selectOrderGoodsListByOrderId" parameterType="Integer"
 		resultMap="BaseResultMap">
-		select <include refid="Base_Column_List"></include>
+		select
+		<include refid="Base_Column_List"></include>
 		from order_goods_list
 		where
 		orderId = #{orderId}
 	</select>
+
+	<!-- 添加订单商品列表 -->
+	<insert id="addOrderGoodsList" parameterType="java.util.Map">
+		insert into order_goods_list (orderId,goodsId,count,sumMoney)
+		values
+		<foreach collection="orderGoodsList" item="item" index="index"
+			separator=",">
+			(#{order.id},#{item.goodsId},#{item.count},#{item.sumMoney})
+		</foreach>
+	</insert>
 </mapper>

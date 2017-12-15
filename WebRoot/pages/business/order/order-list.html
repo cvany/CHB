@@ -91,8 +91,8 @@
                             <td ng-bind="item.orderNo"></td>
                             <td ng-bind="item.userId"></td>
                             <td ng-bind="item.sumMoney"></td>
-                            <td ng-bind="item.payMode"></td>
-                            <td ng-bind="item.status"></td>
+                            <td ng-bind="item.payMode | payModeFormat"></td>
+                            <td ng-bind="item | orderStatusFormat"></td>
                         </tr>
                         <tr ng-show="orderList.list.length==0">
                             <td class="text-center" colspan="7">没有记录</td>

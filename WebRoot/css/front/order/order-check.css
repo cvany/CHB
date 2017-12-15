@@ -1,0 +1,216 @@
+.content{
+    width: 86%;
+    height: 100%;
+    margin-left:7%;
+}
+.shopInfo{
+    margin:20px;
+}
+.shopInfo p{
+    padding-top: 5px;
+}
+.shopNameSpan{
+    font-size: 18px;
+}
+
+.t-row{
+    display: flex;
+    flex-direction: row;
+    height: 40px;
+    line-height: 40px;
+}
+.t-row>div:not(.order-name):not(.operation){
+    flex: 1;
+    text-align: center;
+}
+
+.order-name {
+    width: 650px;
+    padding-left: 20px;
+}
+.operation {
+    width: 40px;
+}
+
+.table-header {
+    background: #eee;
+    color: #232323;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.table-list {
+    height: 50px;
+    line-height: 50px;
+    color: #444;
+    border-left: #e6e6e6 1px solid;
+    border-right: #e6e6e6 1px solid;
+    border-bottom: #e6e6e6 1px solid;
+}
+
+.sum-money{
+    text-align: right;
+    padding: 10px 20px;
+    color: #232323;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.money{
+    font-size: 20px;
+    color: #ff261a;
+}
+
+.order-title{
+    width: 90px;
+}
+
+.address-box,.pay-type-box,.remain-box {
+    display: flex;
+    flex-direction: row;
+}
+.address-box>.order-label{
+    margin: 0 5px;
+}
+.address-list,.pay-type-list{
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+}
+.address-list>div {
+    position: relative;
+    width: 200px;
+    height: 150px;
+    border:1px solid #e6e6e6;
+    margin-left: 20px;
+    padding: 10px;
+    color: #666;
+    background: #FAFAFA;
+    box-sizing: content-box;
+}
+.address-list>div.active{
+    border-color: #FF4444;
+}
+
+.address-list>div.active .check-box{
+    width: 0;
+    height: 0;
+    border-bottom: 25px solid red;
+    border-left: 25px solid transparent;
+}
+
+.name{
+    border-bottom: 1px solid #e6e6e6;
+    padding-bottom: 5px;
+}
+.address{
+    padding-top: 5px;
+}
+.check-box{
+    width: 0;
+    height: 0;
+    border-bottom: 25px solid transparent;
+    border-left: 25px solid transparent;
+}
+.check{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+i.check{
+    color: #FAFAFA;
+}
+.add{
+    text-align: center;
+    line-height: 150px;
+    font-size: 20px;
+}
+
+.pay-type-list>div{
+    position: relative;
+    width: 150px;
+    height: 30px;
+    border:1px solid #e6e6e6;
+    margin-left: 20px;
+    padding: 10px;
+    color: #666;
+    background: #FAFAFA;
+    font-size: 16px;
+    text-align: center;
+    line-height: 30px;
+    box-sizing: content-box;
+    cursor: pointer;
+}
+
+.pay-type-list>div.active{
+    border-color: #FF4444;
+}
+
+.pay-type-list>div.active .check-box{
+    width: 0;
+    height: 0;
+    border-bottom: 25px solid red;
+    border-left: 25px solid transparent;
+}
+
+.remain {
+    flex: 1;
+    margin-left: 20px;
+    padding: 5px 10px;
+    resize: none;
+    color: #666;
+}
+
+.submit-box{
+    height: 40px;
+    margin-bottom: 30px;
+}
+.submit{
+    width: 100px;
+    height: 35px;
+    background: #FF4444;
+    color: #ffffff;
+    cursor: pointer;
+    line-height: 35px;
+    text-align: center;
+    font-size: 15px;
+    moz-user-select: -moz-none;
+    -moz-user-select: none;
+    -o-user-select:none;
+    -khtml-user-select:none;
+    -webkit-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+}
+.submit:hover{
+    background: #d63939;
+}
+
+#add-address input {
+    margin-top: 10px;
+}
+
+.btn-square{
+    border-radius: 0;
+}
+.btn-address {
+    color: #fff !important;
+    background-color: #FF4444;
+    border-color: #FF4444;
+    border-radius: 0;
+}
+.btn-address:hover {
+    background: #d63939;
+}
+
+.tips{
+    font-size: 20px;
+    padding: 20px;
+    color: #FF4444;
+}
+.tips div{
+    margin-bottom: 20px;
+}
+.tips button{
+    margin-right: 20px;
+}
