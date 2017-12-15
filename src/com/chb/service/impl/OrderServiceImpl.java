@@ -18,6 +18,7 @@ import com.chb.entity.OrderGoodsList;
 import com.chb.entity.Page;
 import com.chb.entity.PageInfo;
 import com.chb.entity.ResultMessage;
+import com.chb.entity.User;
 import com.chb.service.OrderService;
 import com.chb.utils.TimeUtil;
 

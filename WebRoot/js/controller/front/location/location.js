@@ -24,11 +24,12 @@ controllers.controller("location",['$scope','$timeout',function($scope,$timeout)
 					url : rootPath+"/isUserLogin.do",
 					dataType:"json",
 					success : function(data) {
-						if(data=="0"){	//未登录情况
-							window.location.href ="shopBrowse.html?lng="+point.lng+"&lat="+point.lat+"&loc="+val;
-						}else{
-							window.location.href ="user/userShopBrowse.html?lng="+point.lng+"&lat="+point.lat+"&loc="+val;
-						}
+						window.location.href ="shopBrowse.html?lng="+point.lng+"&lat="+point.lat+"&loc="+val;
+//						if(data=="0"){	//未登录情况
+//							window.location.href ="shopBrowse.html?lng="+point.lng+"&lat="+point.lat+"&loc="+val;
+//						}else{
+//							window.location.href ="user/userShopBrowse.html?lng="+point.lng+"&lat="+point.lat+"&loc="+val;
+//						}
 					}
 				});
 			}else{
