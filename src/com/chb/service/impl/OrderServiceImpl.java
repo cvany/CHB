@@ -51,8 +51,8 @@ public class OrderServiceImpl implements OrderService {
 	// 下单(添加订单)
 	@Override
 	public ResultMessage newOrder(Order order, List<OrderGoodsList> orderGoodsList, HttpSession session) {
-//		order.setUserId(((User)session.getAttribute("user")).getId());
-		order.setUserId(1);
+		order.setUserId(((User)session.getAttribute("user")).getId());
+//		order.setUserId(1);
 		orderDao.addOrder(order);
 		order.setOrderNo(TimeUtil.getCurrentTimeString("yyyyMMddHHmmss")+order.getShopId()+order.getId());
 		orderDao.updateOrderNum(order);
