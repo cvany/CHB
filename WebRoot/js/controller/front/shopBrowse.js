@@ -2,6 +2,13 @@
  * 浏览商店页面JS 崔文元 2017年12月7日
  */
 $(function() {//页面初始化触发函数
+	//获取用户登录标识
+	var userToken =sessionStorage.getItem("userToken");
+	if(userToken!="null"&&userToken=="true"){
+		$(".login").remove();
+		$(".register").remove();
+		$(".layui-nav").append("<li class='layui-nav-item alreadyLogin' style='float: right;'><a href='javascript:;' onclick='logout()'>退出</a></li>");
+	}
 	// 定位地址
 	var value = decodeURIComponent(getParam("loc"));
 	if(value=="null"){
@@ -66,8 +73,24 @@ function myOrder() {
 	//保存当前的URL地址
 	var curUrl = window.document.location.href;
 	sessionStorage.setItem("curUrl",curUrl);
+	window.location.href ="user/userPersonal.html";
 }
-
+/**
+ * 退出登录
+ * @returns
+ */
+function logout(){
+	$.ajax({
+		url : rootPath+"/logout.do",
+		dataType:"json",
+		success : function(data) {
+			sessionStorage.setItem("userToken","false");
+			$(".alreadyLogin").remove();
+			$(".layui-nav").append("<li class='layui-nav-item login' style='float: right;'><a href='user/userLogin.html'>登录</a></li>");
+			$(".layui-nav").append("<li class='layui-nav-item register' style='float: right;'><a href='user/register.html'>注册</a></li>");
+		}
+	});
+}
 //根据页码来获取商店展示信息
 function getAllShopByPage(pageNum){
 	//分页请求所有商店和商品，每页9条记录

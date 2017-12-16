@@ -5,6 +5,13 @@
  */
 var id = 0;
 $(function () {
+	//获取用户登录标识
+	var userToken =sessionStorage.getItem("userToken");
+	if(userToken!="null"&&userToken=="true"){
+		$(".login").remove();
+		$(".register").remove();
+		$(".layui-nav").append("<li class='layui-nav-item alreadyLogin' style='float: right;'><a href='javascript:;' onclick='logout()'>退出</a></li>");
+	}
     var loc = sessionStorage.getItem("loc");
     id = getParam("id");
     //请求商家信息
@@ -41,6 +48,31 @@ $(function () {
         }
     });
 });
+
+/**
+ * 退出登录
+ * @returns
+ */
+function logout(){
+	$.ajax({
+		url : rootPath+"/logout.do",
+		dataType:"json",
+		success : function(data) {
+			sessionStorage.setItem("userToken","false");
+			$(".alreadyLogin").remove();
+			$(".layui-nav").append("<li class='layui-nav-item login' style='float: right;'><a href='../user/userLogin.html'>登录</a></li>");
+			$(".layui-nav").append("<li class='layui-nav-item register' style='float: right;'><a href='../user/register.html'>注册</a></li>");
+		}
+	});
+}
+//跳转个人中心页面
+function myOrder() {
+	isUserLogin("../user/userLogin.html");
+	//保存当前的URL地址
+	var curUrl = window.document.location.href;
+	sessionStorage.setItem("curUrl",curUrl);
+	window.location.href ="../user/userPersonal.html";
+}
 
 var shopInfo = new ShopVo();
 
@@ -188,6 +220,7 @@ function clearChe() {
 
 //下单
 function layOrder() {
+	isUserLogin("../user/userLogin.html");
     if (Object.keys(shopCartList).length == 0) return
     var order = {
         shopInfo: shopInfo,

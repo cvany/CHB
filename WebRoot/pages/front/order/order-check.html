@@ -12,9 +12,7 @@
 <ul class="layui-nav" style="background-color: #FF4444" lay-filter="">
     <li class="layui-nav-item"><a href="#"><img height="40px" src="../../../img/logowhilte.png"/></a></li>
     <li class="layui-nav-item"><a href="../shopBrowse.html">首页</a></li>
-    <li class="layui-nav-item"><a href="">我的订单</a></li>
-    <li class="layui-nav-item" style="float: right;"><a href="../user/userLogin.html">登录</a></li>
-    <li class="layui-nav-item" style="float: right;"><a href="../user/register.html">注册</a></li>
+    <li class="layui-nav-item"><a href="javascript:;" onclick="myOrder()">我的订单</a></li>
 </ul>
 
 <!-- 内容区域 -->
@@ -145,6 +143,17 @@
 <script src="../../../js/models/OrderVo.js"></script>
 <script src="../../../js/angular/angular.js"></script>
 <script src="../../../js/controller/front/order/orderCheck.js"></script>
+<script src="../../../js/utils/pathUtil.js"></script>
+<script>
+//跳转个人中心页面
+function myOrder() {
+	isUserLogin("../user/userLogin.html");
+	//保存当前的URL地址
+	var curUrl = window.document.location.href;
+	sessionStorage.setItem("curUrl",curUrl);
+	window.location.href ="../user/userPersonal.html";
+}
+</script>
 </body>
 
 <!-- 添加地址 -->

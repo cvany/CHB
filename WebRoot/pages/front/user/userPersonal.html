@@ -378,8 +378,6 @@ function verfyEqual(value1,value2){
 	  }
 	  return false;
 }
-
-
 /**
  * 退出登录
  * @returns
@@ -389,11 +387,11 @@ function logout(){
 		url : rootPath+"/logout.do",
 		dataType:"json",
 		success : function(data) {
-			window.location.href= "../index.html";
+			sessionStorage.setItem("userToken","false");
+			window.location.href= "../shopBrowse.html";
 		}
 	});
 }
-
 </script>
 <script src="../../../js/utils/pathUtil.js"></script>
 <body>
@@ -409,7 +407,7 @@ function logout(){
 </div> -->
 	<ul class="layui-nav" style="background-color: #668B8B" lay-filter="">
 		<li class="layui-nav-item"><a href="#"><img height="40px" src="../../../img/logowhilte.png"/></a></li>
-		<li class="layui-nav-item"><a href="../user/userShopBrowse.html">首页</a></li>
+		<li class="layui-nav-item"><a href="../shopBrowse.html">首页</a></li>
 		<li class="layui-nav-item" style="float: right;"><a href="javascript:;" onclick="logout()">退出</a></li>
 	</ul>
 <!-- 导航栏 -->
