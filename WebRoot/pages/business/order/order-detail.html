@@ -28,6 +28,7 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>订单详情</h5>
+                    <span style="margin-left: 10px" ng-bind="'( '+order.orderNo+' )'"></span>
                 </div>
                 <div class="ibox-content">
                     <div class="input-group pull-left">
@@ -35,23 +36,25 @@
                                 class="fa fa-mail-reply"></i> 返回
                         </a>
                     </div>
-                    <div class="input-group pull-left" style="margin-left: 10px;">
-                        <a class="btn btn-sm  btn-primary" ng-click="submit()">接单</a>
+                    <div class="input-group pull-left" style="margin-left: 10px;" ng-show="btnText != ''">
+                        <a class="btn btn-sm  btn-primary" ng-click="submit()"
+                           ng-bind="btnText"></a>
                     </div>
                     <div class="clearfix"></div>
 
                     <div class="ibox-content forum-container" style="margin-top: 10px;padding: 5px!important;">
                         <div class="forum-title">
-                            <div class="pull-right forum-desc">
-                                <h3>结算 : ￥ <span ng-bind="sumMoney"></span></h3>
+                            <div class="pull-right forum-desc" style="margin-bottom: 20px;margin-right: 10px">
+                                <span>结算 : ￥ <span style="font-size: 30px;color: #ff331f" ng-bind="sumMoney"></span></span>
                             </div>
                             <h3>菜品列表</h3>
                         </div>
                         <div class="forum-item active" ng-repeat="item in orderGoodsList">
                             <div class="row">
                                 <div class="col-md-10">
-                                    <div class="forum-icon">
-                                        <i class="fa fa-shield"></i>
+                                    <div class="forum-icon" style="width: 50px">
+                                        <img width="50" height="50" ng-src="{{'/../'+item.goods.goodsPhoto | imageUrlVersion}}" alt="">
+                                        <!--<i class="fa fa-shield"></i>-->
                                     </div>
                                     <a class="forum-item-title" ng-bind="item.goods.goodsName"></a>
                                     <div class="forum-sub-title">￥<span ng-bind="item.goods.goodsPrice"></span> /份</div>
@@ -78,7 +81,7 @@
                 <div class="ibox-content m-b-sm border-bottom">
                     <div class="p-xs">
                         <h3>备注：</h3>
-                        <span>不加辣</span>
+                        <span ng-bind="order.notes"></span>
                     </div>
                 </div>
             </div>

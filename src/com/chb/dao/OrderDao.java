@@ -30,4 +30,6 @@ public interface OrderDao {
 	// 修改支付状态
 	Integer updateOrderPayStatus(Order order);
 	
+	// 通过id查询订单
+	Order selectOrderById(Integer id);
 }

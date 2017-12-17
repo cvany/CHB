@@ -36,6 +36,10 @@
 			</if>
 		</where>
 	</select>
+	
+	<select id="selectUserNameByPrimaryKey" parameterType="Integer" resultType="User">
+		SELECT userName FROM user WHERE id = #{id}
+	</select>
 
 	<select id="findByUserPhone" parameterType="string" resultType="User">
 		SELECT * FROM user WHERE phone=#{phone}

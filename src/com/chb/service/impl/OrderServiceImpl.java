@@ -52,17 +52,38 @@ public class OrderServiceImpl implements OrderService {
 	// 下单(添加订单)
 	@Override
 	public ResultMessage newOrder(Order order, List<OrderGoodsList> orderGoodsList, HttpSession session) {
-		order.setUserId(((User)session.getAttribute("user")).getId());
-//		order.setUserId(1);
+		order.setUserId(((User) session.getAttribute("user")).getId());
+		// order.setUserId(1);
 		orderDao.addOrder(order);
-		order.setOrderNo(TimeUtil.getCurrentTimeString("yyyyMMddHHmmss")+order.getShopId()+order.getId());
+		order.setOrderNo(TimeUtil.getCurrentTimeString("yyyyMMddHHmmss") + order.getShopId() + order.getId());
 		orderDao.updateOrderNum(order);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("order", order);
 		map.put("orderGoodsList", orderGoodsList);
 		orderGoodsListDao.addOrderGoodsList(map);
 		System.out.println(order);
-		return new ResultMessage(true, ResultCode.SUCCESS, "下单成功", null);
+		return new ResultMessage(true, ResultCode.SUCCESS, "下单成功", order);
+	}
+
+	// 商家接单
+	@Override
+	public ResultMessage takeOrder(Order order) {
+		order.setStatus(2);
+		orderDao.updateOrderStatus(order);
+		return new ResultMessage(true, ResultCode.SUCCESS, "接单成功", null);
+	}
+
+	// 开始配送
+	@Override
+	public ResultMessage sendGoods(Order order) {
+		order.setStatus(3);
+		orderDao.updateOrderStatus(order);
+		return new ResultMessage(true, ResultCode.SUCCESS, "开始配送成功", null);
+	}
+
+	@Override
+	public Integer updateOrderPayStatus(Order order) {
+		return orderDao.updateOrderPayStatus(order);
 	}
 
 }

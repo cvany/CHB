@@ -10,6 +10,9 @@ import com.chb.entity.User;
  */
 @Repository("userDao")
 public interface UserDao {
+	// 通过id查询用户名
+	User selectUserNameByPrimaryKey(Integer id);
+	
 	User findByUsername(String username);
 	
 	User findByUserPhone(String phone);

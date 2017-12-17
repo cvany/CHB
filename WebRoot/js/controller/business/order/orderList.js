@@ -81,8 +81,8 @@ controllers.controller("orderList", ['$scope', '$http', '$state', function ($sco
     }
 
 
-    //用户查询
-    $scope.searchUser = function (e) {
+    //订单查询
+    $scope.searchOrder = function (e) {
         if (e && e.keyCode != 13) return;
         sessionStorage.orderListPageNum = 1;
         $scope.page.fuzzy = true;
@@ -140,8 +140,9 @@ controllers.controller("orderList", ['$scope', '$http', '$state', function ($sco
     }
 
     //跳转修改页
-    $scope.toDetailPage = function (id) {
-        $state.go("orderDetail", {id: id});
+    $scope.toDetailPage = function (item) {
+        sessionStorage.tempOrder = JSON.stringify(item)
+        $state.go("orderDetail", {type: $scope.order.status, id: item.id});
     }
 
 }]);
