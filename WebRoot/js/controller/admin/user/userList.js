@@ -99,8 +99,9 @@ controllers.controller("userList", ['$scope','$http','$state',function($scope,$h
     //删除确认提示
     $scope.deleteType = "";
     $scope.deleteId = ""
-    $scope.deleteTips = function(type,id) {
+    $scope.deleteTips = function(type,id,userName) {
         $scope.deleteType = type;
+        $scope.deleteUserName=userName;
         if(id){
             $scope.deleteId = id;
         }
@@ -113,6 +114,7 @@ controllers.controller("userList", ['$scope','$http','$state',function($scope,$h
         if($scope.deleteType == "one") {
             var userVo = new UserVo();
             userVo.id = $scope.deleteId;
+            userVo.userName=$scope.deleteUserName;
             //alert(userVo.id);
             userList.push(userVo);
             var url = baseUrl + "adminDeleteUser.do";

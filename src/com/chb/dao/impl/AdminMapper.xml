@@ -15,5 +15,9 @@
 	<insert id="insertMessage" parameterType="com.chb.entity.Message">
 		INSERT INTO message(sender,receiver,type,content) values (#{sender},#{receiver},#{type},#{content})
 	</insert>
+	
+	<select id="getManagerLog" resultType="String">
+		SELECT content FROM message WHERE type=5
+	</select>
 
 </mapper>

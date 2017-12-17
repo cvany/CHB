@@ -1,6 +1,7 @@
 package com.chb.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -53,6 +54,12 @@ public class AdminController {
 	public ResultMessage adminLogout(HttpSession session) throws Exception {
 		return adminService.adminLogout(session);
 	}
-
+	// 通过用户名获取管理员信息
+	@RequestMapping("managerLog")
+	@ResponseBody
+	public List<String> getManagerLog() {
+		System.out.println("查询管理日志数据***");
+		return adminService.getManagerLog();
+	}
 	
 }

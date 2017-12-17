@@ -17,8 +17,26 @@ public class Complaint {
 	private String content;
 	private Integer status;
 	//添加用户名与商店名来联合查询
+	private Integer userId;
+	private Integer shopId;
 	private String userName;
 	private String shopName;
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+	public Integer getShopId() {
+		return shopId;
+	}
+
+	public void setShopId(Integer shopId) {
+		this.shopId = shopId;
+	}
+
 	public String getUserName() {
 		return userName;
 	}

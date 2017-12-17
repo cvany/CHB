@@ -1,5 +1,7 @@
 package com.chb.dao;
 
+import java.util.List;
+
 import com.chb.entity.Admin;
 import com.chb.entity.Message;
 
@@ -13,5 +15,7 @@ public interface AdminDao {
 	Admin findByAdminName(String adminname);
 	//返回信息
 	Integer insertMessage(Message message);
+	//查看管理日志
+	List<String> getManagerLog();
 	
 }

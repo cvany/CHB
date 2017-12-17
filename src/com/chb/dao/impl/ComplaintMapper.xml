@@ -7,7 +7,8 @@
 		id, businessmanId, shopName,phone
 	</sql>
 	<sql id="WithOrder_Colume_list">
-		c.id,c.orderId,c.complaintTime,c.content,c.status
+		c.id,c.orderId,c.complaintTime,c.content,c.status,
+		o.id,o.userId,o.shopId,u.id,u.userName,s.id,s.shopName
 		
 	</sql>
 	 <!-- 条件分页查询审核总条数 -->
@@ -31,6 +32,9 @@
 	<select id="getDealComplainListByPage" parameterType="com.chb.entity.Complaint" resultType="Complaint">
 		SELECT <include refid="WithOrder_Colume_list"></include>
 		FROM complaint  c
+		LEFT JOIN `order` o ON c.orderId=o.id
+		LEFT JOIN user u ON o.userId=u.id
+		LEFT JOIN shop s ON o.shopId=u.id
 		<where>
 			<if test="keyWords != null and keyWords != ''">
 				<if test="fuzzy == true">

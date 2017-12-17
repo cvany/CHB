@@ -64,9 +64,9 @@
 	                                    ng-click="checkDetails(item.id)">   详细信息
 	                                   </button>
 	                                 
-	                               	<button class="btn btn-success btn-sm" ng-click="checkOk(item.id)">
+	                               	<button class="btn btn-success btn-sm" ng-click="checkOk(item.id,item.shopName)">
 	                                   <span class="fa fa-check"></span> 通过</button>
-	                                   <button class="btn btn-danger btn-sm" ng-click="checkFail(item.id)">
+	                                   <button class="btn btn-danger btn-sm" ng-click="checkFail(item.id,item.shopName)">
 	                                   <span class="fa fa-trash"></span> 不通过</button>
 	                               </td>
 	                           </tr>

@@ -21,7 +21,9 @@
 			and status=1
 		</where>
 	</select>
-
+	<select id="selectCountByTime" parameterType="long" resultType="java.lang.Long">
+		SELECT count(0) FROM user WHERE registerTime<![CDATA[<=]]>'2017-${_parameter}-30 00:00:00'
+	</select>
 	<!-- 条件分页查询用户列表 -->
 	<select id="selectUserByPage" parameterType="com.chb.entity.Page"
 		resultType="User">

@@ -104,10 +104,15 @@ controllers.controller("dealComplain", ['$scope','$http','$state',function($scop
         }
         $("#deleteTips").modal("show");
     }
-    //审核商品通过
-    $scope.checkComplaintOk= function(id) {
+    //审核投诉通过
+    $scope.checkComplaintOk= function(id,shopId,userName,content) {
+    	
     	var complaintVo = new ComplaintVo();
     	complaintVo.id=id;
+    	complaintVo.userName=userName;
+    	complaintVo.shopId=shopId;
+    	complaintVo.content=content;
+    	alert(complaintVo);
         var url = baseUrl + "checkComplaintOk.do";
         var data={complaint:complaintVo.voToJson()};
         $http.post(url,data)
@@ -121,14 +126,16 @@ controllers.controller("dealComplain", ['$scope','$http','$state',function($scop
             
         
     }
-    //审核商品不通过
-    $scope.checkComplaintFail= function(id) {
-    	alert(333);
+    //审核投诉不通过
+    $scope.checkComplaintFail= function(id,userId,userName,shopName) {
     	var complaintVo = new ComplaintVo();
     	complaintVo.id=id;
+    	complaintVo.userId=userId;
+    	complaintVo.userName=userName;
+    	complaintVo.shopName=shopName;
         var url = baseUrl + "deleteComplaint.do";
         var data={complaint:complaintVo.voToJson()};
-        alert(data);
+        //alert(data);
         $http.post(url,data)
             .success(function(data) {
                 toastr.success('审核不通过1', '成功');

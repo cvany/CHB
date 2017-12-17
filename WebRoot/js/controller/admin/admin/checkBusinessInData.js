@@ -107,10 +107,11 @@ controllers.controller("checkBusinessInData", ['$scope','$http','$state',functio
         $("#deleteTips").modal("show");
     }
     //审核通过
-    $scope.checkOk= function(id) {
+    $scope.checkOk= function(id,shopName) {
     	
     	var shopVo = new ShopVo();
         shopVo.id=id; 
+        shopVo.shopName=shopName;
         
         var url = baseUrl + "checkBusinessOk.do";
         var data={shop:shopVo.voToJson()};
@@ -126,10 +127,11 @@ controllers.controller("checkBusinessInData", ['$scope','$http','$state',functio
         
     }
     //审核不通过
-    $scope.checkFail= function(id) {
+    $scope.checkFail= function(id,shopName) {
     	
     	var shopVo = new ShopVo();
         shopVo.id=id;
+        shopVo.shopName=shopName;
         var url = baseUrl + "deleteBusiness.do";
         var data={shop:shopVo.voToJson()};
        
@@ -150,7 +152,7 @@ controllers.controller("checkBusinessInData", ['$scope','$http','$state',functio
     	$scope.checkDetailsList = null;
         var shopInDataVo = new ShopInDataVo();
         shopInDataVo.id=id;
-        alert(shopInDataVo.id);
+        //alert(shopInDataVo.id);
         var url = baseUrl + "checkDetails.do";
         var data={shopInData:shopInDataVo.voToJson()};
         

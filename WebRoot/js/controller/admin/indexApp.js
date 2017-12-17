@@ -48,6 +48,11 @@ indexApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvide
             templateUrl: "admin/orderData.html",
             controller:"orderData"
         })
+        .state("managerLog", {
+            url: "/managerLog",
+            templateUrl: "admin/managerLog.html",
+            controller:"managerLog"
+        })
 }])
     .config(['$httpProvider', function ($httpProvider) {
         $httpProvider.defaults.transformRequest = function (obj) {

@@ -1,5 +1,7 @@
 package com.chb.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import com.chb.entity.Admin;
@@ -52,6 +54,10 @@ public interface AdminService {
 	ResultMessage deleteComplaintById(Complaint complaint);
 	//修改商家信息
 	ResultMessage updateShopById(Shop shop);
+	//查看用户数据
+	List<Long> getUserData();
+	//查看管理日志
+	List<String> getManagerLog();
 	
 	
 

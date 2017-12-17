@@ -70,8 +70,9 @@
                             <td ng-bind="item.loginCount"></td>
                             <td ng-bind="item.status"></td>
                             <td class="text-center">
-                                <button title="删除" class="btn btn-danger btn-sm" ng-click="deleteTips('one',item.id)"><i
-                                        class="fa fa-trash"></i>删除</button></td>
+                                <button title="删除" class="btn btn-danger btn-sm"
+                                 ng-click="deleteTips('one',item.id,item.userName)"><i
+                                        class="fa fa-trash"></i>冻结</button></td>
                         </tr>
                         <tr ng-show="userList.list.length==0">
                             <td class="text-center" colspan="8">没有记录</td>
@@ -108,7 +109,7 @@
             <div class="modal-body">
                 <div class="row">
                     <h3 class="m-t-none m-b">提示</h3>
-                    <h4>确定删除这条记录？</h4>
+                    <h4>确定冻结这条用户？</h4>
                     <div class="pull-right">
                         <button class="btn btn-sm btn-default" data-dismiss="modal">
                             <strong>取消</strong>

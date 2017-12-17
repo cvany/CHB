@@ -29,6 +29,8 @@ public interface UserDao {
 	List<User> selectUserByPage(Page page);
 	//根据ID删除用户
 	Integer deleteUserById(Integer id);
+	//查询用户数据总数
+	long selectCountByTime(long i);
 	
 	
 

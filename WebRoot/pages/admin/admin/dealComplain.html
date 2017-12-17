@@ -51,14 +51,16 @@
 				               <tbody>
 				               <tr ng-repeat="item in dealComplainList.list">
 	                           	<td ng-bind="(dealComplainList.pageNum-1)*dealComplainList.pageSize+$index+1 || 0"></th>
-	                               <td ng-bind="item.userId"></td>
-	                               <td ng-bind="item.shopId"></td>
+	                               <td ng-bind="item.userName"></td>
+	                               <td ng-bind="item.shopName"></td>
 	                               <td ng-bind="item.complaintTime"></td>
 	                               <td ng-bind="item.content"></td>
 				                   <th>
-				                   <button class="btn btn-success btn-sm" ng-click="checkComplaintOk(item.id)">
+				                   <button class="btn btn-success btn-sm" 
+				                   ng-click="checkComplaintOk(item.id,item.shopId,item.userName,item.content)">
 	                                   <span class="fa fa-check"></span> 通过</button>
-	                                   <button class="btn btn-danger btn-sm" ng-click="checkComplaintFail(item.id)">
+	                                   <button class="btn btn-danger btn-sm" 
+	                                   ng-click="checkComplaintFail(item.id,item.userId,item.userName,item.shopName)">
 	                                   <span class="fa fa-trash"></span> 不通过</button>
 				                   	
 				                   </th>
