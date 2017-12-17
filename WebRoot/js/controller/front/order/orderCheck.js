@@ -53,9 +53,9 @@ orderCheck.controller("orderCheck", ['$scope', '$http', '$window', function ($sc
         };
         $http.post(url, data)
             .success(function (data) {
-                console.log(data);
                 if (data.serviceResult == 1) {
                     $scope.orderSuccess = true;
+                    $scope.getPayUrl(data.resultParam)
                 } else {
                     alert('下单失败')
                 }
@@ -63,6 +63,26 @@ orderCheck.controller("orderCheck", ['$scope', '$http', '$window', function ($sc
             .error(function (data) {
                 alert('下单失败')
             });
+    }
+
+    $scope.getPayUrl = function (order) {
+        var url = baseUrl + "user/getPayUrl.do";
+        var data = {
+            order: JSON.stringify(order)
+        };
+        $http.post(url, data)
+            .success(function (data) {
+                if (data.serviceResult == 1) {
+                    $scope.payUrl = data.resultParam;
+                } else {
+                }
+            })
+            .error(function (data) {
+            });
+    }
+
+    $scope.toPayPage = function () {
+        $window.location.href = $scope.payUrl;
     }
 
 }]);

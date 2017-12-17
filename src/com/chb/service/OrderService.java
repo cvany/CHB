@@ -21,4 +21,14 @@ public interface OrderService {
 
 	// 添加订单
 	ResultMessage newOrder(Order order, List<OrderGoodsList> orderGoodsList, HttpSession session);
+	
+	// 商家接单
+	ResultMessage takeOrder(Order order);
+	
+	// 开始派送
+	ResultMessage sendGoods(Order order);
+	
+	// 修改支付状态
+	Integer updateOrderPayStatus(Order order); 
+
 }

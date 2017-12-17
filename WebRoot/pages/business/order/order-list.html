@@ -55,16 +55,21 @@
                         <a data-toggle="modal" class="btn btn-sm "
                            ng-class="{true:'btn-primary',false:'btn-white'}[order.status == 3]"
                            ng-click="changeOrderType(3)"
+                           style="margin-right: 10px">配送中订单
+                        </a>
+                        <a data-toggle="modal" class="btn btn-sm "
+                           ng-class="{true:'btn-primary',false:'btn-white'}[order.status == 4]"
+                           ng-click="changeOrderType(4)"
                         >完成订单
                         </a>
                     </div>
                     <div class="input-group col-lg-4 pull-right">
                         <input type="text" class="form-control input-sm" name="search"
                                placeholder="输入订单号查找" ng-model="page.keyWords"
-                               ng-keyup="searchUser($event)">
+                               ng-keyup="searchOrder($event)">
                         <div class="input-group-btn">
                             <button class="btn btn-sm btn-primary" data-toggle="modal"
-                                    ng-click="searchUser()">查询
+                                    ng-click="searchOrder()">查询
                             </button>
                         </div>
                     </div>
@@ -80,22 +85,24 @@
                             <th>总金额</th>
                             <th>支付方式</th>
                             <th>状态</th>
+                            <th>创建时间</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="item in orderList.list" style="cursor: pointer" ng-click="toDetailPage(item.id)">
+                        <tr ng-repeat="item in orderList.list" style="cursor: pointer" ng-click="toDetailPage(item)">
                             <td class="text-center"><input type="checkbox"
                                                            class="i-checks" ng-model="item.checked" i-check/></td>
                             <td
                                     ng-bind="(orderList.pageNum-1)*orderList.pageSize+$index+1 || 0"></td>
                             <td ng-bind="item.orderNo"></td>
-                            <td ng-bind="item.userId"></td>
+                            <td ng-bind="item.user.userName"></td>
                             <td ng-bind="item.sumMoney"></td>
                             <td ng-bind="item.payMode | payModeFormat"></td>
                             <td ng-bind="item | orderStatusFormat"></td>
+                            <td ng-bind="item.createTime | dateFormat"></td>
                         </tr>
                         <tr ng-show="orderList.list.length==0">
-                            <td class="text-center" colspan="7">没有记录</td>
+                            <td class="text-center" colspan="8">没有记录</td>
                         </tr>
                         </tbody>
                     </table>

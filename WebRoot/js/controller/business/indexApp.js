@@ -14,7 +14,7 @@ indexApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvide
             controller: "orderList"
         })
         .state("orderDetail", {
-            url: "/orderDetail/:id",
+            url: "/orderDetail/:type/:id",
             templateUrl: "order/order-detail.html",
             controller: "orderDetail"
         })
