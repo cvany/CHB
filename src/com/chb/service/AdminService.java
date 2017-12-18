@@ -64,6 +64,8 @@ public interface AdminService {
 	List<Long> getOrderData();
 	//增加数据分析
 	String setDataAnalysis(String data);
+	//查看数据分析结果
+	List<String> getDataAnalysis();
 	
 	
 

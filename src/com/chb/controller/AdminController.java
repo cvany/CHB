@@ -75,4 +75,11 @@ public class AdminController {
 		System.out.println(data);
 		return adminService.setDataAnalysis(data);
 	}
+	//查看管理日志
+	@RequestMapping("getDataAnalysis")
+	@ResponseBody
+	public List<String> getDataAnalysis() {
+		System.out.println("查询数据分析结果数据***");
+		return adminService.getDataAnalysis();
+	}
 }

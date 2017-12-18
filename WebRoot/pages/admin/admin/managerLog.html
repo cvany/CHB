@@ -19,13 +19,24 @@
 <div class="col-lg-12">
 
       <div class="row">
-       <div class="col-lg-12">
+       <div class="col-lg-6">
               <section class="panel">
                   <header class="panel-heading">
                      	管理日志
                   </header>
                   <div class="panel-body text-center">
-                      <textarea rows="18" cols="120" readonly="readonly">{{get()}}
+                      <textarea rows="18" cols="60" readonly="readonly">{{get()}}
+                      </textarea>
+                  </div>
+              </section>
+          </div>
+          <div class="col-lg-6">
+              <section class="panel">
+                  <header class="panel-heading">
+                     	数据分析结果
+                  </header>
+                  <div class="panel-body text-center">
+                      <textarea rows="18" cols="60" readonly="readonly">{{getAnalysis()}}
                       </textarea>
                   </div>
               </section>

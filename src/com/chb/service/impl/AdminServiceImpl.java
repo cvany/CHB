@@ -354,13 +354,13 @@ public class AdminServiceImpl implements AdminService {
 		}
 		return orderData;
 	}
+	//增加数据分析记录
 	@Override
 	public String setDataAnalysis(String data) {
 		System.out.println(data);
-		Integer insertResult=adminDao.insertDataAnalysis(data);
-		System.out.println(insertResult);
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		System.out.println(df.format(new Date()));
+		Integer insertResult=adminDao.insertDataAnalysis(df.format(new Date())+ data);
+		System.out.println(insertResult);
 		Message message=new Message();
 		message.setSender(1);
 		message.setReceiver(1);
@@ -371,6 +371,14 @@ public class AdminServiceImpl implements AdminService {
 			return "0";
 		}
 		return "1";
+	}
+	//查看数据分析结果
+	@Override
+	public List<String> getDataAnalysis() {
+		System.out.println("查看数据分析服务接口");
+		List<String> dataAnalysis=adminDao.getDataAnalysis();
+		
+		return dataAnalysis;
 	}
 
 }

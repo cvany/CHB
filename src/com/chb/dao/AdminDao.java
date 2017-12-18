@@ -19,5 +19,7 @@ public interface AdminDao {
 	List<String> getManagerLog();
 	//增加数据分析结果
 	Integer insertDataAnalysis(String data);
+	//查看数据分析结果
+	List<String> getDataAnalysis();
 	
 }

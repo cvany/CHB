@@ -23,5 +23,9 @@
 	<insert id="insertDataAnalysis" parameterType="String">
 		INSERT INTO data_analysis(content) values(#{data})
 	</insert>
+	<!-- 查看数据分析结果 -->
+	<select id="getDataAnalysis" resultType="String">
+		SELECT content FROM data_analysis
+	</select>
 
 </mapper>
