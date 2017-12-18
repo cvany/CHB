@@ -1,18 +1,22 @@
 package com.chb.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.chb.constant.ResultCode;
 import com.chb.dao.AdminDao;
 import com.chb.dao.BusinessmanDao;
 import com.chb.dao.ComplaintDao;
 import com.chb.dao.GoodsDao;
+import com.chb.dao.OrderDao;
 import com.chb.dao.ShopDao;
 import com.chb.dao.ShopInDataDao;
 import com.chb.dao.UserDao;
@@ -51,6 +55,8 @@ public class AdminServiceImpl implements AdminService {
 	private GoodsDao goodsDao;
 	@Autowired
 	private ComplaintDao complaintDao;
+	@Autowired
+	private OrderDao orderDao;
 
 	public Admin findByAdminName(String adminname) {
 		return adminDao.findByAdminName(adminname);
@@ -104,11 +110,12 @@ public class AdminServiceImpl implements AdminService {
 	public ResultMessage deleteUserById(User user) {
 		System.out.println(user.getId()+"删除用户服务接口");
 		Integer deleteResult=userDao.deleteUserById(user.getId());
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Message message=new Message();
 		message.setSender(1);
 		message.setReceiver(user.getId());
 		message.setType(5);
-		message.setContent("用户"+user.getUserName()+"已冻结");
+		message.setContent(df.format(new Date())+":用户"+user.getUserName()+"已冻结");
 		Integer inMessage=adminDao.insertMessage(message);
 		if(deleteResult==null) {
 			return new ResultMessage(true,ResultCode.SUCCESS,"冻结成功",deleteResult);
@@ -145,11 +152,12 @@ public class AdminServiceImpl implements AdminService {
 	public ResultMessage checkBusinessOkById(Shop shop) {
 		System.out.println(shop.getId()+"审核通过服务接口");
 		Integer checkBusinessResult=shopDao.updateShopById(shop.getId());
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Message message=new Message();
 		message.setSender(1);
 		message.setReceiver(shop.getId());
 		message.setType(5);
-		message.setContent("商店"+shop.getShopName()+"通过审核");
+		message.setContent(df.format(new Date())+"商店"+shop.getShopName()+"通过审核");
 		Integer inMessage=adminDao.insertMessage(message);
 		if (checkBusinessResult ==1) {
 			return new ResultMessage(true, ResultCode.SUCCESS, "通过成功", checkBusinessResult);
@@ -162,11 +170,12 @@ public class AdminServiceImpl implements AdminService {
 	public ResultMessage deleteBusinessById(Shop shop) {
 		System.out.println(shop.getId()+"删除商家服务接口");
 		Integer deleteShopResult=shopDao.deleteShopById(shop.getId());
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Message message=new Message();
 		message.setSender(1);
 		message.setReceiver(shop.getId());
 		message.setType(5);
-		message.setContent("商店"+shop.getShopName()+"未通过审核");
+		message.setContent(df.format(new Date())+":商店"+shop.getShopName()+"未通过审核");
 		Integer inMessage=adminDao.insertMessage(message);
 		if (deleteShopResult == 1  ) {
 			return new ResultMessage(true, ResultCode.SUCCESS, "通过成功", deleteShopResult);
@@ -189,11 +198,12 @@ public class AdminServiceImpl implements AdminService {
 	public ResultMessage updateShopById(Shop shop) {
 		System.out.println(shop.getId()+shop.getCredibility()+shop.getIsOnline()+shop.getIsPass()+"修改商家服务接口");
 		Shop checkBusinessResult=shopDao.updateShop(shop);
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Message message=new Message();
 		message.setSender(1);
 		message.setReceiver(shop.getId());
 		message.setType(5);
-		message.setContent("商店"+shop.getShopName()+"信息已修改");
+		message.setContent(df.format(new Date())+":商店"+shop.getShopName()+"信息已修改");
 		Integer inMessage=adminDao.insertMessage(message);
 		if (checkBusinessResult !=null) {
 			return new ResultMessage(true, ResultCode.SUCCESS, "修改成功", checkBusinessResult);
@@ -218,12 +228,12 @@ public class AdminServiceImpl implements AdminService {
 	public ResultMessage checkGoodsOkById(Goods goods) {
 		System.out.println(goods.getId()+"审核商品通过服务接口");
 		Integer updateResult=goodsDao.updateGoodsById(goods.getId());
-		System.out.println(updateResult);
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Message message=new Message();
 		message.setSender(1);
 		message.setReceiver(goods.getId());
 		message.setType(5);
-		message.setContent("商品"+goods.getGoodsName()+"通过审核");
+		message.setContent(df.format(new Date())+":商品"+goods.getGoodsName()+"通过审核");
 		Integer inMessage=adminDao.insertMessage(message);
 		if (updateResult == 1 ) {
 			return new ResultMessage(true, ResultCode.SUCCESS, "通过成功", updateResult);
@@ -237,11 +247,13 @@ public class AdminServiceImpl implements AdminService {
 		System.out.println(goods.getId()+"审核商品不通过服务接口");
 		Integer deleteGoodsResult=goodsDao.deleteGoodsById(goods.getId());
 		System.out.println(deleteGoodsResult);
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Message message=new Message();
 		message.setSender(1);
 		message.setReceiver(goods.getId());
 		message.setType(5);
-		message.setContent("商品"+goods.getGoodsName()+"不合要求，未通过审核");
+		message.setContent(df.format(new Date())+":商品"+
+				goods.getGoodsName()+"不合要求，未通过审核");
 		Integer inMessage=adminDao.insertMessage(message);
 		if (deleteGoodsResult == 1  ) {
 			return new ResultMessage(true, ResultCode.SUCCESS, "通过成功", deleteGoodsResult);
@@ -266,11 +278,13 @@ public class AdminServiceImpl implements AdminService {
 		System.out.println(complaint.getId()+"审核投诉通过服务接口");
 		Integer updateResult=complaintDao.updateComplaintById(complaint.getId());
 		System.out.println(updateResult);
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Message message=new Message();
 		message.setSender(1);
 		message.setReceiver(complaint.getShopId());
 		message.setType(5);
-		message.setContent("用户"+complaint.getUserName()+"的投诉信息"+complaint.getContent()+"已受理");
+		message.setContent(df.format(new Date())+":用户"+
+				complaint.getUserName()+"的投诉信息"+complaint.getContent()+"已受理");
 		Integer inMessage=adminDao.insertMessage(message);
 		if (updateResult == 1 ) {
 			return new ResultMessage(true, ResultCode.SUCCESS, "通过成功", updateResult);
@@ -284,11 +298,13 @@ public class AdminServiceImpl implements AdminService {
 		System.out.println(complaint.getId()+"删除投诉信息服务接口");
 		Integer deleteComplaintResult=complaintDao.deleteComplaintById(complaint.getId());
 		System.out.println(deleteComplaintResult);
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Message message=new Message();
 		message.setSender(1);
 		message.setReceiver(complaint.getId());
 		message.setType(5);
-		message.setContent("用户"+complaint.getUserName()+"对商家"+complaint.getShopName()+"投诉信息无效");
+		message.setContent(df.format(new Date())+":用户"+
+				complaint.getUserName()+"对商家"+complaint.getShopName()+"投诉信息无效");
 		Integer inMessage=adminDao.insertMessage(message);
 		if (deleteComplaintResult == 1  ) {
 			return new ResultMessage(true, ResultCode.SUCCESS, "通过成功", deleteComplaintResult);
@@ -308,13 +324,53 @@ public class AdminServiceImpl implements AdminService {
 		}
 		return userData;
 	}
-	//查看用户数据
+	//查看管理日志
 	@Override
 	public List<String> getManagerLog() {
 		System.out.println("查看管理日志服务接口");
 		List<String> managerLog=adminDao.getManagerLog();
 		
 		return managerLog;
+	}
+	//欢迎页数据
+	@Override
+	public List<Long> getAllData() {
+		System.out.println("查看所有数据服务接口");
+		List<Long> allData=new ArrayList<>();
+		allData.add(userDao.selectCount( null));
+		allData.add(shopDao.selectAllCount(null));
+		return allData;
+	}
+	
+	//查看订单数据
+	@Override
+	public List<Long> getOrderData() {
+		System.out.println("查看订单");
+		List<Long> orderData=new ArrayList<>();
+		for(long i=0;i<=5;i++) {
+			long total = orderDao.selectCountByPrice(i);
+			System.out.println(total+"订单价格数量");
+			orderData.add(total);
+		}
+		return orderData;
+	}
+	@Override
+	public String setDataAnalysis(String data) {
+		System.out.println(data);
+		Integer insertResult=adminDao.insertDataAnalysis(data);
+		System.out.println(insertResult);
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		System.out.println(df.format(new Date()));
+		Message message=new Message();
+		message.setSender(1);
+		message.setReceiver(1);
+		message.setType(5);
+		message.setContent(df.format(new Date())+"进行了数据分析");
+		Integer inMessage=adminDao.insertMessage(message);
+		if(insertResult!=1) {
+			return "0";
+		}
+		return "1";
 	}
 
 }

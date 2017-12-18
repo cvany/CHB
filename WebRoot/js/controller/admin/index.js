@@ -7,7 +7,8 @@ var controllers = angular.module("controllers", []);
  * 主页控制器
  */
 controllers.controller("index", ['$scope', '$http', '$window', function ($scope, $http, $window) {
-    $scope.admin = new AdminVo();
+    
+	$scope.admin = new AdminVo();
 
     // 登录判断和管理员信息获取
     $http.get(baseUrl + "adminIsLogin.do")
@@ -27,11 +28,17 @@ controllers.controller("index", ['$scope', '$http', '$window', function ($scope,
     $scope.adminLogout = function () {
         $http.get(baseUrl + "adminLogout.do")
             .success(function () {
-            	//window.location.href="adminLogin.html";
+            	window.location.href="../admin/adminLogin.html";
             })
-            .error(function () {
-                toastr.error('注销', '失败');
-            })
+            
     }
+    
+    $scope.allData=[];
+    $http.get(baseUrl + "welcome.do")
+    .success(function (data) {
+    	for(var i=0;i<data.length;i++){
+    	 $scope.allData[i]=data[i];
+    	}
+    })
 
 }]);

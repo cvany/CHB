@@ -5,7 +5,8 @@ indexApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvide
     $stateProvider
         .state("welcome", {
             url: "/welcome",
-            templateUrl: "welcome/welcome.html"
+            templateUrl: "welcome/welcome.html",
+            controller:"index"
         })
         .state("userList", {
             url: "/userList",

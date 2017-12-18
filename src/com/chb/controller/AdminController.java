@@ -54,12 +54,25 @@ public class AdminController {
 	public ResultMessage adminLogout(HttpSession session) throws Exception {
 		return adminService.adminLogout(session);
 	}
-	// 通过用户名获取管理员信息
+	//查看管理日志
 	@RequestMapping("managerLog")
 	@ResponseBody
 	public List<String> getManagerLog() {
 		System.out.println("查询管理日志数据***");
 		return adminService.getManagerLog();
 	}
-	
+	// 查看总数量信息
+	@RequestMapping("welcome")
+	@ResponseBody
+	public List<Long> getAllData() {
+		System.out.println("查询管理日志数据");
+		return adminService.getAllData();
+	}
+	// 增加数据分析结果
+	@RequestMapping("setData")
+	@ResponseBody
+	public String setDataAnalysis(String data) {
+		System.out.println(data);
+		return adminService.setDataAnalysis(data);
+	}
 }

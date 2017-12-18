@@ -31,6 +31,23 @@ controllers.controller("userData", ['$scope','$http','$state',function($scope,$h
         }
     });
 	
+		$scope.setData=function(){
+			var dataAnalysis=$("#dataAnalysis");
+			
+			var url = baseUrl + "setData.do"
+			var data={data:dataAnalysis.val()};
+			alert(data);
+			$http.post(url,data)
+            .success(function(data) {
+               
+                if(data ==1) {
+                	toastr.success('保存数据', '成功');
+                } else {
+                    toastr.error('获取数据2', '失败');
+                }
+                
+            })
+		}
 	
         	var barChartData = {
         	        labels : ["广州","深圳","湛江","江门","茂名","珠海","佛山","其他"],

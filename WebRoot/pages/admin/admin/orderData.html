@@ -23,10 +23,10 @@
         <div class="col-lg-6">
             <section class="panel">
                 <header class="panel-heading">
-                    	订单总数量
+                    	订单总价分布
                 </header>
                 <div class="panel-body text-center">
-                    <canvas id="line" height="300" width="450"></canvas>
+                    <canvas id="bar" height="200" width="400"></canvas>
                 </div>
             </section>
         </div>                      
@@ -34,14 +34,19 @@
         <div class="col-lg-6">
             <section class="panel">
                 <header class="panel-heading">
-                   	 订单地址分布
+                   	 订单类型
                 </header>
                 <div class="panel-body text-center">
-                    <canvas id="bar" height="300" width="500"></canvas>
+                    <canvas id="doughnut" height="200" width="400"></canvas>
                 </div>
             </section>
         </div>
     </div>
+    <div class="row">
+      	数据分析<br />
+      	<textarea rows="3" cols="100" id="dataAnalysis"></textarea>
+      	<button class="btn btn-primary" ng-click="setData()">提交结果</button>
+      </div>
    
  </div>
 

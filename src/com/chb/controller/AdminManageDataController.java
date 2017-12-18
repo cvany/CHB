@@ -27,4 +27,11 @@ public class AdminManageDataController {
 		System.out.println("查询用户数据***");
 		return adminService.getUserData();
 	}
+	
+	@RequestMapping("orderData")
+	@ResponseBody
+	public List<Long> getOrderData() {
+		System.out.println("查询订单数据***");
+		return adminService.getOrderData();
+	}
 }
