@@ -5,9 +5,11 @@ $(function() {//页面初始化触发函数
 	//获取用户登录标识
 	var userToken =sessionStorage.getItem("userToken");
 	if(userToken!="null"&&userToken=="true"){
+		var userName =sessionStorage.getItem("userName");
 		$(".login").remove();
 		$(".register").remove();
 		$(".layui-nav").append("<li class='layui-nav-item alreadyLogin' style='float: right;'><a href='javascript:;' onclick='logout()'>退出</a></li>");
+		$(".layui-nav").append("<li class='layui-nav-item alreadyLogin' style='float: right;'><a href='user/userPersonal.html'>"+userName+"</a></li>");
 	}
 	// 定位地址
 	var value = decodeURIComponent(getParam("loc"));

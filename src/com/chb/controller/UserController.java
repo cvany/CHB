@@ -120,7 +120,9 @@ public class UserController {
 				if(status==0) {                              //账号被冻结
 					response.getWriter().write("3");
 				}else {
-					response.getWriter().write("1");         //登陆成功
+//					response.getWriter().write("1");         //登陆成功
+					response.setContentType("text/html;charset=utf-8");
+					response.getWriter().write("1"+user.getUserName());         //登陆成功
 					user.setLoginCount(loginCount+1);
 					userService.updateUser(user);
 					session.setAttribute("user", user);

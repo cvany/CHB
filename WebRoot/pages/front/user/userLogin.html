@@ -79,14 +79,19 @@
                             url: rootPath + "/passLogin.do",
                             data: "username=" + $username.val() + "&password=" + $password.val(),
                             success: function (result) {
+                            	var userName =result.substring(1);
+                            	result =result.substring(0,1);	//截取标识码
                                 if (result == "0") {
                                     $username.attr("title", "该用户名不存在").tooltip('fixTitle').tooltip('show');
                                     $password.tooltip('destroy');
                                 } else if (result == "1") {                    //验证通过
+                               //} else if (result.indexOf(1)>0) {                    //验证通过
                                 	//获取登录之前的网址，并进行跳转
 									var curUrl =sessionStorage.getItem("curUrl");
                                 	//设置用户已登录标识
 									sessionStorage.setItem("userToken","true");
+                                	//设置用户名
+                                	sessionStorage.setItem("userName",userName);
                                 	if(curUrl!=null){
                                 		$(location).attr("href", curUrl);
                                 	}else{
