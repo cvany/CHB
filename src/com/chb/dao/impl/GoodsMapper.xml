@@ -108,4 +108,58 @@
 		FROM goods
 		WHERE shopId =#{id} AND goodsName LIKE '%${goodsName}%'
     </select>
+
+	<sql id="Base_Column_List">
+		id, businessmanId, shopName,phone,isPass
+	</sql>
+	<sql id="WithShop_Column_list">
+		g.id, g.shopId, g.goodsName, g.goodsPrice, g.goodsPhoto, g.goodsDescription,
+		 	g.isPass, g.classifyGoodsId, s.id, s.shopName, cg.id, cg.classifyName
+	</sql>
+	 <!-- 条件分页查询审核总条数 -->
+	<select id="selectCount" parameterType="com.chb.entity.Page"
+		resultType="java.lang.Long">
+		SELECT count(0) FROM goods
+		<where>
+			<if test="keyWords != null and keyWords != ''">
+				<if test="fuzzy == true">
+					goodsName like '%' #{keyWords} '%' 
+				</if>
+				<if test="fuzzy == false">
+					goodsName = #{keyWords} 
+				</if>
+			</if>
+			and isPass=0
+		</where>
+	</select>
+	
+	<!-- 查询所有待审核商家 -->
+	<select id="getCheckGoodsListByPage" parameterType="com.chb.entity.Goods" resultType="Goods">
+		SELECT <include refid="WithShop_Column_list"></include>
+		 FROM goods g
+		 LEFT JOIN shop s ON g.shopId=s.id
+		 LEFT JOIN classify_goods cg ON g.classifyGoodsId=cg.id
+		<where>
+			<if test="keyWords != null and keyWords != ''">
+				<if test="fuzzy == true">
+					g.goodsName like '%' #{keyWords} '%' 
+				</if>
+				<if test="fuzzy == false">
+					g.goodsName = #{keyWords} 
+				</if>
+			</if>
+			and g.isPass=0
+		</where>
+		 LIMIT ${(pageNum-1)*pageSize},#{pageSize}
+	</select>
+	
+	<!-- 审核商品通过 -->
+	<update id="updateGoodsById" parameterType="com.chb.entity.Goods" >
+		UPDATE goods SET isPass=1 WHERE id=#{id}
+	</update>
+	<!-- 审核商品不通过 -->
+	<delete id="deleteGoodsById" parameterType="int">
+		DELETE FROM goods WHERE id=#{id}
+	</delete>
+	
 </mapper>

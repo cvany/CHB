@@ -7,8 +7,25 @@
 		id, userName, password
 	</sql>
 	
-	<select id="findByUserName" parameterType="string" resultType="Admin">
+	<select id="findByAdminName" parameterType="string" resultType="Admin">
 		SELECT <include refid="Base_Column_List" /> FROM admin WHERE userName=#{adminname}
+	</select>
+	
+	<!-- 插入返回信息 -->
+	<insert id="insertMessage" parameterType="com.chb.entity.Message">
+		INSERT INTO message(sender,receiver,type,content) values (#{sender},#{receiver},#{type},#{content})
+	</insert>
+	<!-- 查看管理日志 -->
+	<select id="getManagerLog" resultType="String">
+		SELECT content FROM message WHERE type=5
+	</select>
+	<!-- 添加数据分析结果 -->
+	<insert id="insertDataAnalysis" parameterType="String">
+		INSERT INTO data_analysis(content) values(#{data})
+	</insert>
+	<!-- 查看数据分析结果 -->
+	<select id="getDataAnalysis" resultType="String">
+		SELECT content FROM data_analysis
 	</select>
 
 </mapper>

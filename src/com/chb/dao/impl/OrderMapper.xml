@@ -109,4 +109,9 @@
 		#{id}
 	</update>
 
+<select id="selectCountByPrice" parameterType="long" resultType="java.lang.Long">
+	SELECT count(0) FROM `order` WHERE sumMoney between ${_parameter*20} 
+		and ${(_parameter+1)*20}
+</select>
+
 </mapper>

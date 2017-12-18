@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!--面包屑导航开始-->
+<div class="row  border-bottom white-bg dashboard-header">
+    <div class="col-lg-10">
+        <ol class="breadcrumb">
+            <li><a href="#"><span class="fa fa-home"></span>主页</a></li>
+            <li><a>投诉管理</a></li>
+            <li class="active"><strong>投诉处理</strong></li>
+        </ol>
+    </div>
+</div>
+<!--面包屑导航结束-->
+ <section class="wrapper wrapper-content animated fadeInUp ">
+	   <div class="row well white-bg">
+	       <div class="col-lg-12">
+	           <div class="ibox float-e-margins"> 
+				  <div class="row"><!-- 搜索框 -->
+	                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-xs-offset-2">
+	                   <div class="input-group">
+	                     <input type="text" class="form-control input-sm" name="search"
+                               placeholder="输入订单号名称查找" ng-model="page.keyWords"
+                               ng-keyup="searchDealComplain($event)">
+	                     <span class="input-group-btn">
+	                       <button class="btn btn-success btn-sm" type="button" ng-click="searchDealComplain()">
+	                       <span class="fa fa-search"> 搜索</span></button>
+	                     </span>
+	                   </div><!-- /input-group -->
+	                 </div><!-- /.col-lg-6 -->
+	               </div><!-- /.row -->
+				   <br />  <br />  <br /> 
+				   <!-- 表格-->
+				    <div class="row">
+				   	<div class="col-md-12 ">
+				       	<table class="table table-hover">
+				       	<thead>
+				           	<tr>
+				               	<th>序号</th>
+				                   <th>投诉人</th>
+				                   <th>被投诉商家</th>
+				                   <th>投诉时间</th>
+				                   <th>投诉信息</th>
+				                   <th>操作</th>
+				               </tr>
+				               </thead>
+				               <tbody>
+				               <tr ng-repeat="item in dealComplainList.list">
+	                           	<td ng-bind="(dealComplainList.pageNum-1)*dealComplainList.pageSize+$index+1 || 0"></th>
+	                               <td ng-bind="item.userName"></td>
+	                               <td ng-bind="item.shopName"></td>
+	                               <td ng-bind="item.complaintTime"></td>
+	                               <td ng-bind="item.content"></td>
+				                   <th>
+				                   <button class="btn btn-success btn-sm" 
+				                   ng-click="checkComplaintOk(item.id,item.shopId,item.userName,item.content)">
+	                                   <span class="fa fa-check"></span> 通过</button>
+	                                   <button class="btn btn-danger btn-sm" 
+	                                   ng-click="checkComplaintFail(item.id,item.userId,item.userName,item.shopName)">
+	                                   <span class="fa fa-trash"></span> 不通过</button>
+				                   	
+				                   </th>
+				               </tr>
+				               </tbody>
+				               <tr ng-show="dealComplainList.list.length==0">
+                            <td class="text-center" colspan="8">没有记录</td>
+                        </tr>
+				           </table>
+				           <!--分页信息-->
+			               <div class="pull-left">
+			                        共<span ng-bind="dealComplainList.total"></span>条记录 共<span
+			                            ng-bind="dealComplainList.pages"></span>页
+			                 </div>
+			                    <div class="text-right">
+			                        <button class="btn btn-white btn-sm"
+			                                ng-click="lastPage(dealComplainList.pageNum-1)">上一页
+			                        </button>
+			                        <input type="text" class="form-control page-cout"
+			                               ng-model="page.pageNum" ng-blur="toPage()"
+			                               ng-keyup="toPage($event)"/>
+			                        <button class="btn btn-white btn-sm"
+			                                ng-click="nextPage(dealComplainList.pageNum+1)">下一页
+			                        </button>
+			                    </div>
+				       </div>
+				   </div>
+			    </div>
+			   </div> 
+			  </div>
+				   
+
+ </section>
+</body>
+</html>

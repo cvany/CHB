@@ -1,6 +1,8 @@
 if(typeof UserVo == 'undefined') {
 	function UserVo() {
 		this.id;
+		this.userName;
+		
 	}
 }
 

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!--面包屑导航开始-->
+<div class="row  border-bottom white-bg dashboard-header">
+    <div class="col-lg-10">
+        <ol class="breadcrumb">
+            <li><a href="#"><span class="fa fa-home"></span>主页</a></li>
+            <li><a>商家管理</a></li>
+            <li class="active"><strong>商家修改与删除</strong></li>
+        </ol>
+    </div>
+</div>
+<!--面包屑导航结束-->
+       
+ <section class="wrapper wrapper-content animated fadeInUp ">
+   <div class="row well white-bg">
+       <div class="col-lg-12">
+           <div class="ibox float-e-margins">
+                 <div class="row"><!-- 搜索框 -->
+                 <div class="row"><!-- 搜索框 -->
+	                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-xs-offset-2">
+	                   <div class="input-group">
+	                     <input type="text" class="form-control input-sm" name="search"
+                               placeholder="输入商家名称查找" ng-model="page.keyWords"
+                               ng-keyup="searchBusiness($event)">
+	                     <span class="input-group-btn">
+	                       <button class="btn btn-success btn-sm" type="button" ng-click="searchBusiness()">
+	                       <span class="fa fa-search"> 搜索</span></button>
+	                     </span>
+	                   </div><!-- /input-group -->
+	                 </div><!-- /.col-lg-6 -->
+	               </div><!-- /.row -->
+                  <br />  <button title="删除" class="btn btn-danger btn-sm" ng-click="deleteTips('batch',businessList)">
+                  <i class="fa fa-trash"></i>批量删除</button>
+                  <!-- 表格-->
+                   <div class="row">
+                  	<div class="col-md-12 ">
+                      	<table class="table table-hover">
+                      	<thead>
+                          	<tr>
+                          	<th class="col-lg-1 text-center"><input type="checkbox"
+                                    class="i-checks" ng-model="checkAll" i-check/></th>
+                              	<th>序号</th>
+	                               <th>商店名称</th>
+	                               <th>商店电话</th>
+	                               <th>商家姓名</th>
+	                               <th>商店简介</th>
+	                               <th>地址</th>
+                                  <th  class="text-center">操作</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr ng-repeat="item in businessList.list">
+                              <td class="text-center"><input type="checkbox"
+                                      class="i-checks" ng-model="item.checked" i-check/></td>
+	                           	<td ng-bind="(businessList.pageNum-1)*businessList.pageSize+$index+1 || 0"></th>
+	                               <td ng-bind="item.shopName"></td>
+	                               <td ng-bind="item.phone"></td>
+	                               <td ng-bind="item.businessmanName"></td>
+	                               <td ng-bind="item.shopDescription "></td>
+	                               <td ng-bind="item.address"></td>
+	                               <td  class="text-center">
+	                               	<button type="button" class="btn btn-primary btn-sm" 
+	                                    ng-click="updateShow(item)">
+	                                   <span class="fa fa-pencil"></span>  修改
+	                                   </button>
+	                                    <button title="删除" class="btn btn-danger btn-sm" ng-click="deleteTips('one',item.id)"><i
+                                        class="fa fa-trash"></i>删除</button>
+	                               </td>
+	                           </tr>
+                              </tbody>
+                              <tr ng-show="businessList.list.length==0">
+                            <td class="text-center" colspan="8">没有记录</td>
+                        </tr>
+                          </table>
+                            <!--分页信息-->
+                           <div class="pull-left">
+                        共<span ng-bind="businessList.total"></span>条记录 共<span
+                            ng-bind="businessList.pages"></span>页
+                    </div>
+                    <div class="text-right">
+                        <button class="btn btn-white btn-sm"
+                                ng-click="lastPage(businessList.pageNum-1)">上一页
+                        </button>
+                        <input type="text" class="form-control page-cout"
+                               ng-model="page.pageNum" ng-blur="toPage()"
+                               ng-keyup="toPage($event)"/>
+                        <button class="btn btn-white btn-sm"
+                                ng-click="nextPage(businessList.pageNum+1)">下一页
+                        </button>
+                    </div>
+                      </div>
+                  </div>
+               </div>
+       </div>
+   </div>
+   </div>
+     </section>
+       <!-- Modal -->
+		 <div class="modal fade" id="editBusiness" tabindex="-1" role="dialog" 
+			  aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			        <div class="modal-header">
+			           <button type="button" class="close" data-dismiss="modal" 
+			               aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			            <h4 class="modal-title" id="myModalLabel">商店详细信息</h4>
+			                                              </div>
+			           <div class="modal-body">
+			                <form>
+			                   <table class="table table-bordered">
+			                      <tr><td>商店ID</td><td ng-bind="shopDetails.id"></td><td>商店名称</td>
+			                          <td rowspan="2"><img src="img/tim.jpg"/></td></tr>
+			                      <tr><td>商家名称</td><td ng-bind="shopDetails.businessmanName"></td><td ng-bind="shopDetails.shopName"></td></tr>
+			                      <tr><td>商店电话</td><td ng-bind="shopDetails.phone"></td><td>法定代表人</td><td ng-bind="shopDetails.legalRepresentative"></td></tr>
+			                      <tr><td>诚信度</td><td><input type="text" ng-model="credibility" placeholder={{shopDetails.credibility}}></input></td>
+			                          <td>审核状态</td><td><input type="text" ng-model="isPass" placeholder={{shopDetails.isPass}}>(0为未审核1以审核)</input></td></tr>
+			                      <tr><td>上线状态</td><td><input type="text" ng-model="isOnline" placeholder={{shopDetails.isOnline}}>  (0不允许上线，1允许上线)</input></td>
+			                          <td>开业状态</td><td >{{shopDetails.isOpen}}  (0不开业，1为开业)</td></tr>
+			                      <tr><td>营业时间</td><td ng-bind="shopDetails.openTime"></td><td>商店简介</td>
+			                          <td ng-bind="shopDetails.shopDescription"></td></tr>
+			                      <tr><td>月销量</td><td ng-bind="shopDetails.monthSales"></td><td>商店分类</td><td ng-bind="shopDetails.name"></td></tr>
+			                      <tr><td>商店星级</td><td ng-bind="shopDetails.shopPoint"></td><td>商店地址</td><td ng-bind="shopDetails.address"></td></tr>
+			                    </table>
+			                    <button class="btn btn-success btn-sm" ng-click=updateShop(credibility,isPass,isOnline)>
+			                        <span class="fa fa-check"></span> 保存</button>
+			                 </form>
+			             </div>
+			          </div>
+			        </div>
+			     </div>
+			<!-- 确认删除框 -->
+		<div id="deleteTips" class="modal fade" aria-hidden="true"
+		     data-backdrop="static">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-body">
+		                <div class="row">
+		                    <h3 class="m-t-none m-b">提示</h3>
+		                    <h4>确定删除这个商家？</h4>
+		                    <div class="pull-right">
+		                        <button class="btn btn-sm btn-default" data-dismiss="modal">
+		                            <strong>取消</strong>
+		                        </button>
+		                        <button class="btn btn-sm btn-primary" data-dismiss="modal"
+		                                ng-click="deleteShop()">
+		                            <strong>确定</strong>
+		                        </button>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+     
+     
+</body>
+</html>

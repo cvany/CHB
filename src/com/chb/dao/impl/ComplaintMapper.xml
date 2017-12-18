@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chb.dao.ComplaintDao">
+
+	<sql id="Base_Column_List">
+		id, businessmanId, shopName,phone
+	</sql>
+	<sql id="WithOrder_Colume_list">
+		c.id,c.orderId,c.complaintTime,c.content,c.status,
+		o.id,o.userId,o.shopId,u.id,u.userName,s.id,s.shopName
+		
+	</sql>
+	 <!-- 条件分页查询审核总条数 -->
+	<select id="selectCount" parameterType="com.chb.entity.Page"
+		resultType="java.lang.Long">
+		SELECT count(0) FROM complaint
+		<where>
+			<if test="keyWords != null and keyWords != ''">
+				<if test="fuzzy == true">
+					orderId like '%' #{keyWords} '%' 
+				</if>
+				<if test="fuzzy == false">
+					orderId = #{keyWords} 
+				</if>
+			</if>
+			and status=1
+		</where>
+	</select>
+	
+	<!-- 查询所有待审核商投诉-->
+	<select id="getDealComplainListByPage" parameterType="com.chb.entity.Complaint" resultType="Complaint">
+		SELECT <include refid="WithOrder_Colume_list"></include>
+		FROM complaint  c
+		LEFT JOIN `order` o ON c.orderId=o.id
+		LEFT JOIN user u ON o.userId=u.id
+		LEFT JOIN shop s ON o.shopId=u.id
+		<where>
+			<if test="keyWords != null and keyWords != ''">
+				<if test="fuzzy == true">
+					c.orderId like '%' #{keyWords} '%' 
+				</if>
+				<if test="fuzzy == false">
+					c.orderId = #{keyWords} 
+				</if>
+			</if>
+			and c.status=1
+		</where>
+		 LIMIT ${(pageNum-1)*pageSize},#{pageSize}
+	</select>
+	
+	<!-- 审核投诉信息通过 -->
+	<update id="updateComplaintById" parameterType="com.chb.entity.Complaint" >
+		UPDATE complaint SET status=2 WHERE id=#{id}
+	</update>
+	<!-- 审核投诉信息不通过 -->
+	<delete id="deleteComplaintById" parameterType="int">
+		DELETE FROM complaint WHERE id=#{id}
+	</delete>
+
+</mapper>

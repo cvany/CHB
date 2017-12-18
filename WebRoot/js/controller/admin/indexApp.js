@@ -5,7 +5,8 @@ indexApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvide
     $stateProvider
         .state("welcome", {
             url: "/welcome",
-            templateUrl: "welcome/welcome.html"
+            templateUrl: "welcome/welcome.html",
+            controller:"index"
         })
         .state("userList", {
             url: "/userList",
@@ -14,35 +15,44 @@ indexApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvide
         })
          .state("checkBusinessInData", {
             url: "/checkBusinessInData",
-            templateUrl: "admin/checkBusinessInData.html"
+            templateUrl: "admin/checkBusinessInData.html",
+            controller: "checkBusinessInData"
         })
         .state("updateBusiness", {
             url: "/updateBusiness",
-            templateUrl: "admin/updateBusiness.html"
-        })
-        .state("deleteBusiness", {
-            url: "/deleteBusiness",
-            templateUrl: "admin/deleteBusiness.html"
+            templateUrl: "admin/updateBusiness.html",
+            controller: "updateBusiness"
+        
         })
         .state("checkGoods", {
             url: "/checkGoods",
-            templateUrl: "admin/checkGoods.html"
+            templateUrl: "admin/checkGoods.html",
+            controller: "checkGoods"
         })
         .state("dealComplain", {
             url: "/dealComplain",
-            templateUrl: "admin/dealComplain.html"
+            templateUrl: "admin/dealComplain.html",
+            controller: "dealComplain"
         })
         .state("userData", {
             url: "/userData",
-            templateUrl: "admin/userData.html"
+            templateUrl: "admin/userData.html",
+            controller:"userData"
         })
         .state("businessData", {
             url: "/businessData",
-            templateUrl: "admin/businessData.html"
+            templateUrl: "admin/businessData.html",
+            controller:"businessData"
         })
         .state("orderData", {
             url: "/orderData",
-            templateUrl: "admin/orderData.html"
+            templateUrl: "admin/orderData.html",
+            controller:"orderData"
+        })
+        .state("managerLog", {
+            url: "/managerLog",
+            templateUrl: "admin/managerLog.html",
+            controller:"managerLog"
         })
 }])
     .config(['$httpProvider', function ($httpProvider) {

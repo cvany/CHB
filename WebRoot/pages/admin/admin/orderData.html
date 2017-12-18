@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+      
+<!--面包屑导航开始-->
+<div class="row  border-bottom white-bg dashboard-header">
+    <div class="col-lg-10">
+        <ol class="breadcrumb">
+            <li><a href="#"><span class="fa fa-home"></span>主页</a></li>
+            <li><a>数据中心</a></li>
+            <li class="active"><strong>订单数据</strong></li>
+        </ol>
+    </div>
+</div>
+<!--面包屑导航结束-->
+  <div class="col-lg-12">
+     <div class="row">
+        <!-- Line -->
+        <div class="col-lg-6">
+            <section class="panel">
+                <header class="panel-heading">
+                    	订单总价分布
+                </header>
+                <div class="panel-body text-center">
+                    <canvas id="bar" height="200" width="400"></canvas>
+                </div>
+            </section>
+        </div>                      
+        <!-- Bar -->
+        <div class="col-lg-6">
+            <section class="panel">
+                <header class="panel-heading">
+                   	 订单类型
+                </header>
+                <div class="panel-body text-center">
+                    <canvas id="doughnut" height="200" width="400"></canvas>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="row">
+      	数据分析<br />
+      	<textarea rows="3" cols="100" id="dataAnalysis"></textarea>
+      	<button class="btn btn-primary" ng-click="setData()">提交结果</button>
+      </div>
+   
+ </div>
+
+</body>
+</html>

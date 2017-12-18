@@ -5,51 +5,6 @@
 	<select id="findByUsername" parameterType="string" resultType="User">
 		SELECT * FROM user WHERE userName=#{userName}
 	</select>
-	<!-- 条件分页查询总条数 -->
-	<select id="selectCount" parameterType="com.chb.entity.Page"
-		resultType="java.lang.Long">
-		SELECT count(0) FROM user
-		<where>
-			<if test="keyWords != null and keyWords != ''">
-				<if test="fuzzy == true">
-					place_name like '%' #{keyWords} '%'
-				</if>
-				<if test="fuzzy == false">
-					place_name = #{keyWords}
-				</if>
-			</if>
-		</where>
-	</select>
-
-	<!-- 条件分页查询用户列表 -->
-	<select id="selectUserByPage" parameterType="com.chb.entity.Page"
-		resultType="User">
-		SELECT * FROM user
-		<where>
-			<if test="keyWords != null and keyWords != ''">
-				<if test="fuzzy == true">
-					place_name like '%' #{keyWords} '%'
-				</if>
-				<if test="fuzzy == false">
-					place_name = #{keyWords}
-				</if>
-			</if>
-		</where>
-	</select>
-
-	<select id="findByUserPhone" parameterType="string" resultType="User">
-		SELECT * FROM user WHERE phone=#{phone}
-	</select>
-
-	<select id="findByUserEmail" parameterType="string" resultType="User">
-		SELECT * FROM user WHERE email=#{email}
-	</select>
-
-	<insert id="insertUser" parameterType="com.chb.entity.User">
-		INSERT INTO
-		user(userName,password,salt,email,phone,loginCount,registerTime,status)
-		values(#{userName},#{password},#{salt},#{email},#{phone},#{loginCount},#{registerTime},#{status})
-	</insert>
 
 	<!-- <update id="updateUser" parameterType="com.chb.entity.User"> UPDATE 
 		user SET password=#{password} WHERE id=#{id} </update> -->
@@ -70,4 +25,57 @@
 		</trim>
 		where id=#{id}
 	</update>
+
+    <!-- 条件分页查询总条数 -->
+	<select id="selectCount" parameterType="com.chb.entity.Page"
+		resultType="java.lang.Long">
+		SELECT count(0) FROM user
+		<where>
+			<if test="keyWords != null and keyWords != ''">
+				<if test="fuzzy == true">
+					userName like '%' #{keyWords} '%'
+				</if>
+				<if test="fuzzy == false">
+					userName = #{keyWords}
+				</if>
+			</if>
+			and status=1
+		</where>
+	</select>
+	<select id="selectCountByTime" parameterType="long" resultType="java.lang.Long">
+		SELECT count(0) FROM user WHERE registerTime<![CDATA[<=]]>'2017-${_parameter}-30 00:00:00'
+	</select>
+	<!-- 条件分页查询用户列表 -->
+	<select id="selectUserByPage" parameterType="com.chb.entity.Page"
+		resultType="User">
+		SELECT * FROM user
+		<where>
+			<if test="keyWords != null and keyWords != ''">
+				<if test="fuzzy == true">
+					userName like '%' #{keyWords} '%'
+				</if>
+				<if test="fuzzy == false">
+					userName = #{keyWords}
+				</if>
+			</if>
+			and status=1
+		</where>
+		 LIMIT ${(pageNum-1)*pageSize},#{pageSize}
+	</select>
+    
+    <select id="findByUserPhone" parameterType="string" resultType="User">
+       SELECT * FROM user WHERE phone=#{phone}
+    </select>
+    
+        <select id="findByUserEmail" parameterType="string" resultType="User">
+       SELECT * FROM user WHERE email=#{email}
+    </select>
+    
+    <insert id="insertUser" parameterType="com.chb.entity.User">
+       INSERT INTO user(userName,password,salt,email,phone,loginCount,registerTime,status) values(#{userName},#{password},#{salt},#{email},#{phone},#{loginCount},#{registerTime},#{status})
+    </insert>
+  <!--   
+    <update id="updateUser" parameterType="com.chb.entity.User">
+       UPDATE user SET password=#{password} WHERE id=#{id}
+    </update> -->
 </mapper>

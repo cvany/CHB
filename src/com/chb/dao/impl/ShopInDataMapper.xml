@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chb.dao.ShopInDataDao">
+
+	<sql id="Base_Column_List">
+		id, shopId, shopName,phone,isPass
+	</sql>
+	 
+	<!-- 查询所有待审核商家 -->
+	<select id="findByShopId" parameterType="com.chb.entity.ShopInData" resultType="ShopInData">
+		SELECT * FROM shop_in_data WHERE shopId=#{id} 
+	</select>
+
+</mapper>

@@ -19,8 +19,27 @@ public class Goods {
 	private Integer classifyGoodsId;
 	private Integer goodsNumber;
 	private Integer goodsRemain;
+	//添加商店名与商品分类名，联合查询
+	private String shopName;
+	private String classifyName;
 	
 	public Goods() {
+	}
+	
+	public String getShopName() {
+		return shopName;
+	}
+
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
+	}
+	
+	public String getClassifyName() {
+		return classifyName;
+	}
+
+	public void setClassifyName(String classifyName) {
+		this.classifyName = classifyName;
 	}
 
 	public Integer getId() {

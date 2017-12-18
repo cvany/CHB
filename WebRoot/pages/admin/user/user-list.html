@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--面包屑导航开始-->
+<div class="row  border-bottom white-bg dashboard-header">
+    <div class="col-lg-10">
+        <ol class="breadcrumb">
+            <li><a href="#">主页</a></li>
+            <li><a>用户管理</a></li>
+            <li class="active"><strong>用户列表</strong></li>
+        </ol>
+    </div>
+    <div class="col-lg-2"></div>
+</div>
+<!--面包屑导航结束-->
+
+<!--列表开始-->
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row well white-bg">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+               <div class="row"><!-- 搜索框 -->
+			       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-xs-offset-2">
+                    <div class="input-group">
+                        <input type="text" class="form-control input-sm" name="search"
+                               placeholder="输入用户姓名查找" ng-model="page.keyWords"
+                               ng-keyup="searchUser($event)">
+                        <div class="input-group-btn">
+                            <button class="btn btn-sm btn-success" data-toggle="modal"
+                                    ng-click="searchUser()"><span class="fa fa-search"> 搜索</span>
+                            </button>
+                        </div>
+                    </div>
+                   </div>
+                  </div>
+                  <button title="删除" class="btn btn-danger btn-sm" ng-click="deleteTips('batch',userList)"><i
+                                        class="fa fa-trash"></i>批量删除</button>
+                  <div class="clearfix"></div>
+                    <table class="table table-bordered table-hover my-table">
+                        <thead>
+                        <tr>
+                            <th class="col-lg-1 text-center"><input type="checkbox"
+                                                                    class="i-checks" ng-model="checkAll" i-check/></th>
+                            <th>序号</th>
+                            <th>邮箱</th>
+                            <th>姓名</th>
+                            <th>头像</th>
+                            <th>电话</th>
+                            <th>注册时间</th>
+                            <th>登录次数</th>
+                            <th>状态</th>
+                            <th class="col-lg-1 text-center">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in userList.list">
+                            <td class="text-center"><input type="checkbox"
+                                                           class="i-checks" ng-model="item.checked" i-check/></td>
+                            <td
+                                    ng-bind="(userList.pageNum-1)*userList.pageSize+$index+1 || 0"></td>
+                            <td ng-bind="item.email"></td>
+                            <td ng-bind="item.userName"></td>
+                            <td ng-bind="item.photo"></td>
+                            <td ng-bind="item.phone"></td>
+                            <td ng-bind="item.registerTime | dateFormat"></td>
+                            <td ng-bind="item.loginCount"></td>
+                            <td ng-bind="item.status"></td>
+                            <td class="text-center">
+                                <button title="删除" class="btn btn-danger btn-sm"
+                                 ng-click="deleteTips('one',item.id,item.userName)"><i
+                                        class="fa fa-trash"></i>冻结</button></td>
+                        </tr>
+                        <tr ng-show="userList.list.length==0">
+                            <td class="text-center" colspan="8">没有记录</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="pull-left">
+                        共<span ng-bind="userList.total"></span>条记录 共<span
+                            ng-bind="userList.pages"></span>页
+                    </div>
+                    <div class="text-right">
+                        <button class="btn btn-white btn-sm"
+                                ng-click="lastPage(userList.pageNum-1)">上一页
+                        </button>
+                        <input type="text" class="form-control page-cout"
+                               ng-model="page.pageNum" ng-blur="toPage()"
+                               ng-keyup="toPage($event)"/>
+                        <button class="btn btn-white btn-sm"
+                                ng-click="nextPage(userList.pageNum+1)">下一页
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--列表结束-->
+
+<!-- 确认删除框 -->
+<div id="deleteTips" class="modal fade" aria-hidden="true"
+     data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <h3 class="m-t-none m-b">提示</h3>
+                    <h4>确定冻结这条用户？</h4>
+                    <div class="pull-right">
+                        <button class="btn btn-sm btn-default" data-dismiss="modal">
+                            <strong>取消</strong>
+                        </button>
+                        <button class="btn btn-sm btn-primary" data-dismiss="modal"
+                                ng-click="deleteUser()">
+                            <strong>确定</strong>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

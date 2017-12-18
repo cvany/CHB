@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!--面包屑导航开始-->
+<div class="row  border-bottom white-bg dashboard-header">
+    <div class="col-lg-10">
+        <ol class="breadcrumb">
+            <li><a href="#"><span class="fa fa-home"></span>主页</a></li>
+            
+            <li class="active"><strong>管理日志</strong></li>
+        </ol>
+    </div>
+</div>
+<!--面包屑导航结束-->
+<div class="col-lg-12">
+
+      <div class="row">
+       <div class="col-lg-6">
+              <section class="panel">
+                  <header class="panel-heading">
+                     	管理日志
+                  </header>
+                  <div class="panel-body text-center">
+                      <textarea rows="18" cols="60" readonly="readonly">{{get()}}
+                      </textarea>
+                  </div>
+              </section>
+          </div>
+          <div class="col-lg-6">
+              <section class="panel">
+                  <header class="panel-heading">
+                     	数据分析结果
+                  </header>
+                  <div class="panel-body text-center">
+                      <textarea rows="18" cols="60" readonly="readonly">{{getAnalysis()}}
+                      </textarea>
+                  </div>
+              </section>
+          </div>
+      
+        </div>
+ </div>
+                  
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!--面包屑导航开始-->
+	<div class="row  border-bottom white-bg dashboard-header">
+	    <div class="col-lg-10">
+	        <ol class="breadcrumb">
+	            <li><a href="#"><span class="fa fa-home"></span>主页</a></li>
+	            <li><a>商品管理</a></li>
+	            <li class="active"><strong>商品审核</strong></li>
+	        </ol>
+	    </div>
+	</div>
+	<!--面包屑导航结束-->
+	<section class="wrapper wrapper-content animated fadeInUp ">
+	   <div class="row well white-bg">
+	       <div class="col-lg-12">
+	           <div class="ibox float-e-margins"> 
+			    <div class="row"><!-- 搜索框 -->
+	                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-xs-offset-2">
+	                   <div class="input-group">
+	                     <input type="text" class="form-control input-sm" name="search"
+                               placeholder="输入商品名称查找" ng-model="page.keyWords"
+                               ng-keyup="searchCheckGoods($event)">
+	                     <span class="input-group-btn">
+	                       <button class="btn btn-success btn-sm" type="button" ng-click="searchCheckGoods()">
+	                       <span class="fa fa-search"> 搜索</span></button>
+	                     </span>
+	                   </div><!-- /input-group -->
+	                 </div><!-- /.col-lg-6 -->
+	               </div><!-- /.row -->
+			     <br />  <br />  <br /> 
+			     <!-- 表格-->
+			      <div class="row">
+			     	<div class="col-md-12 ">
+			         	<table class="table table-hover">
+			         	<thead>
+			             	<tr>
+			                 	<th>序号</th>
+			                     <th>商品名称</th>
+			                     <th>商家名称</th>
+			                     <th>商品价格</th>
+			                     <th>商品头像</th>
+			                     <th>商品分类</th>
+			                     <th>商品描述</th>
+			                     <th  class="text-center">操作</th>
+			                 </tr>
+			                 </thead>
+			                 <tbody>
+			                 <tr ng-repeat="item in checkGoodsList.list">
+	                           	<td ng-bind="(checkGoodsList.pageNum-1)*checkGoodsList.pageSize+$index+1 || 0"></th>
+	                               <td ng-bind="item.goodsName"></td>
+	                               <td ng-bind="item.shopName"></td>
+	                               <td ng-bind="item.goodsPrice"></td>
+	                               <td ng-bind="item.goodsPhoto"></td>
+	                               <td ng-bind="item.classifyName"></td>
+	                               <td ng-bind="item.goodsDescription "></td>
+			                     <td  class="text-center">
+	                                 
+	                               	<button class="btn btn-success btn-sm" ng-click="checkGoodsOk(item.id)">
+	                                   <span class="fa fa-check"></span> 通过</button>
+	                                   <button class="btn btn-danger btn-sm" ng-click="checkGoodsFail(item.id)">
+	                                   <span class="fa fa-trash"></span> 不通过</button>
+			                     </td>
+			                 </tr>
+			                 </tbody>
+			                 <tr ng-show="businessInDataList.list.length==0">
+                            <td class="text-center" colspan="8">没有记录</td>
+                        </tr>
+			             </table>
+			             <!--分页信息-->
+			               <div class="pull-left">
+			                        共<span ng-bind="checkGoodsList.total"></span>条记录 共<span
+			                            ng-bind="checkGoodsList.pages"></span>页
+			                 </div>
+			                    <div class="text-right">
+			                        <button class="btn btn-white btn-sm"
+			                                ng-click="lastPage(checkGoodsList.pageNum-1)">上一页
+			                        </button>
+			                        <input type="text" class="form-control page-cout"
+			                               ng-model="page.pageNum" ng-blur="toPage()"
+			                               ng-keyup="toPage($event)"/>
+			                        <button class="btn btn-white btn-sm"
+			                                ng-click="nextPage(checkGoodsList.pageNum+1)">下一页
+			                        </button>
+			                    </div>
+			         </div>
+			     </div>
+    		 </div>
+         </div>
+     </div>
+
+   </section>
+   <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
+    	aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" 
+            aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">待审核商品详细信息</h4>
+          </div>
+          <div class="modal-body">
+            <table class="table table-bordered">
+            	<tr><td>ID</td><td>001</td><td colspan="2" rowspan="2">
+                	<img src="img/tim.jpg"/></td></tr>
+                <tr><td>商品名称</td><td>东方红</td></tr>
+                <tr><td>商家名称</td><td>电费水费</td><td>商品价格</td>
+                	<td>121</td></tr>
+                <tr><td>商品描述</td><td>是的方法佛挡杀佛</td>
+                	<td>商品分类</td><td>地块</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+</body>
+</html>
