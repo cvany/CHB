@@ -81,4 +81,7 @@
     <update id="deleteUserById" parameterType="int">
     	UPDATE user SET status=2 WHERE  id=#{deleteResult}
     </update>
+    <select id="selectUserNameByPrimaryKey" parameterType="Integer" resultType="User">
+		SELECT userName FROM user WHERE id = #{id}
+	</select>
 </mapper>

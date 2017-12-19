@@ -2,6 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chb.dao.OrderDao">
+	<resultMap id="BaseResultMap" type="com.chb.entity.Order">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="orderNo" jdbcType="VARCHAR" property="orderNo" />
+		<result column="userId" jdbcType="INTEGER" property="userId" />
+		<result column="shopId" jdbcType="INTEGER" property="shopId" />
+		<result column="status" jdbcType="INTEGER" property="status" />
+		<result column="notes" jdbcType="VARCHAR" property="notes" />
+		<result column="sumMoney" jdbcType="DOUBLE" property="sumMoney" />
+		<result column="payMode" jdbcType="INTEGER" property="payMode" />
+		<result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="acceptTime" jdbcType="TIMESTAMP" property="acceptTime" />
+		<result column="shopConfirmTime" jdbcType="TIMESTAMP" property="shopConfirmTime" />
+		<result column="userConfirmTime" jdbcType="TIMESTAMP" property="userConfirmTime" />
+		<result column="isPay" jdbcType="INTEGER" property="isPay" />
+		<result column="paySerialsNumber" jdbcType="VARCHAR" property="paySerialsNumber" />
+		<association column="userId" jdbcType="INTEGER" property="user"
+			select="com.chb.dao.UserDao.selectUserNameByPrimaryKey" />
+		<association column="shopId" jdbcType="INTEGER" property="shop"
+			select="com.chb.dao.ShopDao.findShopById" />
+	</resultMap>
 
 	<sql id="Base_Column_List">
 		id, orderNo,
@@ -18,10 +38,10 @@
 		<include refid="t_order" />
 		<where>
 			<if test="page.keyWords != null and page.keyWords != ''">
-				<if test="fuzzy == true">
+				<if test="page.fuzzy == true">
 					orderNo like '%' #{page.keyWords} '%'
 				</if>
-				<if test="fuzzy == false">
+				<if test="page.fuzzy == false">
 					orderNo = #{page.keyWords}
 				</if>
 			</if>
@@ -30,10 +50,13 @@
 					AND status = 0 OR status = 1
 				</if>
 				<if test="order.status == 2">
-					AND status = 2 OR status = 3 OR status = 4
+					AND status = 2
 				</if>
 				<if test="order.status == 3">
-					AND status = 5
+					AND status = 3
+				</if>
+				<if test="order.status == 4">
+					AND status = 4 OR status = 5
 				</if>
 			</if>
 		</where>
@@ -41,17 +64,17 @@
 
 	<!-- 分类分页查询订单列表 -->
 	<select id="selectOrderListByPage" parameterType="java.util.Map"
-		resultType="Order">
+		resultMap="BaseResultMap">
 		SELECT
 		<include refid="Base_Column_List" />
 		FROM
 		<include refid="t_order" />
 		<where>
-			<if test="page.keyWords != null and page.skeyWords != ''">
-				<if test="fuzzy == true">
+			<if test="page.keyWords != null and page.keyWords != ''">
+				<if test="page.fuzzy == true">
 					orderNo like '%' #{page.keyWords} '%'
 				</if>
-				<if test="fuzzy == false">
+				<if test="page.fuzzy == false">
 					orderNo = #{page.keyWords}
 				</if>
 			</if>
@@ -60,13 +83,19 @@
 					AND status = 0 OR status = 1
 				</if>
 				<if test="order.status == 2">
-					AND status = 2 OR status = 3 OR status = 4
+					AND status = 2
 				</if>
 				<if test="order.status == 3">
-					AND status = 5
+					AND status = 3
+				</if>
+				<if test="order.status == 4">
+					AND status = 4 OR status = 5
 				</if>
 			</if>
 		</where>
+		<if test="page.pageNum > 0 and page.pageSize > 0">
+			limit #{page.startColum},#{page.pageSize}
+		</if>
 	</select>
 
 	<!-- 增加订单 -->
@@ -103,15 +132,24 @@
 		UPDATE
 		<include refid="t_order" />
 		SET
-		isPay = #{isPay},
+		status = 1,
+		isPay = 1,
 		paySerialsNumber = #{paySerialsNumber}
-		WHERE id =
-		#{id}
+		WHERE orderNo = #{orderNo}
 	</update>
-
-<select id="selectCountByPrice" parameterType="long" resultType="java.lang.Long">
+	
+	<select id="selectCountByPrice" parameterType="long" resultType="java.lang.Long">
 	SELECT count(0) FROM `order` WHERE sumMoney between ${_parameter*20} 
 		and ${(_parameter+1)*20}
-</select>
+	</select>
+
+	<!-- 通过id查询订单 -->
+	<select id="selectOrderById" parameterType="Integer" resultType="Order">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM
+		<include refid="t_order" />
+		WHERE id = #{id}
+	</select>
 
 </mapper>

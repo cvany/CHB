@@ -32,4 +32,6 @@ public interface OrderDao {
 	
 	long selectCountByPrice(long i);
 	
+	// 通过id查询订单
+	Order selectOrderById(Integer id);
 }

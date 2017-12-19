@@ -22,6 +22,8 @@ public class Order {
 	private Date userConfirmTime;
 	private Integer isPay;
 	private String paySerialsNumber;
+	private User user;
+	private Shop shop;
 	
 	public Order() {
 	}
@@ -136,6 +138,22 @@ public class Order {
 
 	public void setPaySerialsNumber(String paySerialsNumber) {
 		this.paySerialsNumber = paySerialsNumber;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Shop getShop() {
+		return shop;
+	}
+
+	public void setShop(Shop shop) {
+		this.shop = shop;
 	}
 	
 }

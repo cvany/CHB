@@ -15,7 +15,6 @@ public class OrderGoodsList {
 	private Integer count;
 	private Double sumMoney;
 	private Date createTime;
-	private Order order;
 	private Goods goods;
 	
 	public OrderGoodsList() {
@@ -67,14 +66,6 @@ public class OrderGoodsList {
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
-	}
-
-	public Order getOrder() {
-		return order;
-	}
-
-	public void setOrder(Order order) {
-		this.order = order;
 	}
 
 	public Goods getGoods() {
