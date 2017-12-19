@@ -1,7 +1,11 @@
 var indexApp = angular.module("indexApp",['ui.router','controllers']);
 var baseUrl = "/CHB/";
 indexApp.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider) {
-	$urlRouterProvider.when("","/location");
+	$urlRouterProvider 
+	.when("/ruzhu","/businessman")
+	.when("/sms","/businessman")
+	.when("/shenhe","/businessman");
+	
 	$stateProvider
 	.state("location",{
 		url:"/location",
@@ -9,23 +13,18 @@ indexApp.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$
 		controller:"location"
 	})
 	.state("ruzhu",{
-		url:"/ruzhu",
+		url:"/ruzhu/:businessmanId",
 		templateUrl:"ruzhu.html",
 		controller:"shopInData"
 	})
-	.state("insertBusinessman",{
-		url:"/insertBusinessman",
+	.state("sms",{
+		url:"/sms",
 		templateUrl:"sms.html",
 		controller:"shopInData"
 	})
-	.state("industrySMS",{
-		url:"/industrySMS",
-		templateUrl:"sms.html",
-		controller:"shopInData"
-	})
-	.state("checkValidateCode",{
-		url:"/checkValidateCode",
-		templateUrl:"sms.html",
+	.state("shenhe",{
+		url:"/shenhe",
+		templateUrl:"shenhe.html",
 		controller:"shopInData"
 	})
 	

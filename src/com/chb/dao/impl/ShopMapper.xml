@@ -25,5 +25,17 @@
 		#{carriage,jdbcType=DOUBLE},#{averageTime,jdbcType=INTEGER},#{dispatchDescription,jdbcType=VARCHAR},
 		#{takeoutAreaId,jdbcType=INTEGER},#{monthSales,jdbcType=INTEGER},#{shopPoint,jdbcType=INTEGER},#{shopClassifyId,jdbcType=INTEGER})
 	</insert>
+	<!-- 根据id查询商店信息 -->
+    <select id="findShopById" parameterType="Shop" resultType="Shop">
+    	SELECT <include refid="Base_Column_List" />
+		FROM shop
+		WHERE id=#{id}
+    </select>
+    <!-- 根据商店名返回商店信息 -->
+    <select id="findShopByName" parameterType="String" resultType="Shop">
+    	SELECT <include refid="Base_Column_List" />
+		FROM shop
+		WHERE shopName=#{shopName}
+    </select>
 
 </mapper>

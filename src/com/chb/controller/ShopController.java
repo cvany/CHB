@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.chb.entity.Businessman;
 import com.chb.entity.ResultMessage;
 import com.chb.entity.Shop;
 import com.chb.service.ShopService;
@@ -26,10 +27,15 @@ public class ShopController {
 	//
 	@RequestMapping("insertShop")
 	@ResponseBody
-	public void insertShop(String shop) throws Exception{
+	public int insertShop(String shop) throws Exception{
 		Shop shops = new Shop();
 		shops=JsonUtil.jsonToObject(shop, Shop.class);
 		shopService.insertShop(shops);
+		Shop bp = shopService.findShopByName(shops.getShopName());
+		int id=0;
+		if(bp!=null)
+		id=bp.getId();
+		return id;
 	}
 	/**
 	 * 根据商店id查找商店信息

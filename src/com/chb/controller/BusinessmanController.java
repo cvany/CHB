@@ -61,8 +61,10 @@ public class BusinessmanController {
 		Businessman business = new Businessman();
 		business = JsonUtil.jsonToObject(businessman, Businessman.class);
 		businessmanService.insertBusinessman(business);
-		Businessman bphone = businessmanService.findByBusinessmanPhone(business.getPhone());
-		int id=bphone.getId();
+		Businessman bp = businessmanService.findByBusinessmanPhone(business.getPhone());
+		int id=0;
+		if(bp!=null)
+		id=bp.getId();
 		return id;
 	}
 	
@@ -87,6 +89,11 @@ public class BusinessmanController {
 		status=true;
 		return status;
 	}
-
-	
+//获取配送信息
+	@RequestMapping("getDispatchingByBusinessmanId")
+	@ResponseBody
+	public Businessman getDispatchingByBusinessmanId(int id) throws Exception{
+		Businessman businessman= businessmanService.findById(id);
+		return businessman;
+	}
 }

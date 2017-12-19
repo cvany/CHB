@@ -6,8 +6,10 @@
 <link rel="stylesheet" href="../../../css/business/ruzhuwrite.css" />
 <link rel="stylesheet" type="text/css"
 	href="../../../css/lib/bootstrap.min.css">
+<link href="../../../css/plugins/cropper/cropper.min.css"
+	rel="stylesheet">
 <link rel="stylesheet" href="../../../css/business/menu.css" />
- <link href="../../../css/plugins/toastr/toastr.min.css" rel="stylesheet">
+<link href="../../../css/plugins/toastr/toastr.min.css" rel="stylesheet">
 <title></title>
 </head>
 
@@ -52,64 +54,125 @@
 		</div>
 	</div>
 	<div class="ruzhuform">
+
 		<label
 			style="font-family: '微软雅黑'; font-size: x-large; padding-left: 10px;">填写信息</label>
-		<form class="ruzhu">
-			<div class="input-group input-group-lg" style="width: 450px;">
-				<span class="input-group-addon" style="left: 30px;">商店名称</span> <input
-					data-ng-model="shop.shopName" type="text" class="form-control">
-			</div>
-			<br />
-			<div class="input-group input-group-lg" style="width: 450px;">
-				<span class="input-group-addon" style="left: 30px;">商店地址</span> <input
-					data-ng-model="shop.address" type="text" class="form-control">
-			</div>
-			<br />
-			<div class="input-group input-group-lg" style="width: 450px;">
-				<span class="input-group-addon" style="left: 30px;">商店正面照</span> <input
-					data-ng-model="shopInData.frontPhoto" type="text"
-					class="form-control">
-			</div>
-			<br />
-			<div class="input-group input-group-lg" style="width: 450px;">
-				<span class="input-group-addon" style="left: 30px;">商店室内照</span> <input
-					data-ng-model="shopInData.insidePhoto" type="text"
-					class="form-control">
-			</div>
-			<br />
-			<div class="input-group input-group-lg" style="width: 450px;">
-				<span class="input-group-addon" style="left: 30px;">法定代表人姓名</span> <input
-					data-ng-model="shopInData.legalRepresentative" type="text"
-					class="form-control">
-			</div>
-			<br />
-			<div class="input-group input-group-lg" style="width: 450px;">
-				<span class="input-group-addon" style="left: 30px;">身份证正面照</span> <input
-					data-ng-model="shopInData.IDFrontPhoto" type="text"
-					class="form-control">
-			</div>
-			<br />
-			<div class="input-group input-group-lg" style="width: 450px;">
-				<span class="input-group-addon" style="left: 30px;">身份证反面照</span> <input
-					data-ng-model="shopInData.IDBackPhoto" type="text"
-					class="form-control">
-			</div>
-			<br />
-			<div class="input-group input-group-lg" style="width: 450px;">
-				<span class="input-group-addon" style="left: 30px;">营业执照图片</span> <input
-					data-ng-model="shopInData.businessServiceLicense" type="text"
-					class="form-control">
-			</div>
-			<br />
-			<div class="input-group input-group-lg" style="width: 450px;">
-				<span class="input-group-addon" style="left: 30px;">餐饮服务许可证照</span>
-				<input data-ng-model="shopInData.cateringServiceLicense" type="text"
-					class="form-control">
-			</div>
-			<br />
-			<button data-ng-click="insertShopInData()" class="btn-danger">下一步</button>
-		</form>
+		<form class="ruzhu" method="post" enctype="multipart/form-data">
 
+			<div class="row">
+				<label class="col-md-3">商店名称</label> <input
+					data-ng-model="shop.shopName" type="text" class="col-md-4">
+			</div>
+			<div class="row">
+				<label class="col-md-3">商店地址</label> <input
+					data-ng-model="shop.address" type="text" class="col-md-4">
+			</div>
+			<div class="row">
+				<label class="col-md-3">法定代表人姓名</label> <input
+					data-ng-model="shopInData.legalRepresentative" type="text"
+					class="col-md-4">
+			</div>
+
+			<div class="row">
+				<label class="col-sm-2 control-label">商店正面照</label>
+				<div class="col-sm-6">
+				<div class="btn btn-default" ngf-select ngf-multiple="false"
+                         ngf-change="uploadScrollPic($files,'frontPhoto')" ngf-max-size='512000'
+                         ngf-accept="'image/gif,image/jpeg,image/png'"
+                         accept="image/gif,image/jpeg,image/png">上传图片
+                    </div>
+				</div>
+			</div>
+
+			<div class="row">
+				<label class="col-sm-2 control-label">商店室内照</label>
+				<div class="col-sm-6">
+					<div class="btn btn-default" ngf-select ngf-multiple="false"
+                         ngf-change="uploadScrollPic($files,'insidePhoto')" ngf-max-size='512000'
+                         ngf-accept="'image/gif,image/jpeg,image/png'"
+                         accept="image/gif,image/jpeg,image/png">上传图片
+                    </div>
+				</div>
+			</div>
+
+			<div class="row">
+				<label class="col-sm-2 control-label">身份证正面照</label>
+				<div class="col-sm-6">
+					<div class="btn btn-default" ngf-select ngf-multiple="false"
+                         ngf-change="uploadScrollPic($files,'IDFrontPhoto')" ngf-max-size='512000'
+                         ngf-accept="'image/gif,image/jpeg,image/png'"
+                         accept="image/gif,image/jpeg,image/png">上传图片
+                    </div>
+				</div>
+			</div>
+
+			<div class="row">
+				<label class="col-sm-2 control-label">身份证反面照</label>
+				<div class="col-sm-6">
+					<div class="btn btn-default" ngf-select ngf-multiple="false"
+                         ngf-change="uploadScrollPic($files,'IDBackPhoto')" ngf-max-size='512000'
+                         ngf-accept="'image/gif,image/jpeg,image/png'"
+                         accept="image/gif,image/jpeg,image/png">上传图片
+                    </div>
+				</div>
+			</div>
+
+			<div class="row">
+				<label class="col-sm-2 control-label">营业执照图片</label>
+				<div class="col-sm-6">
+					<div class="btn btn-default" ngf-select ngf-multiple="false"
+                         ngf-change="uploadScrollPic($files,'businessLicense')" ngf-max-size='512000'
+                         ngf-accept="'image/gif,image/jpeg,image/png'"
+                         accept="image/gif,image/jpeg,image/png">上传图片
+                    </div>
+				</div>
+			</div>
+
+			<div class="row">
+				<label class="col-sm-2 control-label">餐饮服务许可证照</label>
+				<div class="col-sm-6">
+					<div class="btn btn-default" ngf-select ngf-multiple="false"
+                         ngf-change="uploadScrollPic($files,'cateringServiceLicense')" ngf-max-size='512000'
+                         ngf-accept="'image/gif,image/jpeg,image/png'"
+                         accept="image/gif,image/jpeg,image/png">上传图片
+                    </div>
+				</div>
+			</div>
+			<button data-ng-click="insertShopInData()" class="btn-danger">下一步</button>
+
+		</form>
+	</div>
+
+	<div id="cropper" class="modal fade" aria-hidden="true"
+		data-backdrop="static">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="row">
+						<h3 class="m-t-none m-b">图片裁剪</h3>
+						<div class="modal-body row">
+							<div
+								style="width: 400px; height: 300px; float: left; display: flex; justify-content: center; align-items: center">
+								<img id="cropper-img" ng-src="{{imgSelectedUrl}}" width="400"
+									alt="">
+							</div>
+							<div id="cropper-preview"
+								style="width: 100px; height: 300px; float: right; display: flex; justify-content: center; align-items: center">
+								<div class="img-preview" style="width: 80px; height: 80px"></div>
+							</div>
+						</div>
+						<div class="pull-right">
+							<button class="btn btn-sm btn-default" ng-click="cancelCropper()">
+								<strong>取消</strong>
+							</button>
+							<button class="btn btn-sm btn-primary" ng-click="cropperImg()">
+								<strong>确定</strong>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
 </body>
@@ -119,9 +182,12 @@
 <script src="../../../js/lib/bootstrap.min.js"></script>
 
 <script src="../../../js/angular/angular.js"></script>
-<script src="../../../js/angular/angular-ui-router.min.js"
+<script src="../../../js/angular/angular-ui-router.min.js" type="text/javascript" charset="utf-8"></script>
+
+<script src="../../../js/angular/ng-file-upload.min.js"
 	type="text/javascript" charset="utf-8"></script>
-	<script src="../../../js/plugins/toastr/toastr.min.js"
+<script src="../../../js/plugins/cropper/cropper.min.js"></script>
+<script src="../../../js/plugins/toastr/toastr.min.js"
 	type="text/javascript" charset="utf-8"></script>
 <script src="../../../js/models/ShopVo.js"></script>
 <script src="../../../js/models/BusinessmanVo.js"></script>

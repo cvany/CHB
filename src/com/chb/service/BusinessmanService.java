@@ -18,4 +18,6 @@ public interface BusinessmanService {
 	Businessman findByBusinessmanPhone(String phone);
 	//存入商家
 	void insertBusinessman(Businessman businessman);
+	//根据id查找
+	Businessman findById(int id);
 }

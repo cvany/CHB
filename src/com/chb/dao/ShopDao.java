@@ -17,4 +17,8 @@ public interface ShopDao {
 	 * @return
 	 */
 	Shop findShopById(Shop shop);
+	
+	Shop findShopByName(String shopName);
+
+	
 }

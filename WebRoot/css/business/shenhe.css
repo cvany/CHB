@@ -20,7 +20,7 @@
 	text-align: center;
 }
 .first .big-circle .round_active{
-	background: #F00000 !important;
+	background: #FF4444; !important;
 	width: 33px;
 	height: 33px;
 	position: absolute;
@@ -30,7 +30,7 @@
 	text-align: center;
 }
 .first .big-line .line_active{
-	background: #F00000; !important;
+	background: #FF4444; !important;
 	width: 300px;
 	height: 10px;
 	position: absolute;
@@ -80,7 +80,7 @@
 	height: 33px;
 	position: absolute;
 	border-radius: 50%;
-	background: #F00000 !important;
+	background: #FF4444; !important;
 	left:0;
 	top: 0;
 	text-align: center;
@@ -105,7 +105,7 @@
 .second .big-line .line_active{
 	width: 300px;
 	height: 10px;
-	background: #F00000 !important;
+	background: #FF4444; !important;
 	position: absolute;
 	left: 0;
 	top: 0;
@@ -135,7 +135,7 @@
 	height: 33px;
 	position: absolute;
 	border-radius: 50%;
-	background: #F00000 !important;
+	background: #FF4444; !important;
 	left: 0;
 	top: 0;
 	text-align: center;

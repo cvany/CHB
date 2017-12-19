@@ -24,6 +24,11 @@ public class ShopServiceImpl implements ShopService {
 	public void insertShop(Shop shop){
 		shopDao.insertShop(shop);
 	}
+	
+	@Override
+	public Shop findShopByName(String shopName){
+		return shopDao.findShopByName(shopName);
+	}
 
 }
 

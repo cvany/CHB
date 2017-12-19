@@ -59,4 +59,10 @@ public class BusinessmanServiceImpl implements BusinessmanService {
 		businessmanDao.insertBusinessman(businessman);
 	}
 
+	@Override
+	public Businessman findById(int id) {
+		// TODO Auto-generated method stub
+		return businessmanDao.findById(id);
+	}
+
 }
