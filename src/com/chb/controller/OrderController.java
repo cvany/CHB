@@ -61,9 +61,7 @@ public class OrderController {
 			myWebSocketHandler.sendMessageToUser(((Order) resultMessage.getResultParam()).getShopId()+"",
 					new TextMessage(JsonUtil.objectToJson(new ResultMessage(true, ResultCode.SUCCESS, "新订单", null))));
 		}
-		return orderService.newOrder(JsonUtil.jsonToObject(order, Order.class),
-				JsonUtil.jsonToObject(orderGoodsList, new TypeToken<List<OrderGoodsList>>() {
-				}.getType()), session);
+		return resultMessage;
 	}
 
 	// 修改支付状态
