@@ -134,7 +134,7 @@
     <hr>
     <div class="tips">
         <div>下单成功!</div>
-        <button type="button" class="btn btn-address">查看订单</button>
+        <button type="button" class="btn btn-address" ng-click="toOrderPage()">查看订单</button>
         <button type="button" class="btn btn-address"
                 ng-show="orderVo.payMode == 0" ng-click="toPayPage()">去支付</button>
     </div>

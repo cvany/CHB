@@ -1,0 +1,229 @@
+body, html {
+    width: 100%;
+    height: 100%;
+}
+a {
+    text-decoration: none;
+    outline: none;
+}
+
+a:hover {
+    text-decoration: none;
+    outline: none;
+}
+
+a:link {
+    text-decoration: none;
+    outline: none;
+}
+
+a:visited {
+    text-decoration: none;
+    outline: none;
+}
+
+a:hover {
+    text-decoration: none;
+    outline: none;
+}
+
+a:active {
+    text-decoration: none;
+    outline: none;
+}
+#all {
+    width: 100%;
+    height: 100%;
+}
+
+#p_logo {
+    width: 150px;
+    height: 70px;
+    margin-left: 300px;
+    margin-top: 7px;
+    position: absolute
+}
+
+#head_favicon {
+    wideth: 50px;
+    height: 50px;
+    margin-left: 800px;
+    margin-top: -50px;
+
+}
+
+#userN {
+    margin-top: 50px;
+    margin-left: 10px;
+}
+
+#head {
+    background-color: red;
+    height: 12%;
+    width: 100%;
+    float: left
+
+}
+
+#left {
+    /*background-color:#2F4050;*/
+    width: 15%;
+    float: left
+}
+
+#left_favicon {
+    margin-left: 70px;
+    margin-top: 30px;
+    width: 80px;
+    height: 80px;
+}
+
+#container {
+
+    height: 86%;
+    width: 85%;
+    float: left;
+}
+
+#selectFavicon {
+
+    width: 50px;
+    height: 26px;
+    margin-left: -14px;
+    margin-top: -28px;
+    opacity: 0;
+
+}
+
+#foot {
+    background-color: red;
+    width: 100%;
+    height: 3%;
+    float: left;
+}
+
+.menu-item {
+    color: #FF4444 !important;
+    background-color: snow !important;
+}
+
+.menu-item:hover, .menu-item:active {
+    color: #ee1c1a !important;
+    background-color: snow !important;
+}
+
+/*my styles*/
+.type-nav {
+    margin: 10px 30px;
+    display: flex;
+    flex-direction: row;
+    font-size: 16px;
+}
+
+.type-nav > div {
+    padding: 10px 20px;
+}
+
+.type-nav > div:hover {
+    color: #FF4444;
+    cursor: pointer;
+    border-bottom: 2px solid #FF4444;
+}
+
+.type-nav > div.active {
+    color: #FF4444;
+    border-bottom: 2px solid #FF4444;
+}
+
+/*订单列表*/
+.order-list {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 30px;
+    font-size: 12px;
+}
+
+.order-item {
+    width: 900px;
+    margin-bottom: 10px;
+}
+
+.order-header {
+    background: #eeeeee;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: row;
+}
+
+.order-id {
+    width: 300px;
+}
+
+.order-shop {
+    width: 300px;
+}
+
+.order-header > .order-time {
+    flex: 1;
+    text-align: right;
+}
+
+.order-content {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #eeeeee;
+    text-align: center;
+}
+
+.order-content > div:not(.goods) {
+    flex: 1;
+    padding: 20px;
+}
+
+.order-content > div + div {
+    border-left: 1px solid #eeeeee;
+}
+
+.goods {
+    width: 500px !important;
+    text-align: left;
+    padding: 20px;
+}
+
+.sum-money {
+    font-size: 13px;
+    font-weight: bold;
+}
+.operation {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.operation>button+button {
+    margin-left: 5px;
+}
+
+
+.foot {
+    position: relative;
+    width: 900px;
+    margin-left: 30px;
+    margin-bottom: 50px;
+}
+.page-count{
+    display: inline;
+    height: 30px;
+    width: 70px;
+    text-align: center;
+}
+
+.btn-theme {
+    color: #fff !important;
+    background-color: #FF4444;
+    border-color: #FF4444;
+}
+.btn-theme:hover {
+    background: #d63939;
+}

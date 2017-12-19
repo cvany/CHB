@@ -26,6 +26,12 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>订单列表</h5>
+                    <div class="pull-right" style="cursor: pointer" ng-show="orderCount>0"
+                         ng-click="refreshList()">
+                        <span style="height:20px;border-radius: 10px;padding: 2px 8px;background: red;
+                        color: white;font-size: 12px" ng-bind="orderCount">4</span>
+                        新订单(点击刷新)
+                    </div>
                 </div>
                 <div class="ibox-content">
                     <div class="input-group pull-left"

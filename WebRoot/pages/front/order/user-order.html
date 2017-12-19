@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我的订单</title>
+    <!-- bootstrap -->
+    <link href="../../../css/lib/bootstrap.min.css" rel="stylesheet">
+    <!-- layui -->
+    <link rel="stylesheet" href="../../../layui/css/layui.css">
+    <link rel="stylesheet" href="../../../css/front/order/user-order.css">
+</head>
+<body ng-app="userOrder" ng-controller="userOrder">
+<div id="all">
+    <ul class="layui-nav" style="background-color: #ff4444" lay-filter="">
+        <li class="layui-nav-item"><a href="#"><img height="40px" src="../../../img/logowhilte.png"/></a></li>
+        <li class="layui-nav-item"><a href="../shopBrowse.html">首页</a></li>
+        <li class="layui-nav-item" style="float: right;"><a href="javascript:;" onclick="logout()">退出</a></li>
+    </ul>
+    <!-- 导航栏 -->
+    <div id="left">
+
+        <ul id="myTab" class="nav " style="width:100%;height:100%">
+            <img id="left_favicon" class="img-circle" src="../../../img/logo.png"/>
+            <li class="dropdown" style="margin-top:30px;text-align:center;">
+                <a href="../user/userPersonal.html" id="me" class="dropdown-toggle menu-item">个人信息</a>
+            </li>
+
+            <li class="dropdown" class="active" style="text-align:center;cursor: pointer">
+                <a id="order" class="dropdown-toggle menu-item">我的订单</a>
+            </li>
+
+            <li class="dropdown" style="text-align:center">
+                <a href="../user/userMessage.html" id="myMes" class="dropdown-toggle menu-item">我的消息</a>
+            </li>
+
+        </ul>
+    </div>
+    <!-- 我的订单 -->
+    <div id="container">
+        <div class="type-nav">
+            <div ng-class="{'0':'active'}[order.status]"
+                 ng-click="changeStatus(0)">待付款
+            </div>
+            <div ng-class="{'1':'active'}[order.status]"
+                 ng-click="changeStatus(1)">待接单
+            </div>
+            <div ng-class="{'2':'active'}[order.status]"
+                 ng-click="changeStatus(2)">待发货
+            </div>
+            <div ng-class="{'3':'active'}[order.status]"
+                 ng-click="changeStatus(3)">待收货
+            </div>
+            <div ng-class="{'5':'active'}[order.status]"
+                 ng-click="changeStatus(5)">待评价
+            </div>
+            <div ng-class="{'-1':'active'}[order.status]"
+                 ng-click="changeStatus(-1)">待退单
+            </div>
+            <div ng-class="{'6':'active'}[order.status]"
+                 ng-click="changeStatus(6)">已完成
+            </div>
+        </div>
+        <div class="order-list">
+            <div class="order-item" ng-repeat="item in orderList.list">
+                <div class="order-header">
+                    <span class="order-id">订单号: <span ng-bind="item.orderNo"></span></span>
+                    <span class="order-shop">商家：<span ng-bind="item.shop.shopName"></span></span>
+                    <span class="order-time pull-right" ng-bind="item.createTime"></span>
+                </div>
+                <div class="order-content">
+                    <div class="goods" ng-bind="item.orderGoodsList | goodsListFormat">
+                    </div>
+                    <div class="sum-money">
+                        ￥ <span ng-bind="item.sumMoney"></span>
+                    </div>
+                    <div>
+                        <div ng-show="item.status == 1 || item.status == 2 ||
+                                (item.status == 0 && item.payMode == 1) || false"
+                              ng-bind="item.payMode==0?'已付款':'货到付款'"></div>
+                        订单详情
+                    </div>
+                    <div class="operation">
+                        <button class="btn btn-sm btn-default"
+                                ng-show="item.status == 0 && item.payMode == 0 || false"
+                                ng-click="pay(item.id)">付款
+                        </button>
+                        <button class="btn btn-sm btn-default"
+                                ng-show="item.status == 1 || item.status == 2 ||
+                                (item.status == 0 && item.payMode == 1) || false">退单
+                        </button>
+                        <button class="btn btn-sm btn-default"
+                                ng-show="item.status == 2 || false">催单
+                        </button>
+                        <button class="btn btn-sm btn-default"
+                                ng-show="item.status == 3 || false"
+                                ng-click="confirmReceiptCheck(item.id)">确认收货
+                        </button>
+                        <button class="btn btn-sm btn-default"
+                                ng-show="item.status == 5 || false"
+                                >评价
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="foot">
+            <div class="pull-left">
+                共<span ng-bind="orderList.total"></span>条记录 共<span
+                    ng-bind="orderList.pages"></span>页
+            </div>
+            <div class="text-right">
+                <button class="btn btn-default btn-sm"
+                        ng-click="lastPage(orderList.pageNum-1)">上一页
+                </button>
+                <input type="text" class="form-control page-count"
+                       ng-model="page.pageNum" ng-blur="toPage()"
+                       ng-keyup="toPage($event)"/>
+                <button class="btn btn-default btn-sm"
+                        ng-click="nextPage(orderList.pageNum+1)">下一页
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirm-check" class="modal fade" aria-hidden="true"
+         data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">提示</h4>
+                </div>
+                <div class="modal-body">
+                    <h4>请确定你已经收到美食</h4>
+                </div>
+                <div class="modal-footer">
+                    <div class="pull-right">
+                        <button class="btn btn-sm btn-default" data-dismiss="modal">
+                            <strong>取消</strong>
+                        </button>
+                        <button class="btn btn-sm btn-theme"
+                                ng-click="confirmReceipt()">
+                            <strong>确定</strong>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="../../../js/lib/jquery-2.1.1.js"></script>
+<script src="../../../js/lib/bootstrap.min.js"></script>
+<script src="../../../js/models/PageVo.js"></script>
+<script src="../../../js/models/OrderVo.js"></script>
+<script src="../../../js/angular/angular.js"></script>
+<script src="../../../js/controller/front/order/userOrder.js"></script>
+</body>
+</html>
