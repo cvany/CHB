@@ -12,6 +12,9 @@ controllers.controller("orderDetail", ['$scope', '$http', '$state', '$stateParam
     switch ($stateParams.type) {
         case '1':
             $scope.btnText = '接单'
+            if($scope.order.status == 0 && $scope.order.payMode == 0) {
+                $scope.btnText = ''
+            }
             break;
         case '2':
             $scope.btnText = '派送'

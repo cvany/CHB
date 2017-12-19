@@ -1,7 +1,7 @@
 /**
  * Created by shilim on 2017/12/6.
  */
-controllers.controller("orderList", ['$scope', '$http', '$state', function ($scope, $http, $state) {
+controllers.controller("orderList", ['$scope', '$http', '$state', '$rootScope', function ($scope, $http, $state, $rootScope) {
     $scope.checkAll = false;//全选
     $scope.orderList = [];
     $scope.page = new PageVo();
@@ -11,7 +11,8 @@ controllers.controller("orderList", ['$scope', '$http', '$state', function ($sco
     $scope.page.pageNum = 1;
     $scope.page.pageSize = 5;
     $scope.order.status = 1;
-    //获取用户列表
+    sessionStorage.orderListPageNum = 1;
+    //获取订单列表
     $scope.getOrderList = function () {
         //是否存在缓存页数
         if (sessionStorage.orderListPageNum) $scope.page.pageNum = sessionStorage.orderListPageNum;
@@ -25,6 +26,11 @@ controllers.controller("orderList", ['$scope', '$http', '$state', function ($sco
             .success(function (data) {
                 if (data.serviceResult == 1) {
                     console.log(data.resultParam)
+                    if (data.resultParam.total != 0 && sessionStorage.orderListPageNum > Math.ceil(data.resultParam.total / $scope.page.pageSize)) {
+                        sessionStorage.orderListPageNum = 1;
+                        $scope.getOrderList();
+                        return;
+                    }
                     $scope.orderList = data.resultParam;
                     $scope.page.pageNum = $scope.orderList.pageNum;
                 } else {
@@ -39,6 +45,11 @@ controllers.controller("orderList", ['$scope', '$http', '$state', function ($sco
             });
     }
     $scope.getOrderList();
+
+    $scope.refreshList = function () {
+        $rootScope.orderCount = 0;
+        $scope.getOrderList();
+    }
 
     //修改显示条数
     $scope.changePageSize = function () {

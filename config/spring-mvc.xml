@@ -1,41 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-    xmlns:mvc="http://www.springframework.org/schema/mvc"
-    xsi:schemaLocation="
-        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-        http://www.springframework.org/schema/mvc 
-        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!-- 启动自动扫描 -->
-    <context:component-scan base-package="com.chb.*" />
+	<!-- 启动自动扫描 -->
+	<context:component-scan base-package="com.chb.*" />
 
-    <!-- 注册MVC注解驱动 -->
-    <mvc:annotation-driven >
-    	<!-- 解决responsebody 返回中文乱码问题 -->
-    	<mvc:message-converters register-defaults="true">  
-	        <bean class="org.springframework.http.converter.StringHttpMessageConverter">  
-	            <property name="supportedMediaTypes" value = "text/html;charset=UTF-8" />  
-	        </bean>  
-            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-            	<property name="objectMapper">
-                    <bean class="com.fasterxml.jackson.databind.ObjectMapper">
-                        <property name="dateFormat">
-                            <bean class="java.text.SimpleDateFormat">
-                                <constructor-arg type="java.lang.String" value="yyyy-MM-dd"/>
-                            </bean>
-                        </property>
-                    </bean>
-                </property>
-            </bean>
-    	</mvc:message-converters> 
-    </mvc:annotation-driven>
+	<!-- 注册MVC注解驱动 -->
+	<mvc:annotation-driven>
+		<!-- 解决responsebody 返回中文乱码问题 -->
+		<mvc:message-converters register-defaults="true">
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="supportedMediaTypes" value="text/html;charset=UTF-8" />
+			</bean>
+			<bean
+				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="objectMapper">
+					<bean class="com.fasterxml.jackson.databind.ObjectMapper">
+						<property name="dateFormat">
+							<bean class="java.text.SimpleDateFormat">
+								<constructor-arg type="java.lang.String" value="yyyy-MM-dd" />
+							</bean>
+						</property>
+					</bean>
+				</property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
 
-    <!-- 静态资源可访问的设置方式 -->
-    <mvc:default-servlet-handler />
-    
-    <!-- 配置拦截器 -->
+	<!-- 静态资源可访问的设置方式 -->
+	<mvc:default-servlet-handler />
+
+	<!-- 配置拦截器 -->
 	<mvc:interceptors>
 		<!-- 配置登陆拦截器 -->
 		<mvc:interceptor>
@@ -44,12 +46,12 @@
 		</mvc:interceptor>
 	</mvc:interceptors>
 
-    <!-- 配置视图解析器，可以显式设置，也可以不设置，不设置会依据SpringMVC的默认设置 -->
-    <bean id="viewResolver"
-        class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-    </bean>
-    
-    <!-- 文件上传 -->
+	<!-- 配置视图解析器，可以显式设置，也可以不设置，不设置会依据SpringMVC的默认设置 -->
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	</bean>
+
+	<!-- 文件上传 -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<!-- 设置上传文件的最大尺寸为5MB -->
@@ -57,5 +59,14 @@
 			<value>5242880</value>
 		</property>
 	</bean>
-	
+
+	<bean id="websocket" class="com.chb.websocket.MyWebSocketHandler" />
+
+	<websocket:handlers>
+		<websocket:mapping path="/ws.do" handler="websocket" />
+		<websocket:handshake-interceptors>
+			<bean class="com.chb.websocket.HandShake" />
+		</websocket:handshake-interceptors>
+	</websocket:handlers>
+
 </beans>

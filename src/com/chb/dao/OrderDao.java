@@ -12,10 +12,10 @@ import com.chb.entity.Order;
  *
  */
 public interface OrderDao {
-	// 分类分页查询订单列表总页数
+	// 商家分类分页查询订单列表总页数
 	Long selectCountByPage(Map<String, Object> map);
 
-	// 分类分页查询订单列表
+	// 商家分类分页查询订单列表
 	List<Order> selectOrderListByPage(Map<String, Object> map);
 	
 	// 增加订单
@@ -34,4 +34,10 @@ public interface OrderDao {
 	
 	// 通过id查询订单
 	Order selectOrderById(Integer id);
+
+	// 用户分类分页查询订单列表总页数
+	Long selectCountByPageFromUser(Map<String, Object> map);
+
+	// 用户分类分页查询订单列表
+	List<Order> selectOrderListByPageFromUser(Map<String, Object> map);
 }

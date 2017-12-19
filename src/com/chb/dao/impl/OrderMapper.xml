@@ -22,6 +22,11 @@
 		<association column="shopId" jdbcType="INTEGER" property="shop"
 			select="com.chb.dao.ShopDao.findShopById" />
 	</resultMap>
+	
+	<resultMap id="userOrderList" type="com.chb.entity.Order" extends="BaseResultMap">
+		<collection column="id" property="orderGoodsList" ofType="com.chb.entity.OrderGoodsList"
+		select="com.chb.dao.OrderGoodsListDao.selectOrderGoodsListByOrderId"/>
+	</resultMap>
 
 	<sql id="Base_Column_List">
 		id, orderNo,
@@ -31,7 +36,7 @@
 
 	<sql id="t_order">`order`</sql>
 
-	<!-- 分类分页查询订单列表总条数 -->
+	<!-- 商家分类分页查询订单列表总条数 -->
 	<select id="selectCountByPage" parameterType="java.util.Map"
 		resultType="java.lang.Long">
 		SELECT count(0) FROM
@@ -45,9 +50,9 @@
 					orderNo = #{page.keyWords}
 				</if>
 			</if>
-			<if test="order.status != null and order.status != ''">
+			<if test="order.status >= -1">
 				<if test="order.status == 1">
-					AND status = 0 OR status = 1
+					AND (status = 0 OR status = 1)
 				</if>
 				<if test="order.status == 2">
 					AND status = 2
@@ -56,13 +61,16 @@
 					AND status = 3
 				</if>
 				<if test="order.status == 4">
-					AND status = 4 OR status = 5
+					AND (status = 4 OR status = 5)
 				</if>
+			</if>
+			<if test="order.shopId != null and order.shopId != ''">
+				AND shopId = #{order.shopId}
 			</if>
 		</where>
 	</select>
 
-	<!-- 分类分页查询订单列表 -->
+	<!-- 商家分类分页查询订单列表 -->
 	<select id="selectOrderListByPage" parameterType="java.util.Map"
 		resultMap="BaseResultMap">
 		SELECT
@@ -78,9 +86,9 @@
 					orderNo = #{page.keyWords}
 				</if>
 			</if>
-			<if test="order.status != null and order.status != ''">
+			<if test="order.status >= -1">
 				<if test="order.status == 1">
-					AND status = 0 OR status = 1
+					AND (status = 0 OR status = 1)
 				</if>
 				<if test="order.status == 2">
 					AND status = 2
@@ -89,10 +97,14 @@
 					AND status = 3
 				</if>
 				<if test="order.status == 4">
-					AND status = 4 OR status = 5
+					AND (status = 4 OR status = 5)
 				</if>
 			</if>
+			<if test="order.shopId != null and order.shopId != ''">
+				AND shopId = #{order.shopId}
+			</if>
 		</where>
+		ORDER BY status DESC
 		<if test="page.pageNum > 0 and page.pageSize > 0">
 			limit #{page.startColum},#{page.pageSize}
 		</if>
@@ -135,7 +147,8 @@
 		status = 1,
 		isPay = 1,
 		paySerialsNumber = #{paySerialsNumber}
-		WHERE orderNo = #{orderNo}
+		WHERE
+		orderNo = #{orderNo}
 	</update>
 	
 	<select id="selectCountByPrice" parameterType="long" resultType="java.lang.Long">
@@ -150,6 +163,69 @@
 		FROM
 		<include refid="t_order" />
 		WHERE id = #{id}
+	</select>
+	
+	<!-- 用户分类分页查询订单列表总条数 -->
+	<select id="selectCountByPageFromUser" parameterType="java.util.Map"
+		resultType="java.lang.Long">
+		SELECT count(0) FROM
+		<include refid="t_order" />
+		<where>
+			<if test="page.keyWords != null and page.keyWords != ''">
+				<if test="page.fuzzy == true">
+					orderNo like '%' #{page.keyWords} '%'
+				</if>
+				<if test="page.fuzzy == false">
+					orderNo = #{page.keyWords}
+				</if>
+			</if>
+			<if test="order.status >= -1">
+				AND status = #{order.status}
+				<if test="order.status == 0">
+					AND payMode = 0
+				</if>
+				<if test="order.status == 1">
+					OR (status = 0 AND payMode = 1)
+				</if>
+			</if>
+			<if test="order.userId != null and order.userId != ''">
+				AND userId = #{order.userId}
+			</if>
+		</where>
+	</select>
+
+	<!-- 用户分类分页查询订单列表 -->
+	<select id="selectOrderListByPageFromUser" parameterType="java.util.Map"
+		resultMap="userOrderList">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM
+		<include refid="t_order" />
+		<where>
+			<if test="page.keyWords != null and page.keyWords != ''">
+				<if test="page.fuzzy == true">
+					orderNo like '%' #{page.keyWords} '%'
+				</if>
+				<if test="page.fuzzy == false">
+					orderNo = #{page.keyWords}
+				</if>
+			</if>
+			<if test="order.status >= -1">
+				AND status = #{order.status}
+				<if test="order.status == 0">
+					AND payMode = 0
+				</if>
+				<if test="order.status == 1">
+					OR (status = 0 AND payMode = 1)
+				</if>
+			</if>
+			<if test="order.userId != null and order.userId != ''">
+				AND userId = #{order.userId}
+			</if>
+		</where>
+		<if test="page.pageNum > 0 and page.pageSize > 0">
+			limit #{page.startColum},#{page.pageSize}
+		</if>
 	</select>
 
 </mapper>

@@ -117,9 +117,7 @@ body,html {
 }
 
 #left{
-    background-color:#53868B;
-    margin-top:15px;
-	height:86%;
+	height:100%;
     width:15%; 
     float:left
 }
@@ -158,21 +156,35 @@ body,html {
 	float:left;
 }
 
-#me:HOVER {
-	background-color: 	#668B8B;
+.menu-item {
+	color: #FF4444 !important;
+	background-color: snow !important;
 }
-#me {
-	background-color: 	#53868B;
+
+.menu-item:hover, .menu-item:active {
+	color: #ee1c1a !important;
+	background-color: snow !important;
 }
-#order:HOVER {
-	background-color: 	#668B8B;
+
+/*my styles*/
+.type-nav {
+	margin: 10px 30px;
+	display: flex;
+	flex-direction: row;
+	font-size: 16px;
 }
-#order{
-	background-color: 	#53868B;
+
+.type-nav > a {
+	padding: 10px 20px;
 }
-#myMes:HOVER {
-	background-color: 	#668B8B;
+
+.type-nav > a:hover {
+	color: #FF4444;
+	cursor: pointer;
+	border-bottom: 2px solid #FF4444;
 }
-#myMes{
-	background-color: 	#53868B;
+
+.type-nav > a.active {
+	color: #FF4444;
+	border-bottom: 2px solid #FF4444;
 }

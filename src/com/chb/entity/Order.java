@@ -6,6 +6,7 @@ package com.chb.entity;
  *
  */
 import java.util.Date;
+import java.util.List;
 
 public class Order {
 	private Integer id;
@@ -14,6 +15,7 @@ public class Order {
 	private Integer shopId;
 	private Integer status;
 	private String notes;
+	private String reson;
 	private Double sumMoney;
 	private Integer payMode;
 	private Date createTime;
@@ -24,6 +26,7 @@ public class Order {
 	private String paySerialsNumber;
 	private User user;
 	private Shop shop;
+	private List<OrderGoodsList> OrderGoodsList;
 	
 	public Order() {
 	}
@@ -74,6 +77,14 @@ public class Order {
 
 	public void setNotes(String notes) {
 		this.notes = notes;
+	}
+
+	public String getReson() {
+		return reson;
+	}
+
+	public void setReson(String reson) {
+		this.reson = reson;
 	}
 
 	public Double getSumMoney() {
@@ -154,6 +165,14 @@ public class Order {
 
 	public void setShop(Shop shop) {
 		this.shop = shop;
+	}
+
+	public List<OrderGoodsList> getOrderGoodsList() {
+		return OrderGoodsList;
+	}
+
+	public void setOrderGoodsList(List<OrderGoodsList> orderGoodsList) {
+		OrderGoodsList = orderGoodsList;
 	}
 	
 }

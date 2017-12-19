@@ -36,9 +36,14 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	OrderGoodsListDao orderGoodsListDao;
 
-	// 分类分页查询订单列表
+	// 商家分类分页查询订单列表
 	@Override
-	public ResultMessage getOrderListByPage(Page page, Order order) {
+	public ResultMessage getOrderListByPage(Page page, Order order, HttpSession session) {
+		if (session.getAttribute("businessmanId") != null) {
+			order.setShopId(Integer.parseInt(session.getAttribute("businessmanId").toString()));
+		} else {
+			return new ResultMessage(false, ResultCode.NO_LOGIN, "未登录", null);
+		}
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("page", page);
 		map.put("order", order);
@@ -84,6 +89,31 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public Integer updateOrderPayStatus(Order order) {
 		return orderDao.updateOrderPayStatus(order);
+	}
+
+	// 用户分页获取订单列表
+	@Override
+	public ResultMessage getOrderListByPageFromUser(Page page, Order order, HttpSession session) {
+		if (session.getAttribute("user") != null) {
+			order.setUserId(((User)session.getAttribute("user")).getId());
+		} else {
+			return new ResultMessage(false, ResultCode.NO_LOGIN, "未登录", null);
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("page", page);
+		map.put("order", order);
+		page.coutStartColum();
+		long total = orderDao.selectCountByPageFromUser(map);
+		List<Order> orderList = orderDao.selectOrderListByPageFromUser(map);
+		PageInfo<Order> pageInfo = new PageInfo<Order>(page, total, orderList);
+		return new ResultMessage(true, ResultCode.SUCCESS, "获取成功", pageInfo);
+	}
+
+	@Override
+	public ResultMessage confirmReceipt(Order order) {
+		order.setStatus(5);
+		orderDao.updateOrderStatus(order);
+		return new ResultMessage(true, ResultCode.SUCCESS, "确认收货成功", null);
 	}
 
 }

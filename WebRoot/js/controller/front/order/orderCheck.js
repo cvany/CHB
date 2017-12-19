@@ -81,6 +81,10 @@ orderCheck.controller("orderCheck", ['$scope', '$http', '$window', function ($sc
             });
     }
 
+    $scope.toOrderPage = function () {
+        $window.location.href = "/CHB/pages/front/order/user-order.html";
+    }
+
     $scope.toPayPage = function () {
         $window.location.href = $scope.payUrl;
     }

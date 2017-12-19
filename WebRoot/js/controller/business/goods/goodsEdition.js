@@ -11,8 +11,9 @@ controllers.controller("goodsEdition", ['$scope', '$http', '$state', '$statePara
             var pageVo = new PageVo();
             pageVo.pageNum = 1;
             pageVo.pageSize = 500;
-            var url = baseUrl + "business/getClassifyGoodsListByPage.do?page=" + pageVo.voToJson();
-            $http.get(url)
+            var url = baseUrl + "business/getClassifyGoodsListByPage.do";
+            var data = {page: pageVo.voToJson()}
+            $http.post(url, data)
                 .success(function (data) {
                     if (data.serviceResult == 1) {
                         $scope.classifyGoodsList = data.resultParam.list;
@@ -39,7 +40,7 @@ controllers.controller("goodsEdition", ['$scope', '$http', '$state', '$statePara
                     $scope.goods.id = rGoods.id;
                     $scope.goods.goodsName = rGoods.goodsName;
                     $scope.goods.goodsPrice = rGoods.goodsPrice;
-                    $scope.goods.goodsPhoto = "/../"+rGoods.goodsPhoto;
+                    $scope.goods.goodsPhoto = "/../" + rGoods.goodsPhoto;
                     $scope.goods.goodsDescription = rGoods.goodsDescription;
                     $scope.goods.classifyGoodsId = rGoods.classifyGoodsId;
                     $scope.goods.goodsNumber = rGoods.goodsNumber;
@@ -102,7 +103,7 @@ controllers.controller("goodsEdition", ['$scope', '$http', '$state', '$statePara
         $scope.submit = function () {
             $scope.valid = true;
             if ($scope.goodsForm.$invalid) return;
-            $scope.goods.goodsPhoto.replace("\/..\/","")
+            $scope.goods.goodsPhoto.replace("\/..\/", "")
             var url = baseUrl + "business/updateGoods.do";
             var data = {goods: $scope.goods.voToJson()};
             $http.post(url, data)

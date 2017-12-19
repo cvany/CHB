@@ -10,8 +10,9 @@ controllers.controller("goodsAddition", ['$scope', '$http', '$state', '$timeout'
         var pageVo = new PageVo();
         pageVo.pageNum = 1;
         pageVo.pageSize = 500;
-        var url = baseUrl + "business/getClassifyGoodsListByPage.do?page=" + pageVo.voToJson();
-        $http.get(url)
+        var url = baseUrl + "business/getClassifyGoodsListByPage.do";
+        var data = {page: pageVo.voToJson()}
+        $http.post(url,data)
             .success(function(data) {
                 if(data.serviceResult == 1) {
                     $scope.classifyGoodsList = data.resultParam.list;

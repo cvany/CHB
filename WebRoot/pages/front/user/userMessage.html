@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>我的消息</title>
+    <link rel="stylesheet" href="../../../css/user/user.css"/>
+    <!-- bootstrap -->
+    <link href="../../../css/lib/bootstrap.min.css" rel="stylesheet">
+    <!-- animate -->
+    <link href="../../../css/lib/animate.css" rel="stylesheet">
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="../../../../css/lib/font-awesome/css/font-awesome.min.css">
+    <!-- my styles -->
+    <link rel="stylesheet" href="../../../layui/css/layui.css">
+
+</head>
+
+<style type="text/css">
+    a {
+        text-decoration: none;
+        outline: none;
+    }
+
+    a:hover {
+        text-decoration: none;
+        outline: none;
+    }
+
+    a:link {
+        text-decoration: none;
+        outline: none;
+    }
+
+    a:visited {
+        text-decoration: none;
+        outline: none;
+    }
+
+    a:hover {
+        text-decoration: none;
+        outline: none;
+    }
+
+    a:active {
+        text-decoration: none;
+        outline: none;
+    }
+
+
+</style>
+
+
+<body>
+<input id="hidden_pass" type="hidden"></input>
+<div id="all">
+
+    <ul class="layui-nav" style="background-color: #ff4444" lay-filter="">
+        <li class="layui-nav-item"><a href="#"><img height="40px" src="../../../img/logowhilte.png"/></a></li>
+        <li class="layui-nav-item"><a href="../shopBrowse.html">首页</a></li>
+        <li class="layui-nav-item" style="float: right;"><a href="javascript:;" onclick="logout()">退出</a></li>
+    </ul>
+    <!-- 导航栏 -->
+    <div id="left">
+        <ul id="myTab" class="nav " style="width:100%;height:100%">
+            <img id="left_favicon" class="img-circle" src="../../../img/logo.png"/>
+            <li class="dropdown" style="margin-top:30px;text-align:center;">
+                <a href="userPersonal.html" id="me" class="dropdown-toggle menu-item">个人信息</a>
+            </li>
+
+            <li class="dropdown" class="active" style="text-align:center;cursor: pointer">
+                <a href="../order/user-order.html" id="order" class="dropdown-toggle menu-item">我的订单</a>
+            </li>
+
+            <li class="dropdown" style="text-align:center">
+                <a href="" id="myMes" class="dropdown-toggle menu-item">我的消息</a>
+            </li>
+
+        </ul>
+    </div>
+    <!-- 分页 -->
+    <div class="tab-content" id="container">
+        <div class="type-nav">
+            <a class="tab active">我的消息</a>
+        </div>
+        <!-- 查看消息 -->
+        <div class="tab-pane fade in active" id="mMes">
+            <div style="margin:10px 30px;">
+                <p> 查看消息</p>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
+<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
+<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery.form/4.2.2/jquery.form.min.js"></script>
+<script type="text/javascript" src="../../../js/user/jqPaginator.js"></script>
+<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+    $(function () {
+        isUserLogin("userLogin.html");
+        var $name_title = $("#userN");
+        var $name = $("#name");
+        var $phone = $("#phone");
+        var $email = $("#email");
+        var $userPass = $("#hidden_pass");
+        var $register_time = $("#register_time");
+        var $head_fa = $("#head_favicon");
+        var $left_fa = $("#left_favicon");
+        var $favicon = $("#favicon");
+
+        // 菜单跳转
+        $(".tab").click(function () {
+            $(this).siblings().removeClass("active")
+            $(this).addClass("active")
+        })
+
+        $.ajax({
+            type: "post", url: rootPath + "/getSession.do", success: function (result) {      //数据初始化
+                $name_title.text(result.userName);
+                $name.text(result.userName);
+                $phone.text(result.phone);
+                $email.text(result.email);
+                $register_time.text(result.registerTime)
+                $userPass.val(result.password);
+                $head_fa.attr("src", result.photo);
+                $left_fa.attr("src", result.photo);
+                $favicon.attr("src", result.photo);
+            }
+        });
+
+    var rootPath = getRootPath_web();
+
+    function getRootPath_web() {
+        //获取当前网址，如： http://localhost:8083/uimcardprj/share/meun.jsp
+        var curWwwPath = window.document.location.href;
+        //获取主机地址之后的目录，如： uimcardprj/share/meun.jsp
+        var pathName = window.document.location.pathname;
+        var pos = curWwwPath.indexOf(pathName);
+        //获取主机地址，如： http://localhost:8083
+        var localhostPaht = curWwwPath.substring(0, pos);
+        //获取带"/"的项目名，如：/uimcardprj
+        var projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
+        return (localhostPaht + projectName);
+    }
+
+    function verfyEqual(value1, value2) {
+        if (value1 == value2) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 退出登录
+     * @returns
+     */
+    function logout() {
+        $.ajax({
+            url: rootPath + "/logout.do",
+            dataType: "json",
+            success: function (data) {
+                sessionStorage.setItem("userToken", "false");
+                window.location.href = "../shopBrowse.html";
+            }
+        });
+    }
+</script>
+<script src="../../../js/utils/pathUtil.js"></script>
+</body>
+</html>
