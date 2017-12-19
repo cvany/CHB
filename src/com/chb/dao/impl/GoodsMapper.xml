@@ -109,9 +109,6 @@
 		WHERE shopId =#{id} AND goodsName LIKE '%${goodsName}%'
     </select>
 
-	<sql id="Base_Column_List">
-		id, businessmanId, shopName,phone,isPass
-	</sql>
 	<sql id="WithShop_Column_list">
 		g.id, g.shopId, g.goodsName, g.goodsPrice, g.goodsPhoto, g.goodsDescription,
 		 	g.isPass, g.classifyGoodsId, s.id, s.shopName, cg.id, cg.classifyName

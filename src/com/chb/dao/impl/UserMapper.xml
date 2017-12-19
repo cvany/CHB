@@ -78,4 +78,7 @@
     <update id="updateUser" parameterType="com.chb.entity.User">
        UPDATE user SET password=#{password} WHERE id=#{id}
     </update> -->
+    <update id="deleteUserById" parameterType="int">
+    	UPDATE user SET status=2 WHERE  id=#{deleteResult}
+    </update>
 </mapper>
