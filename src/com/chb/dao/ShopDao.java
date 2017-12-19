@@ -23,5 +23,9 @@ public interface ShopDao {
 	Shop updateShop(Shop shop);
 	//返回信息给商家
 	Integer insertMessage(Message message);
+	//查看商家数据 分析
+	long selectCountByCredibility(long i);
+	//根据商家类别统计数量
+	long selectCountByShopClassifyId(long i);
 
 }

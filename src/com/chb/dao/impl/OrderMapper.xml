@@ -2,10 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chb.dao.OrderDao">
-
+<!-- 根据订单价格查询订单数量 -->
 <select id="selectCountByPrice" parameterType="long" resultType="java.lang.Long">
 	SELECT count(0) FROM `order` WHERE sumMoney between ${_parameter*20} 
 		and ${(_parameter+1)*20}
 </select>
-
+<!-- 根据订单支付方式查询订单数量 -->
+<select id="selectCountByPayMode" parameterType="long" resultType="java.lang.Long">
+	SELECT count(0) FROM `order` WHERE payMode =${_parameter}
+</select>
 </mapper>

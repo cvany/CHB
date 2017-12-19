@@ -31,6 +31,8 @@ public interface UserDao {
 	Integer deleteUserById(Integer id);
 	//查询用户数据总数
 	long selectCountByTime(long i);
+	//根据登录次数查询用户总数
+	long selectCountByLoginCount(long i);
 	
 	
 

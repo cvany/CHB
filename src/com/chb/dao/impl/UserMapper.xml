@@ -21,8 +21,14 @@
 			and status=1
 		</where>
 	</select>
+	<!-- 根据时间段查询用户总数 -->
 	<select id="selectCountByTime" parameterType="long" resultType="java.lang.Long">
 		SELECT count(0) FROM user WHERE registerTime<![CDATA[<=]]>'2017-${_parameter}-30 00:00:00'
+	</select>
+	<!-- 根据登录次数查询用户总数 -->
+	<select id="selectCountByLoginCount" parameterType="long" resultType="java.lang.Long">
+		SELECT count(0) FROM user WHERE loginCount between ${_parameter*50} 
+		and ${(_parameter+1)*50}
 	</select>
 	<!-- 条件分页查询用户列表 -->
 	<select id="selectUserByPage" parameterType="com.chb.entity.Page"
