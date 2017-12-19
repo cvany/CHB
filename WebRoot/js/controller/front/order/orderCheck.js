@@ -2,8 +2,8 @@
  * Created by shilim on 2017/12/14.
  */
 var orderCheck = angular.module("orderCheck", []);
-// var baseUrl = "/CHB/";
-var baseUrl = "http://localhost:8080/CHB/";
+var baseUrl = "/CHB/";
+// var baseUrl = "http://localhost:8080/CHB/";
 orderCheck
     .config(['$httpProvider', function ($httpProvider) {
         $httpProvider.defaults.transformRequest = function (obj) {
