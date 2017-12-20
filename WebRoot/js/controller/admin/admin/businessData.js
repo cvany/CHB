@@ -5,7 +5,7 @@ controllers.controller("businessData", ['$scope','$http','$state',function($scop
 
 	var businessDataList= new Array();
 	//统计商家数量
-	$http.post(baseUrl + "businessData.do")
+	$http.post(baseUrl + "getBusinessData.do")
     .success(function (data) {
         if (data !=null) {
         	for(var i=0;i<data.length;i++){

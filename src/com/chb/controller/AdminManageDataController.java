@@ -28,9 +28,9 @@ public class AdminManageDataController {
 		return adminService.getUserData();
 	}
 	//查询商家数据
-	@RequestMapping("businessData")
+	@RequestMapping("getBusinessData")
 	@ResponseBody
-	public List<Long> businessData() {
+	public List<Long> getBusinessData() {
 		System.out.println("查询商家数据***");
 		return adminService.getBusinessData();
 	}
