@@ -1,6 +1,6 @@
 var loginApp = angular.module("loginApp",[]);
-// var baseUrl = "/CHB/";
-var baseUrl = "http://localhost:8080/CHB/";
+ var baseUrl = "/CHB/";
+//var baseUrl = "http://localhost:8080/CHB/";
 loginApp
 .config(['$httpProvider',function($httpProvider) {
 	$httpProvider.defaults.transformRequest=function(obj){

@@ -187,6 +187,7 @@ controllers.controller("updateBusiness", ['$scope','$http','$state',function($sc
     	shopVo.credibility=credibility;
     	shopVo.isPass=isPass;
     	shopVo.isOnline=isOnline;
+    	shopVo.shopName=$scope.shopDetails.shopName;
         var url = baseUrl + "updateShop.do";
         var data={shop:shopVo.voToJson()};
         $http.post(url,data)

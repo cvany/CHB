@@ -105,6 +105,14 @@
 	<delete id="deleteShopById" parameterType="int">
 		DELETE FROM shop WHERE id=#{id}
 	</delete>
-	
+	<!-- 根据商家信誉查 询总数 -->
+	<select id="selectCountByCredibility" parameterType="long" resultType="java.lang.Long">
+	SELECT count(0) FROM shop WHERE credibility between ${_parameter*20} 
+		and ${(_parameter+1)*20}
+	</select>
+	<!-- 根据商家类别查 询总数 -->
+	<select id="selectCountByShopClassifyId" parameterType="long" resultType="java.lang.Long">
+	SELECT count(0) FROM shop WHERE shopClassifyId = ${_parameter} 
+	</select>
 
 </mapper>

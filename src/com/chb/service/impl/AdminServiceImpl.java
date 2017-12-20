@@ -264,7 +264,7 @@ public class AdminServiceImpl implements AdminService {
 	//审核投诉
 	@Override
 	public ResultMessage getDealComplainListByPage(Page page) {
-		System.out.println("投诉服务接口");
+		System.out.println("投 诉服务接口");
 		page.coutStartColum();
 		long total = complaintDao.selectCount(page);
 		List<Complaint> checkGoodsList = complaintDao.getDealComplainListByPage(page);
@@ -317,9 +317,12 @@ public class AdminServiceImpl implements AdminService {
 	public List<Long> getUserData() {
 		System.out.println("查看用户");
 		List<Long> userData=new ArrayList<>();
-		for(long i=7;i<=12;i++) {
+		for(long i=7;i<=12;i++) {		//根据时间段查询用户数量
 			long total = userDao.selectCountByTime(i);
-			System.out.println(total+"用户总数");
+			userData.add(total);
+		}
+		for(long i=0;i<=5;i++) {		//根据登录次数查询用户数量
+			long total = userDao.selectCountByLoginCount(i);
 			userData.add(total);
 		}
 		return userData;
@@ -342,17 +345,39 @@ public class AdminServiceImpl implements AdminService {
 		return allData;
 	}
 	
-	//查看订单数据
+	//查看订单数据分析
 	@Override
 	public List<Long> getOrderData() {
 		System.out.println("查看订单");
 		List<Long> orderData=new ArrayList<>();
-		for(long i=0;i<=5;i++) {
+		for(long i=0;i<=5;i++) {		//根据订单价格查询
 			long total = orderDao.selectCountByPrice(i);
-			System.out.println(total+"订单价格数量");
+			
+			orderData.add(total);
+		}
+		for(long i=0;i<=1;i++) {		//根据订单价格查询
+			long total = orderDao.selectCountByPayMode(i);
+			
 			orderData.add(total);
 		}
 		return orderData;
+	}
+	//查看商家数据分析
+	@Override
+	public List<Long> getBusinessData() {
+		System.out.println("查看商家");
+		List<Long> businessData=new ArrayList<>();
+		for(long i=0;i<=4;i++) {		//根据商家信誉度查询
+			long total = shopDao.selectCountByCredibility(i);
+			
+			businessData.add(total);
+		}
+		for(long i=1;i<=8;i++) {			//根据商家类型查询
+			long total = shopDao.selectCountByShopClassifyId(i);
+			
+			businessData.add(total);
+		}
+		return businessData;
 	}
 	//增加数据分析记录
 	@Override

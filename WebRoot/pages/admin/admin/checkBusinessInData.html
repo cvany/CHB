@@ -46,7 +46,7 @@
 	                               <th>商店名称</th>
 	                               <th>商店电话</th>
 	                               <th>商家姓名</th>
-	                               <th>商店简介</th>
+	                               <th>商店公告</th>
 	                               <th>地址</th>
 	                               <th  class="text-center">操作</th>
 	                           </tr>
@@ -57,9 +57,9 @@
 	                               <td ng-bind="item.shopName"></td>
 	                               <td ng-bind="item.phone"></td>
 	                               <td ng-bind="item.businessmanName"></td>
-	                               <td ng-bind="item.shopDescription "></td>
+	                               <td ng-bind="item.shopNotice "></td>
 	                               <td ng-bind="item.address"></td>
-	                               <td  class="text-center">
+	                               <td  class="text-center col-lg-3">
 	                               	<button type="button" class="btn btn-link btn-sm" 
 	                                    ng-click="checkDetails(item.id)">   详细信息
 	                                   </button>
@@ -112,12 +112,12 @@
 	           <div class="modal-body">
 	              <table class="table table-bordered" ">
 	                  
-                    <tr><td>商店正面照</td><td ng-bind="checkDetailsList.frontPhoto"></td>
-                         <td>商店室内照</td><td ng-bind="checkDetailsList.insidePhoto"></td></tr>
-                    <tr><td>商家身份证正面照</td><td ng-bind="checkDetailsList.idfrontPhoto"></td>
-                         <td>商家身份证背面照</td><td ng-bind="checkDetailsList.idbackPhoto"></td></tr>
-                    <tr><td>营业执照</td><td ng-bind="checkDetailsList.businessLicense"></td>
-                        <td>餐饮服务许可证</td><td ng-bind="checkDetailsList.cateringServiceLicense"></td></tr>
+                    <tr><td>商店正面照</td><td ><img alt="商店正面照" src={{checkDetailsList.frontPhoto}}></td>
+                         <td>商店室内照</td><td><img alt="商店室内照" src={{checkDetailsList.insidePhoto}}></td></tr>
+                    <tr><td>商家身份证正面照</td><td><img alt="商家身份证正面照" src={{checkDetailsList.idfrontPhoto}}></td>
+                         <td>商家身份证背面照</td><td><img alt="商家身份证背面照" src={{checkDetailsList.idbackPhoto}}></td></tr>
+                    <tr><td>营业执照</td><td><img alt="营业执照" src={{checkDetailsList.businessLicense}}></td>
+                        <td>餐饮服务许可证</td><td><img alt="餐饮服务许可证" src={{checkDetailsList.cateringServiceLicense}}></td></tr>
         		 </table>
 	           </div>
 	        </div>

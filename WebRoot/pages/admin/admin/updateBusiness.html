@@ -49,7 +49,7 @@
 	                               <th>商店名称</th>
 	                               <th>商店电话</th>
 	                               <th>商家姓名</th>
-	                               <th>商店简介</th>
+	                               <th>商店公告</th>
 	                               <th>地址</th>
                                   <th  class="text-center">操作</th>
                               </tr>
@@ -62,9 +62,9 @@
 	                               <td ng-bind="item.shopName"></td>
 	                               <td ng-bind="item.phone"></td>
 	                               <td ng-bind="item.businessmanName"></td>
-	                               <td ng-bind="item.shopDescription "></td>
+	                               <td ng-bind="item.shopNotice "></td>
 	                               <td ng-bind="item.address"></td>
-	                               <td  class="text-center">
+	                               <td  class="text-center col-lg-2">
 	                               	<button type="button" class="btn btn-primary btn-sm" 
 	                                    ng-click="updateShow(item)">
 	                                   <span class="fa fa-pencil"></span>  修改
@@ -115,7 +115,7 @@
 			                <form>
 			                   <table class="table table-bordered">
 			                      <tr><td>商店ID</td><td ng-bind="shopDetails.id"></td><td>商店名称</td>
-			                          <td rowspan="2"><img src="img/tim.jpg"/></td></tr>
+			                          <td rowspan="2"><img alt="商店头像" src={{shopDetails.shopPhoto}}/></td></tr>
 			                      <tr><td>商家名称</td><td ng-bind="shopDetails.businessmanName"></td><td ng-bind="shopDetails.shopName"></td></tr>
 			                      <tr><td>商店电话</td><td ng-bind="shopDetails.phone"></td><td>法定代表人</td><td ng-bind="shopDetails.legalRepresentative"></td></tr>
 			                      <tr><td>诚信度</td><td><input type="text" ng-model="credibility" placeholder={{shopDetails.credibility}}></input></td>

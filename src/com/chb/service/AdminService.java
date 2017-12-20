@@ -60,12 +60,14 @@ public interface AdminService {
 	List<String> getManagerLog();
 	//查看总数据
 	List<Long> getAllData();
-	//查看订单数据
+	//查看订单数据分析
 	List<Long> getOrderData();
 	//增加数据分析
 	String setDataAnalysis(String data);
 	//查看数据分析结果
 	List<String> getDataAnalysis();
+	//查看商家数据分析
+	List<Long> getBusinessData();
 	
 	
 

@@ -64,7 +64,7 @@
                                     ng-bind="(userList.pageNum-1)*userList.pageSize+$index+1 || 0"></td>
                             <td ng-bind="item.email"></td>
                             <td ng-bind="item.userName"></td>
-                            <td ng-bind="item.photo"></td>
+                            <td ><img alt="头像" style="width:40px;height:40px"   src={{item.photo}}></td>
                             <td ng-bind="item.phone"></td>
                             <td ng-bind="item.registerTime | dateFormat"></td>
                             <td ng-bind="item.loginCount"></td>

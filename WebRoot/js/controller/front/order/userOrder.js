@@ -2,8 +2,8 @@
  * Created by shilim on 2017/12/18.
  */
 var userOrder = angular.module("userOrder", []);
-// var baseUrl = "/CHB/";
-var baseUrl = "http://localhost:8080/CHB/";
+ var baseUrl = "/CHB/";
+//var baseUrl = "http://localhost:8080/CHB/";
 userOrder
     .config(['$httpProvider', function ($httpProvider) {
         $httpProvider.defaults.transformRequest = function (obj) {

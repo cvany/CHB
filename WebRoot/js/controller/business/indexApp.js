@@ -1,6 +1,6 @@
 var indexApp = angular.module("indexApp", ['ui.router', 'controllers']);
-// var baseUrl = "/CHB/";
-var baseUrl = "http://localhost:8080/CHB/";
+ var baseUrl = "/CHB/";
+//var baseUrl = "http://localhost:8080/CHB/";
 indexApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.when("", "/welcome");
     $stateProvider
