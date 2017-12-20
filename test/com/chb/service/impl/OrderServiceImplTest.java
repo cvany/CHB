@@ -27,7 +27,7 @@ public class OrderServiceImplTest {
 		Page page = new Page(1, 1, "desc", null, false);
 		Order order = new Order();
 		order.setStatus(1);
-		System.out.println(JsonUtil.objectToJson(orderService.getOrderListByPage(page, order)));
+//		System.out.println(JsonUtil.objectToJson(orderService.getOrderListByPage(page, order)));
 	}
 
 }

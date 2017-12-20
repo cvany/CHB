@@ -55,9 +55,9 @@ controllers.controller("index", ['$scope', '$http', '$window', '$timeout', '$roo
 
         $scope.connectWebsocket = function (id) {
             if ('WebSocket' in window) {
-                websocket = new WebSocket("ws://localhost:8080/CHB/ws.do?businessId=" + id);
+                websocket = new WebSocket("ws://172.16.11.45:8080/CHB/ws.do?businessId=" + id);
             } else if ('MozWebSocket' in window) {
-                websocket = new MozWebSocket("ws://localhost:8080/CHB/ws.do?businessId=" + id);
+                websocket = new MozWebSocket("ws://172.16.11.45:8080/CHB/ws.do?businessId=" + id);
             } else {
                 websocket = new SockJS("http://CHB/ws/sockjs?businessId=" + id);
             }
