@@ -342,6 +342,7 @@ public class AdminServiceImpl implements AdminService {
 		List<Long> allData=new ArrayList<>();
 		allData.add(userDao.selectCount( null));
 		allData.add(shopDao.selectAllCount(null));
+		allData.add(orderDao.selectCountByPayMode(0)+orderDao.selectCountByPayMode(1));
 		return allData;
 	}
 	
