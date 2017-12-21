@@ -37,27 +37,33 @@ public class GoodsController {
 	public Goods findByGoodsName(String goodsName){
 		return goodsService.findByGoodsName(goodsName);
 	}
+	
 	@RequestMapping("business/getGoodsListByPage")
+	@ResponseBody
 	public ResultMessage getGoodsListByPage(String page, HttpSession session) throws Exception {
 		return goodsService.getGoodsByPage(JsonUtil.jsonToObject(page, Page.class), session);
 	}
 
 	@RequestMapping("business/getGoodsById")
+	@ResponseBody
 	public ResultMessage getGoodsById(String goods) throws Exception {
 		return goodsService.getGoodsById(JsonUtil.jsonToObject(goods, Goods.class));
 	}
 
 	@RequestMapping("business/addGoods")
+	@ResponseBody
 	public ResultMessage addGoods(String goods, HttpSession session, HttpServletRequest request) throws Exception {
 		return goodsService.addGoods(JsonUtil.jsonToObject(goods, Goods.class), session, request);
 	}
 
 	@RequestMapping("business/updateGoods")
+	@ResponseBody
 	public ResultMessage updateGoods(String goods, HttpServletRequest request) throws Exception {
 		return goodsService.updateGoods(JsonUtil.jsonToObject(goods, Goods.class), request);
 	}
 
 	@RequestMapping("business/deleteGoods")
+	@ResponseBody
 	public ResultMessage deleteGoods(String goods) throws Exception {
 		return goodsService.deleteGoods(JsonUtil.jsonToObject(goods, new TypeToken<List<Goods>>() {
 		}.getType()));
