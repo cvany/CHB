@@ -4,6 +4,20 @@
  * 2017年12月6日
  */
 controllers.controller("location",['$scope','$timeout',function($scope,$timeout) {
+	//保存当前的URL地址
+	var curUrl = window.document.location.href;
+	sessionStorage.setItem("curUrl",curUrl);
+	var userToken =sessionStorage.getItem("userToken");
+	if(userToken!="null"&&userToken=="true"){
+		$(".menu").empty();
+		$(".menu").append("<span><a class='link' href='user/register.html'>注册</a></span>");
+		$(".menu").append("<span><a class='link' href='shopBrowse.html'>商家入驻</a></span>");
+	}else{
+		$(".menu").empty();
+		$(".menu").append("<span><a class='link' href='user/register.html'>注册</a></span>");
+		$(".menu").append("<span><a class='link' href='user/userLogin.html'>登录</a></span>");
+		$(".menu").append("<span><a class='link' href='shopBrowse.html'>商家入驻</a></span>");
+	}
 	var loc =new locationUtil();	//实例化地图工具
 	
 	loc.localCity(function(result){

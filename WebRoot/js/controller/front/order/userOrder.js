@@ -21,6 +21,9 @@ userOrder
                 response: function (response) {
                     if (response.config.url.indexOf(".do") > 0 && response.config.url.indexOf("login") < 0) {
                         if (response.data.userToken == false) {
+                        	//保存当前的URL地址
+//                        	var curUrl = window.document.location.href;
+//                        	sessionStorage.setItem("curUrl",curUrl);
                             $window.location.href = "/CHB/pages/front/user/userLogin.html";
                         }
                     }
@@ -49,6 +52,20 @@ userOrder.controller("userOrder", ['$scope', '$http', '$window', function ($scop
     $scope.page.pageSize = 10;
     $scope.order.status = 0;
     sessionStorage.userOrderListPageNum = 1;
+    
+    $scope.logout = function(){
+    	$.ajax({
+    		url : baseUrl+"/logout.do",
+    		dataType:"json",
+    		success : function(data) {
+    			//保存当前的URL地址
+            	var curUrl = window.document.location.href;
+            	sessionStorage.setItem("curUrl",curUrl);
+    			sessionStorage.setItem("userToken","false");
+    			$window.location.href = "/CHB/pages/front/user/userLogin.html";
+    		}
+    	});
+    }
 
     // 切换订单类型
     $scope.changeStatus = function (status) {

@@ -33,7 +33,7 @@ public class PayController {
 			order.setOrderNo(r6_Order);
 			order.setPaySerialsNumber(r2_TrxId);
 			orderService.updateOrderPayStatus(order);
-			return "redirect:http://localhost:8080/CHB/pages/front/order/user-order.html";
+			return "redirect:http://172.16.15.193:8080/CHB/pages/front/order/user-order.html";
 		}
 		return null;
 	}

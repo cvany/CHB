@@ -2,6 +2,8 @@
  * 浏览商店页面JS 崔文元 2017年12月7日
  */
 $(function() {//页面初始化触发函数
+	var curUrl = window.document.location.href;
+	sessionStorage.setItem("curUrl",curUrl);
 	//获取用户登录标识
 	var userToken =sessionStorage.getItem("userToken");
 	if(userToken!="null"&&userToken=="true"){
@@ -86,6 +88,9 @@ function logout(){
 		url : rootPath+"/logout.do",
 		dataType:"json",
 		success : function(data) {
+			//保存当前的URL地址
+        	var curUrl = window.document.location.href;
+        	sessionStorage.setItem("curUrl",curUrl);
 			sessionStorage.setItem("userToken","false");
 			$(".alreadyLogin").remove();
 			$(".layui-nav").append("<li class='layui-nav-item login' style='float: right;'><a href='user/userLogin.html'>登录</a></li>");

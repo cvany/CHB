@@ -5,6 +5,8 @@
  */
 var id = 0;
 $(function () {
+	var curUrl = window.document.location.href;
+	sessionStorage.setItem("curUrl",curUrl);
 	//获取用户登录标识
 	var userToken =sessionStorage.getItem("userToken");
 	if(userToken!="null"&&userToken=="true"){

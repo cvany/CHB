@@ -31,7 +31,7 @@ public class PayServiceImpl implements PayService {
 					p5_Pid = rOrder.getOrderNo() + "", // 商品名称
 					p6_Pcat = "", // 商品种类
 					p7_Pdesc = "", // 商品描述
-					p8_Url = "http://localhost:8080/CHB/user/payCallback.do", // 支付成功回调
+					p8_Url = "http://172.16.15.193:8080/CHB/user/payCallback.do", // 支付成功回调
 					p9_SAF = "", // 收货地址
 					pa_MP = "", // 商户扩展信息
 					pd_FrpId = "", // 银行编码
