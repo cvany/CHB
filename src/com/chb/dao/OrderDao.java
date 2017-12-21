@@ -31,6 +31,8 @@ public interface OrderDao {
 	Integer updateOrderPayStatus(Order order);
 	
 	long selectCountByPrice(long i);
+	//根据支付方式查看订单数量
+	long selectCountByPayMode(long i);
 	
 	// 通过id查询订单
 	Order selectOrderById(Integer id);

@@ -20,14 +20,21 @@ import com.chb.utils.JsonUtil;
 public class AdminManageDataController {
 	@Autowired
 	private AdminService adminService;
-	
+	//查询用户数据
 	@RequestMapping("userData")
 	@ResponseBody
 	public List<Long> getUserData() {
 		System.out.println("查询用户数据***");
 		return adminService.getUserData();
 	}
-	
+	//查询商家数据
+	@RequestMapping("getBusinessData")
+	@ResponseBody
+	public List<Long> getBusinessData() {
+		System.out.println("查询商家数据***");
+		return adminService.getBusinessData();
+	}
+	//查询订单数据  
 	@RequestMapping("orderData")
 	@ResponseBody
 	public List<Long> getOrderData() {

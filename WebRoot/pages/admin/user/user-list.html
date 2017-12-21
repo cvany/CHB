@@ -38,7 +38,7 @@
                    </div>
                   </div>
                   <button title="删除" class="btn btn-danger btn-sm" ng-click="deleteTips('batch',userList)"><i
-                                        class="fa fa-trash"></i>批量删除</button>
+                                        class="fa fa-trash"></i>批量冻结</button>
                   <div class="clearfix"></div>
                     <table class="table table-bordered table-hover my-table">
                         <thead>
@@ -64,7 +64,7 @@
                                     ng-bind="(userList.pageNum-1)*userList.pageSize+$index+1 || 0"></td>
                             <td ng-bind="item.email"></td>
                             <td ng-bind="item.userName"></td>
-                            <td ng-bind="item.photo"></td>
+                            <td ><img alt="头像" style="width:40px;height:40px"   src={{item.photo}}></td>
                             <td ng-bind="item.phone"></td>
                             <td ng-bind="item.registerTime | dateFormat"></td>
                             <td ng-bind="item.loginCount"></td>

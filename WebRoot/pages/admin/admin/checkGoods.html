@@ -56,10 +56,10 @@
 	                               <td ng-bind="item.goodsName"></td>
 	                               <td ng-bind="item.shopName"></td>
 	                               <td ng-bind="item.goodsPrice"></td>
-	                               <td ng-bind="item.goodsPhoto"></td>
+	                               <td><img alt="商品图像" style="width:40px;height:40px" src={{"/../"+item.goodsPhoto}}></td>
 	                               <td ng-bind="item.classifyName"></td>
 	                               <td ng-bind="item.goodsDescription "></td>
-			                     <td  class="text-center">
+			                     <td  class="text-center col-lg-2">
 	                                 
 	                               	<button class="btn btn-success btn-sm" ng-click="checkGoodsOk(item.id)">
 	                                   <span class="fa fa-check"></span> 通过</button>

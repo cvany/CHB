@@ -112,7 +112,7 @@ controllers.controller("dealComplain", ['$scope','$http','$state',function($scop
     	complaintVo.userName=userName;
     	complaintVo.shopId=shopId;
     	complaintVo.content=content;
-    	alert(complaintVo);
+    	
         var url = baseUrl + "checkComplaintOk.do";
         var data={complaint:complaintVo.voToJson()};
         $http.post(url,data)
