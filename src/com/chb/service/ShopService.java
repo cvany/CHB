@@ -14,8 +14,15 @@ public interface ShopService {
 	 * @param shop
 	 * @return
 	 */
-	Shop findShopById(Shop shop);
+	ResultMessage findNotice(HttpSession httpSession);
 	
 	Shop findShopByName(String shopName);
+	//根据id更新商家信息
+	void updateShopById(Shop shop);
+	
+	void updateDispatching(Shop shops);
+	
+	void updateAddress(Shop shops);
+	
 
 }

@@ -42,10 +42,58 @@ public class ShopController {
 	 * @param shop
 	 * @return
 	 */
-	@RequestMapping("findShopInfoById")
+	
+	
+
+	
+	@RequestMapping("findNotice")
 	@ResponseBody
-	public Shop findShopById(Shop shop){
-		return shopService.findShopById(shop);
+	public ResultMessage findNotice(HttpSession httpSession){
+		return shopService.findNotice(httpSession);
+	}
+	
+	
+	@RequestMapping("getDispatchByBusinessmanId")
+	@ResponseBody
+	public ResultMessage getDispatchByBusinessmanId(HttpSession httpSession){
+		return shopService.findNotice(httpSession);
+	}
+	
+	
+	@RequestMapping("updateDispatching")
+	@ResponseBody
+	public void updateDispatching(String shop,HttpSession httpSession) throws Exception{
+		Shop shops = new Shop();
+		shops=JsonUtil.jsonToObject(shop, Shop.class);
+		String businessmanId = httpSession.getAttribute("businessmanId").toString();
+		if(businessmanId!=null){
+			shops.setBusinessmanId(Integer.parseInt(businessmanId));
+		shopService.updateDispatching(shops);
+	}
+	}
+	
+	@RequestMapping("updateShopById")
+	@ResponseBody
+	public void updateShopById(String shop,HttpSession httpSession) throws Exception{
+		Shop shops = new Shop();
+		shops=JsonUtil.jsonToObject(shop, Shop.class);
+		String businessmanId = httpSession.getAttribute("businessmanId").toString();
+		if(businessmanId!=null){
+			shops.setBusinessmanId(Integer.parseInt(businessmanId));
+		shopService.updateShopById(shops);
+	}
+	}
+	
+	@RequestMapping("updateAddress")
+	@ResponseBody
+	public void updateAddress(String shop,HttpSession httpSession) throws Exception{
+		Shop shops = new Shop();
+		shops=JsonUtil.jsonToObject(shop, Shop.class);
+		String businessmanId = httpSession.getAttribute("businessmanId").toString();
+		if(businessmanId!=null){
+			shops.setBusinessmanId(Integer.parseInt(businessmanId));
+		shopService.updateAddress(shops);
+	}
 	}
 	
 }

@@ -29,7 +29,7 @@
     <select id="findShopById" parameterType="Shop" resultType="Shop">
     	SELECT <include refid="Base_Column_List" />
 		FROM shop
-		WHERE id=#{id}
+		WHERE businessmanId=#{businessmanId}
     </select>
     <!-- 根据商店名返回商店信息 -->
     <select id="findShopByName" parameterType="String" resultType="Shop">
@@ -37,5 +37,27 @@
 		FROM shop
 		WHERE shopName=#{shopName}
     </select>
+    
+     <update id="updateShopById" parameterType="Shop">
+    update shop set
+      shopNotice = #{shopNotice,jdbcType=VARCHAR}
+      where businessmanId=#{businessmanId}
+  </update>
+  
+  <update id="updateDispatching" parameterType="Shop">
+    update shop set
+      takeoutAreaId = #{takeoutAreaId,jdbcType=INTEGER},
+      startPrice = #{startPrice,jdbcType=DOUBLE},
+      carriage = #{carriage,jdbcType=DOUBLE},
+      dispatchDescription = #{dispatchDescription,jdbcType=VARCHAR}
+      where businessmanId=#{businessmanId}
+  </update>
+  
+  <update id="updateAddress" parameterType="Shop">
+    update shop set
+      lng = #{lng,jdbcType=DOUBLE},
+      lat = #{lat,jdbcType=DOUBLE}
+      where businessmanId=#{businessmanId}
+  </update>
 
 </mapper>

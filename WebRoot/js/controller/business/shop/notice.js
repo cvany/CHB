@@ -1,33 +1,51 @@
 /**
- * Created by shilim on 2017/12/8.
+ * Created by cqs on 2017/12/19.
  */
-controllers.controller("orderDetail", ['$scope', '$http', '$state', '$stateParams', function ($scope, $http, $state, $stateParams) {
-    $scope.orderGoodsList = null;
-    $scope.sumMoney = 0;
-
-    // 获取订单商品列表
-    $scope.getOrderGoodsList = function () {
-        var orderVo = new OrderVo();
-        orderVo.id = $stateParams.id;
-        var url = baseUrl + "business/getOrderGoodsListByOrderId.do"
-        var data = {order:orderVo.voToJson()}
+controllers.controller("notice", ['$scope', '$http', '$state', '$stateParams', function ($scope, $http, $state, $stateParams) {
+	
+//	var loc =sessionStorage.getItem("loc");
+//	alert(loc);
+//	var id = loc.getParam("id");
+//	id=getShopInfo(id).getParam("shopId");
+//	$scope.shop.id=id;
+	
+//	var shopVo = new ShopVo();
+	$scope.saveNotice = function () {	
+//		shopVo.shopNotice=$scope.shop.shopNotice;
+		var url = baseUrl + "updateShopById.do"
+        var data = {shop:$scope.shop.voToJson()}
+		console.log(data)
+        $http.post(url,data)
+            .success(function () {
+            	 toastr.success('成功提交', '成功');
+               
+            })
+            .error(function () {
+                
+            })
+	}
+	
+	
+    // 获取公告信息
+	$scope.shop=new ShopVo();
+    $scope.getNotice = function () {
+        
+        var url = baseUrl + "findNotice.do"
+        data={};
         $http.post(url,data)
             .success(function (data) {
-                if (data.serviceResult == 1) {
-                    $scope.orderGoodsList = data.resultParam;
-                    $scope.orderGoodsList.forEach(function (item) {
-                        $scope.sumMoney += item.sumMoney;
-                    })
-                }
+                console.log(data);
+                console.log(data.resultParam.shopNotice);
+                $scope.shop.shopNotice=data.resultParam.shopNotice;
             })
             .error(function () {
                 
             })
     }
-    $scope.getOrderGoodsList()
+    $scope.getNotice()
 
     // 返回
     $scope.back = function () {
-        $state.go("orderList")
+        $state.go("notice")
     }
 }]);

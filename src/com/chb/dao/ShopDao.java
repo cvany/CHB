@@ -19,6 +19,13 @@ public interface ShopDao {
 	Shop findShopById(Shop shop);
 	
 	Shop findShopByName(String shopName);
+	
+	
+	void updateShopById(Shop shop);
+	
+	void updateDispatching(Shop shop);
+	
+	void updateAddress(Shop shops);
 
 	
 }

@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="../../css/business/index.css"/>
 <title>Insert title here</title>
 </head>
-<body>
+<body ng-app="indexApp" ng-controller="dispatching">
 <!--面包屑导航开始-->
 <div class="row  border-bottom white-bg dashboard-header">
     <div class="col-lg-10">
@@ -44,7 +44,7 @@
                         </a>
                     </div>
                     <div class="input-group pull-left" style="margin-left: 10px;">
-                        <a class="btn btn-sm  btn-primary" ng-click="submit()">确定 </a>
+                        <a class="btn btn-sm  btn-primary" ng-click="saveDispatching()">确定 </a>
                     </div>
                     <div class="clearfix"></div>
                     <div class="hr-line-dashed"></div>
@@ -53,9 +53,9 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">配送区域</label>
                             <div class="col-sm-6">
-                                <select class="form-control" ng-model="businessman.takeoutAreaId"
-                                        ng-options="item.takeoutAreaId as item.takeoutArea for item in takeoutArea">
-                                </select>
+                                <input type="text" class="form-control" name="takeoutAreaId"
+                                       ng-class="{error:valid && shop.takeoutAreaId.$invalid}"
+                                       ng-model="shop.takeoutAreaId" required>
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
@@ -63,38 +63,26 @@
                             <label class="col-sm-2 control-label">起步价</label>
                             <div class="col-sm-6">
                                 <input type="text" class="form-control" name="startPrice"
-                                       ng-class="{error:valid && dispatching.startPrice.$invalid}"
-                                       ng-model="businessman.startPrice" required>
+                                       ng-class="{error:valid && shop.startPrice.$invalid}"
+                                       ng-model="shop.startPrice" required>
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">配送费</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" name="goodsPrice"
-                                       ng-class="{error:valid && goodsForm.goodsPrice.$invalid}"
-                                       ng-model="goods.goodsPrice" required>
+                                <input type="text" class="form-control" name="carriage"
+                                       ng-class="{error:valid && shop.carriage.$invalid}"
+                                       ng-model="shop.carriage" required>
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">配送说明</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" name="goodsDescription"
-                                       ng-class="{error:valid && goodsForm.goodsDescription.$invalid}"
-                                       ng-model="goods.goodsDescription" required>
-                            </div>
-                        </div>
-                        <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">公告</label>
-                            <div class="col-sm-6">
-                                <label style="width:80px;height:80px;background: url({{goods.goodsPhoto}});
-                                    background-size:100% 100%;cursor: pointer" for="imgSelect"/>
-                                <input id="imgSelect" type="file" class="form-control hide" name="goodsPhoto"
-                                       accept="image/*"
-                                       ng-class="{error:valid && goodsForm.goodsPhoto.$invalid}"
-                                       ng-model="goods.goodsPhoto" required>
+                                <input type="text" class="form-control" name="dispatchDescription"
+                                       ng-class="{error:valid && shop.dispatchDescription.$invalid}"
+                                       ng-model="shop.dispatchDescription" required>
                             </div>
                         </div>
                     </form>

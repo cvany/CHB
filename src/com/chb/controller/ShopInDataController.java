@@ -36,19 +36,27 @@ public class ShopInDataController {
 		ShopInData shopInDatas = new ShopInData();
 		shopInDatas=JsonUtil.jsonToObject(shopInData, ShopInData.class);
 		String shopPhotoUrl = "CHB_upload/shop/" + shopInDatas.getShopId() + "/shop/";
-		String fpsaveUrl = request.getServletContext().getRealPath("/") + "../" + shopPhotoUrl + UUID.randomUUID() + ".jpg";
-		String ipsaveUrl = request.getServletContext().getRealPath("/") + "../" + shopPhotoUrl + UUID.randomUUID() + ".jpg";
-		String ifpsaveUrl = request.getServletContext().getRealPath("/") + "../" + shopPhotoUrl + UUID.randomUUID() + ".jpg";
-		String ibpsaveUrl = request.getServletContext().getRealPath("/") + "../" + shopPhotoUrl + UUID.randomUUID() + ".jpg";
-		String blsaveUrl = request.getServletContext().getRealPath("/") + "../" + shopPhotoUrl + UUID.randomUUID() + ".jpg";
-		String cssaveUrl = request.getServletContext().getRealPath("/") + "../" + shopPhotoUrl + UUID.randomUUID() + ".jpg";
-		boolean fp = Base64Util.GenerateImage(shopInDatas.getFrontPhoto(),fpsaveUrl);
-		boolean ip = Base64Util.GenerateImage(shopInDatas.getInsidePhoto(),ipsaveUrl);
-		boolean ifp = Base64Util.GenerateImage(shopInDatas.getIDFrontPhoto(),ifpsaveUrl);
-		boolean ibp = Base64Util.GenerateImage(shopInDatas.getIDBackPhoto(),ibpsaveUrl);
-		boolean bl = Base64Util.GenerateImage(shopInDatas.getBusinessLicense(),blsaveUrl);
-		boolean cs = Base64Util.GenerateImage(shopInDatas.getCateringServiceLicense(),cssaveUrl);
-		if(fp) {
+		String fpsaveUrl =shopPhotoUrl + UUID.randomUUID() + ".jpeg";
+		String ipsaveUrl =shopPhotoUrl + UUID.randomUUID() + ".jpeg";
+		String ifpsaveUrl =shopPhotoUrl + UUID.randomUUID() + ".jpeg";
+		String ibpsaveUrl =shopPhotoUrl + UUID.randomUUID() + ".jpeg";
+		String blsaveUrl =shopPhotoUrl + UUID.randomUUID() + ".jpeg";
+		String cssaveUrl =shopPhotoUrl + UUID.randomUUID() + ".jpeg";
+		
+		String cfpsaveUrl = request.getServletContext().getRealPath("/") + "../" + fpsaveUrl;
+		String cipsaveUrl = request.getServletContext().getRealPath("/") + "../" + ipsaveUrl;
+		String cifpsaveUrl = request.getServletContext().getRealPath("/") + "../" + ifpsaveUrl;
+		String cibpsaveUrl = request.getServletContext().getRealPath("/") + "../" + ibpsaveUrl;
+		String cblsaveUrl = request.getServletContext().getRealPath("/") + "../" + blsaveUrl;
+		String ccssaveUrl = request.getServletContext().getRealPath("/") + "../" + cssaveUrl;
+		
+		boolean fp = Base64Util.GenerateImage(shopInDatas.getFrontPhoto(),cfpsaveUrl);
+		boolean ip = Base64Util.GenerateImage(shopInDatas.getInsidePhoto(),cipsaveUrl);
+		boolean ifp = Base64Util.GenerateImage(shopInDatas.getIDFrontPhoto(),cifpsaveUrl);
+		boolean ibp = Base64Util.GenerateImage(shopInDatas.getIDBackPhoto(),cibpsaveUrl);
+		boolean bl = Base64Util.GenerateImage(shopInDatas.getBusinessLicense(),cblsaveUrl);
+		boolean cs = Base64Util.GenerateImage(shopInDatas.getCateringServiceLicense(),ccssaveUrl);
+		if(fp&ip&ifp&ibp&bl&cs) {
 			shopInDatas.setFrontPhoto(fpsaveUrl);
 			shopInDatas.setInsidePhoto(ipsaveUrl);
 			shopInDatas.setIDFrontPhoto(ifpsaveUrl);

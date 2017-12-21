@@ -45,7 +45,17 @@ controllers.controller("shopInData", ['$scope', '$http', '$state','$stateParams'
         });
     }  
     
-  
+    $scope.fileToBase64 = function (file,type) {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.addEventListener("load", function () {
+          $timeout(function () {
+        	  console.log(reader.result);
+        	  $scope.shopInData[type]=reader.result;
+          })
+        }, false);
+      }
+
                
      // 图片裁剪完成
     $scope.cropperImg = function () {
@@ -78,37 +88,35 @@ controllers.controller("shopInData", ['$scope', '$http', '$state','$stateParams'
    }  
     //上传图片
     $scope.uploadScrollPic=function(files,param){
-    	console.log(files);
-    	var img=new Image();
     	if(files.length>0){
-    		var file=files[0];
-    		console.log(file);
-    	var reader = new FileReader();
-    	var imgUrlBase64 = reader.readAsDataURL(file);
-    	
-    	if("frontPhoto"==param){
-    		$scope.shopInData.frontPhoto=getBase64Image(img);
-    		console.log($scope.shopInData.frontPhoto);
-    		files=[];
-    	}else if("insidePhoto"==param){
-    		$scope.shopInData.insidePhoto=getBase64Image(img);
-    		files=[];
-    	}else if('IDFrontPhoto'==param){
-    		$scope.shopInData.IDFrontPhoto=getBase64Image(img);
-    		files=[];
-    	}else if('IDBackPhoto'==param){
-    		$scope.shopInData.IDBackPhoto=getBase64Image(img);
-    		files=[];
-    	}else if('businessLicense'==param){
-    		$scope.shopInData.businessLicense=getBase64Image(img);
-    		files=[];
-    	}else if('cateringServiceLicense'==param){
-    		$scope.shopInData.cateringServiceLicense=getBase64Image(img);
-    		files=[];
-    	}else
-    		return false;
+    		$scope.fileToBase64(files[0],param);
     	}
-    };
+    	
+    }
+    
+    $scope.getObjectURL=function(file) {
+        var url = null;
+        if (window.createObjcectURL != undefined) {
+            url = window.createOjcectURL(file);
+        } else if (window.URL != undefined) {
+            url = window.URL.createObjectURL(file);
+        } else if (window.webkitURL != undefined) {
+            url = window.webkitURL.createObjectURL(file);
+        }
+        return url;
+    }
+
+    
+    $scope.getBase64Image=function(imgSelectedUrl){
+    	var canvas = document.createElement("canvas");  
+        canvas.width = img.width;  
+        canvas.height = img.height;  
+        var ctx = canvas.getContext("2d");  
+        ctx.drawImage(img, 0, 0, img.width, img.height);  
+        var ext = img.src.substring(img.src.lastIndexOf(".")+1).toLowerCase();  
+        var dataURL = canvas.toDataURL("image/"+ext);  
+        return dataURL;  
+    }
     
     // 存入成功短信验证商家
     $scope.insertBusinessman=function(){

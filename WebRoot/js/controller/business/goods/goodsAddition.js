@@ -36,6 +36,7 @@ controllers.controller("goodsAddition", ['$scope', '$http', '$state', '$timeout'
                     return;
                 }
                 $scope.imgSelectedUrl = window.URL.createObjectURL(event.target.files[0]);
+                console.log( $scope.imgSelectedUrl);
                 $("#cropper").modal("show")
                 $timeout(function () {
                     $("#cropper-img").cropper({
