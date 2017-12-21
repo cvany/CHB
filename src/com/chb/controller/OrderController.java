@@ -69,6 +69,15 @@ public class OrderController {
 	public ResultMessage updatePayStatus(String order) {
 		return new ResultMessage();
 	}
+	
+	// 催单
+	@RequestMapping("user/remind")
+	public ResultMessage remind(String order) throws Exception {
+		Order mOrder = JsonUtil.jsonToObject(order, Order.class);
+		myWebSocketHandler.sendMessageToUser(mOrder.getShopId()+"",
+				new TextMessage(JsonUtil.objectToJson(new ResultMessage(true, ResultCode.SUCCESS, "新催单", null))));
+		return orderService.remind(mOrder);
+	}
 
 	// 用户分页获取订单列表
 	@RequestMapping("user/getOrderListByPage")

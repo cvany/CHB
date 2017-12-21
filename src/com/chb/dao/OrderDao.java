@@ -36,6 +36,9 @@ public interface OrderDao {
 	
 	// 通过id查询订单
 	Order selectOrderById(Integer id);
+	
+	// 通过id修改催单状态
+	Integer updateReminderById(Integer id);
 
 	// 用户分类分页查询订单列表总页数
 	Long selectCountByPageFromUser(Map<String, Object> map);

@@ -21,9 +21,6 @@ userOrder
                 response: function (response) {
                     if (response.config.url.indexOf(".do") > 0 && response.config.url.indexOf("login") < 0) {
                         if (response.data.userToken == false) {
-                        	//保存当前的URL地址
-//                        	var curUrl = window.document.location.href;
-//                        	sessionStorage.setItem("curUrl",curUrl);
                             $window.location.href = "/CHB/pages/front/user/userLogin.html";
                         }
                     }
@@ -66,6 +63,10 @@ userOrder.controller("userOrder", ['$scope', '$http', '$window', function ($scop
     		}
     	});
     }
+    
+    layui.use('layer', function(){
+    	  var layer = layui.layer;
+    	});   
 
     // 切换订单类型
     $scope.changeStatus = function (status) {
@@ -126,6 +127,26 @@ userOrder.controller("userOrder", ['$scope', '$http', '$window', function ($scop
         }
         sessionStorage.userOrderListPageNum = $scope.page.pageNum;
         $scope.getOrderList();
+    }
+    
+    // 催单
+    $scope.remind = function(id,shopId) {
+    	var orderVo = new OrderVo();
+        orderVo.id = id;
+        orderVo.shopId = shopId;
+        var url = baseUrl + "user/remind.do";
+        var data = {
+            order: orderVo.voToJson()
+        };
+        $http.post(url, data)
+            .success(function (data) {
+                if (data.serviceResult == 1) {
+                	 layer.msg("催单成功")
+                } else {
+                }
+            })
+            .error(function (data) {
+            });
     }
 
     // 付款

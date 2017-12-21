@@ -26,11 +26,17 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>订单列表</h5>
-                    <div class="pull-right" style="cursor: pointer" ng-show="orderCount>0"
+                    <div class="pull-right" style="cursor: pointer;margin-left:10px" ng-show="orderCount>0"
                          ng-click="refreshList()">
                         <span style="height:20px;border-radius: 10px;padding: 2px 8px;background: red;
-                        color: white;font-size: 12px" ng-bind="orderCount">4</span>
+                        color: white;font-size: 12px" ng-bind="orderCount"></span>
                         新订单(点击刷新)
+                    </div>
+                    <div class="pull-right" style="cursor: pointer" ng-show="remindCount>0"
+                         ng-click="refreshList()">
+                        <span style="height:20px;border-radius: 10px;padding: 2px 8px;background: red;
+                        color: white;font-size: 12px" ng-bind="remindCount"></span>
+                        新催单(点击刷新)
                     </div>
                 </div>
                 <div class="ibox-content">
@@ -104,7 +110,7 @@
                             <td ng-bind="item.user.userName"></td>
                             <td ng-bind="item.sumMoney"></td>
                             <td ng-bind="item.payMode | payModeFormat"></td>
-                            <td ng-bind="item | orderStatusFormat"></td>
+                            <td ><span ng-bind="item | orderStatusFormat"></span> <span style="color:red" ng-show="item.reminder == '1'">(催单)</span></td>
                             <td ng-bind="item.createTime | dateFormat"></td>
                         </tr>
                         <tr ng-show="orderList.list.length==0">

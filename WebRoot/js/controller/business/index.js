@@ -10,6 +10,7 @@ controllers.controller("index", ['$scope', '$http', '$window', '$timeout', '$roo
     function ($scope, $http, $window, $timeout, $rootScope) {
         $scope.businessman = new BusinessmanVo();
         $rootScope.orderCount = 0;
+        $rootScope.remindCount = 0;
 
         // 登录判断和管理员信息获取
         $http.get(baseUrl + "business/isLogin.do")
@@ -55,7 +56,7 @@ controllers.controller("index", ['$scope', '$http', '$window', '$timeout', '$roo
 
         $scope.connectWebsocket = function (id) {
             if ('WebSocket' in window) {
-                websocket = new WebSocket("ws://172.16.15.193:8080/CHB/ws.do?businessId=" + id);
+                websocket = new WebSocket("ws://localhost:8080/CHB/ws.do?businessId=" + id);
             } else if ('MozWebSocket' in window) {
                 websocket = new MozWebSocket("ws://172.16.15.193:8080/CHB/ws.do?businessId=" + id);
             } else {
@@ -70,6 +71,10 @@ controllers.controller("index", ['$scope', '$http', '$window', '$timeout', '$roo
                 if(data.resultInfo == '新订单') {
                     $timeout(function () {
                         $rootScope.orderCount ++;
+                    })
+                } else if (data.resultInfo == '新催单') {
+                    $timeout(function () {
+                        $rootScope.remindCount ++;
                     })
                 }
             };

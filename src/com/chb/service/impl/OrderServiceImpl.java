@@ -94,6 +94,13 @@ public class OrderServiceImpl implements OrderService {
 	public Integer updateOrderPayStatus(Order order) {
 		return orderDao.updateOrderPayStatus(order);
 	}
+	
+	// 催单
+	@Override
+	public ResultMessage remind(Order order) {
+		orderDao.updateReminderById(order.getId());
+		return new ResultMessage(true, ResultCode.SUCCESS, "修改成功", null);
+	}
 
 	// 用户分页获取订单列表
 	@Override
@@ -119,5 +126,6 @@ public class OrderServiceImpl implements OrderService {
 		orderDao.updateOrderStatus(order);
 		return new ResultMessage(true, ResultCode.SUCCESS, "确认收货成功", null);
 	}
+
 
 }

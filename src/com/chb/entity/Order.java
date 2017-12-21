@@ -18,6 +18,7 @@ public class Order {
 	private String reson;
 	private Double sumMoney;
 	private Integer payMode;
+	private Integer reminder;
 	private Date createTime;
 	private Date acceptTime;
 	private Date shopConfirmTime;
@@ -101,6 +102,14 @@ public class Order {
 
 	public void setPayMode(Integer payMode) {
 		this.payMode = payMode;
+	}
+
+	public Integer getReminder() {
+		return reminder;
+	}
+
+	public void setReminder(Integer reminder) {
+		this.reminder = reminder;
 	}
 
 	public Date getCreateTime() {

@@ -89,7 +89,8 @@
                                 (item.status == 0 && item.payMode == 1) || false">退单
                         </button>
                         <button class="btn btn-sm btn-default"
-                                ng-show="item.status == 2 || false">催单
+                                ng-show="item.status == 2 || false"
+                                ng-click="remind(item.id,item.shopId)">催单
                         </button>
                         <button class="btn btn-sm btn-default"
                                 ng-show="item.status == 3 || false"
@@ -151,6 +152,7 @@
 </div>
 <script src="../../../js/lib/jquery-2.1.1.js"></script>
 <script src="../../../js/lib/bootstrap.min.js"></script>
+<script src="../../../layui/layui.all.js"></script>
 <script src="../../../js/models/PageVo.js"></script>
 <script src="../../../js/models/OrderVo.js"></script>
 <script src="../../../js/angular/angular.js"></script>
