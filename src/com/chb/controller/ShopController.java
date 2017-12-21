@@ -42,9 +42,11 @@ public class ShopController {
 	 * @param shop
 	 * @return
 	 */
-	
-	
-
+	@RequestMapping("findShopInfoById")
+	@ResponseBody
+	public Shop findShopById(Shop shop){
+		return shopService.findShopById(shop);
+	}
 	
 	@RequestMapping("findNotice")
 	@ResponseBody

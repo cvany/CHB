@@ -17,6 +17,10 @@ public class ShopServiceImpl implements ShopService {
 	@Autowired
 	private ShopDao shopDao;
 	
+	public Shop findShopById(Shop shop) {
+		return shopDao.findShopById(shop);
+	}
+	
 	public ResultMessage findNotice(HttpSession httpSession) {
 		Shop shop=new Shop();
 		String businessmanId = httpSession.getAttribute("businessmanId").toString();

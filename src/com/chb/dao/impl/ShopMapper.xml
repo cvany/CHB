@@ -157,12 +157,12 @@
 	</select>
 
 	<!-- 根据id查询商店信息 -->
-	<select id="findShopById" parameterType="Shop" resultType="Shop">
+<!-- 	<select id="findShopById" parameterType="Shop" resultType="Shop">
 		SELECT
 		<include refid="Base_Column_List" />
 		FROM shop
 		WHERE businessmanId=#{businessmanId}
-	</select>
+	</select> -->
 	
 	<!-- 根据商店名返回商店信息 -->
 	<select id="findShopByName" parameterType="String" resultType="Shop">

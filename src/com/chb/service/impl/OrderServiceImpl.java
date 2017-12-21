@@ -57,17 +57,21 @@ public class OrderServiceImpl implements OrderService {
 	// 下单(添加订单)
 	@Override
 	public ResultMessage newOrder(Order order, List<OrderGoodsList> orderGoodsList, HttpSession session) {
-		order.setUserId(((User) session.getAttribute("user")).getId());
-		// order.setUserId(1);
-		orderDao.addOrder(order);
-		order.setOrderNo(TimeUtil.getCurrentTimeString("yyyyMMddHHmmss") + order.getShopId() + order.getId());
-		orderDao.updateOrderNum(order);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("order", order);
-		map.put("orderGoodsList", orderGoodsList);
-		orderGoodsListDao.addOrderGoodsList(map);
-		System.out.println(order);
-		return new ResultMessage(true, ResultCode.SUCCESS, "下单成功", order);
+		User user = (User) session.getAttribute("user");
+		if(user != null) {
+			order.setUserId(user.getId());
+			// order.setUserId(1);
+			orderDao.addOrder(order);
+			order.setOrderNo(TimeUtil.getCurrentTimeString("yyyyMMddHHmmss") + order.getShopId() + order.getId());
+			orderDao.updateOrderNum(order);
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("order", order);
+			map.put("orderGoodsList", orderGoodsList);
+			orderGoodsListDao.addOrderGoodsList(map);
+			System.out.println(order);
+			return new ResultMessage(true, ResultCode.SUCCESS, "下单成功", order);
+		}
+		return new ResultMessage(false, ResultCode.NO_LOGIN, "未登录", null);
 	}
 
 	// 商家接单

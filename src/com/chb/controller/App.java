@@ -14,5 +14,10 @@ public class App {
 	public String business(){
 		return "redirect:pages/business/login.html";
 	}
+	
+	@RequestMapping("admin")
+	public String admin(){
+		return "redirect:pages/admin/index.html";
+	}
 
 }
