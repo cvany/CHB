@@ -3,7 +3,10 @@
         <wb-resource deploy-path="/" source-path="/WebRoot" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/config"/>
+<<<<<<< HEAD
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/test"/>
+=======
+>>>>>>> cqs
         <property name="context-root" value="CHB"/>
         <property name="java-output-path" value="/CHB/WEB-INF/classes"/>
     </wb-module>

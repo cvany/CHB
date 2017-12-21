@@ -9,8 +9,10 @@ if(typeof GoodsVo == 'undefined') {
         this.goodsSales;
         this.isPass;
         this.isOnline;
+        this.goodsPoint;
         this.classifyGoodsId;
         this.goodsNumber;
+        this.goodsRemain;
 	}
 }
 

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../../css/business/ruzhuwrite.css" />
+<link rel="stylesheet" type="text/css"
+	href="../../../css/lib/bootstrap.min.css">
+<link href="../../../css/plugins/cropper/cropper.min.css"
+	rel="stylesheet">
+<link rel="stylesheet" href="../../../css/business/menu.css" />
+<link href="../../../css/plugins/toastr/toastr.min.css" rel="stylesheet">
+<title></title>
+</head>
+
+<body style="background-color: #DDDEDE;" data-ng-app="indexApp"
+	data-ng-controller="shopInData">
+	<div class="nav-box">
+		<div class="nav">
+			<img alt="吃货宝" src="../../../img/logo.png" height="30px" /> <a
+				href="#">商家中心</a>
+			<div class="lr">
+				<a href="#">登录</a> <a href="#">注册</a>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+
+		<div class="first">
+			<div class="title">短信验证</div>
+			<div class="big-circle">
+				<div class="big-circle round_active">1</div>
+			</div>
+			<div class="big-line">
+				<div class="big-line line_active"></div>
+			</div>
+		</div>
+
+		<div class="second">
+			<div class="title">填写信息</div>
+			<div class="big-circle">
+				<div class="big-circle round_active">2</div>
+			</div>
+			<div class="big-line">
+				<div class="big-line line_active"></div>
+			</div>
+		</div>
+
+		<div class="third">
+			<div class="title">等待审核</div>
+			<div class="big-circle">
+				<div class="big-circle round_active">3</div>
+			</div>
+		</div>
+	</div>
+	<div class="ruzhuform">
+
+		<label
+			style="font-family: '微软雅黑'; font-size: x-large; padding-left: 10px;">填写信息</label>
+		<form class="ruzhu" method="post" enctype="multipart/form-data">
+
+			<div class="row">
+				<label class="col-md-3">商店名称</label> <input
+					data-ng-model="shop.shopName" type="text" class="col-md-4">
+			</div>
+			<div class="row">
+				<label class="col-md-3">商店地址</label> <input
+					data-ng-model="shop.address" type="text" class="col-md-4">
+			</div>
+			<div class="row">
+				<label class="col-md-3">法定代表人姓名</label> <input
+					data-ng-model="shopInData.legalRepresentative" type="text"
+					class="col-md-4">
+			</div>
+
+			<div class="row">
+				<label class="col-sm-2 control-label">商店正面照</label>
+				<div class="col-sm-6">
+				<div class="btn btn-default" ngf-select ngf-multiple="false"
+                         ngf-change="uploadScrollPic($files,'frontPhoto')" ngf-max-size='512000'
+                         ngf-accept="'image/gif,image/jpeg,image/png'"
+                         accept="image/gif,image/jpeg,image/png">上传图片
+                    </div>
+                    <img alt="" ng-src="{{shopInData.frontPhoto}}" height="50">
+				</div>
+			</div>
+
+			<div class="row">
+				<label class="col-sm-2 control-label">商店室内照</label>
+				<div class="col-sm-6">
+					<div class="btn btn-default" ngf-select ngf-multiple="false"
+                         ngf-change="uploadScrollPic($files,'insidePhoto')" ngf-max-size='512000'
+                         ngf-accept="'image/gif,image/jpeg,image/png'"
+                         accept="image/gif,image/jpeg,image/png">上传图片
+                    </div>
+                     <img alt="" ng-src="{{shopInData.insidePhoto}}" height="50">
+				</div>
+			</div>
+
+			<div class="row">
+				<label class="col-sm-2 control-label">身份证正面照</label>
+				<div class="col-sm-6">
+					<div class="btn btn-default" ngf-select ngf-multiple="false"
+                         ngf-change="uploadScrollPic($files,'IDFrontPhoto')" ngf-max-size='512000'
+                         ngf-accept="'image/gif,image/jpeg,image/png'"
+                         accept="image/gif,image/jpeg,image/png">上传图片
+                    </div>
+                     <img alt="" ng-src="{{shopInData.IDFrontPhoto}}" height="50">
+				</div>
+			</div>
+
+			<div class="row">
+				<label class="col-sm-2 control-label">身份证反面照</label>
+				<div class="col-sm-6">
+					<div class="btn btn-default" ngf-select ngf-multiple="false"
+                         ngf-change="uploadScrollPic($files,'IDBackPhoto')" ngf-max-size='512000'
+                         ngf-accept="'image/gif,image/jpeg,image/png'"
+                         accept="image/gif,image/jpeg,image/png">上传图片
+                    </div>
+                     <img alt="" ng-src="{{shopInData.IDBackPhoto}}" height="50">
+				</div>
+			</div>
+
+			<div class="row">
+				<label class="col-sm-2 control-label">营业执照图片</label>
+				<div class="col-sm-6">
+					<div class="btn btn-default" ngf-select ngf-multiple="false"
+                         ngf-change="uploadScrollPic($files,'businessLicense')" ngf-max-size='512000'
+                         ngf-accept="'image/gif,image/jpeg,image/png'"
+                         accept="image/gif,image/jpeg,image/png">上传图片
+                    </div>
+                     <img alt="" ng-src="{{shopInData.businessLicense}}" height="50">
+				</div>
+			</div>
+
+			<div class="row">
+				<label class="col-sm-2 control-label">餐饮服务许可证照</label>
+				<div class="col-sm-6">
+					<div class="btn btn-default" ngf-select ngf-multiple="false"
+                         ngf-change="uploadScrollPic($files,'cateringServiceLicense')" ngf-max-size='512000'
+                         ngf-accept="'image/gif,image/jpeg,image/png'"
+                         accept="image/gif,image/jpeg,image/png">上传图片
+                    </div>
+                     <img alt="" ng-src="{{shopInData.cateringServiceLicense}}" height="50">
+				</div>
+			</div>
+			<button data-ng-click="insertShopInData()" class="btn-danger">下一步</button>
+
+		</form>
+	</div>
+
+	<div id="cropper" class="modal fade" aria-hidden="true"
+		data-backdrop="static">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="row">
+						<h3 class="m-t-none m-b">图片裁剪</h3>
+						<div class="modal-body row">
+							<div
+								style="width: 400px; height: 300px; float: left; display: flex; justify-content: center; align-items: center">
+								<img id="cropper-img" ng-src="{{imgSelectedUrl}}" width="400"
+									alt="">
+							</div>
+							<div id="cropper-preview"
+								style="width: 100px; height: 300px; float: right; display: flex; justify-content: center; align-items: center">
+								<div class="img-preview" style="width: 80px; height: 80px"></div>
+							</div>
+						</div>
+						<div class="pull-right">
+							<button class="btn btn-sm btn-default" ng-click="cancelCropper()">
+								<strong>取消</strong>
+							</button>
+							<button class="btn btn-sm btn-primary" ng-click="cropperImg()">
+								<strong>确定</strong>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+<script src="../../../js/lib/jquery-2.1.1.js"></script>
+<!-- 包括所有已编译的插件 -->
+<script src="../../../js/lib/bootstrap.min.js"></script>
+
+<script src="../../../js/angular/angular.js"></script>
+<script src="../../../js/angular/angular-ui-router.min.js" type="text/javascript" charset="utf-8"></script>
+
+<script src="../../../js/angular/ng-file-upload.min.js"
+	type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/plugins/cropper/cropper.min.js"></script>
+<script src="../../../js/plugins/toastr/toastr.min.js"
+	type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/models/ShopVo.js"></script>
+<script src="../../../js/models/BusinessmanVo.js"></script>
+<script src="../../../js/models/ShopInDataVo.js"></script>
+<script src="../../../js/controller/front/indexApp.js"
+	type="text/javascript" charset="utf-8"></script>
+
+
+<script src="../../../js/controller/front/shop/shopInData.js"></script>
+
+
+
+</html>

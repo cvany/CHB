@@ -40,5 +40,14 @@ public interface ShopDao {
 	long selectCountByCredibility(long i);
 	//根据商家类别统计数量
 	long selectCountByShopClassifyId(long i);
+	
+	Shop findShopByName(String shopName);
+	
+	
+	void updateShopById(Shop shop);
+	
+	void updateDispatching(Shop shop);
+	
+	void updateAddress(Shop shops);
 
 }

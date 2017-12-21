@@ -5,10 +5,10 @@ if(typeof ShopVo == 'undefined') {
         this.shopName;
         this.shopPhoto;
         this.phone;
+        this.credibility;
         this.lng;
         this.lat;
         this.address;
-        this.isOnline;
         this.legalRepresentative;
         this.isPass;
         this.isOnline;
@@ -21,6 +21,7 @@ if(typeof ShopVo == 'undefined') {
         this.dispatchDescription;
         this.takeoutAreaId;
         this.monthSales;
+        this.shopPoint;
         this.shopClassify;
 	}
 }

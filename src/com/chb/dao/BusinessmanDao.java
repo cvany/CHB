@@ -18,6 +18,8 @@ public interface BusinessmanDao {
 //	long selectCount(Page page);
 //	//条件分页查询审核商家
 //	List<Businessman> selectUserByPage(Page page);
-	
+	void insertBusinessman(Businessman businessman);
+	//id查找
+	Businessman findById(int id);
 	
 }

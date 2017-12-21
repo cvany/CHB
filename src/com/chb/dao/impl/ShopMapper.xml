@@ -6,14 +6,30 @@
     <sql id="Base_Column_List2">
 		id,shopPhoto,shopName,monthSales,startPrice,shopNotice,averageTime
 	</sql>
+	
+	<sql id="Base_Column_List">
+		id, businessmanId,
+		shopName,shopPhoto,phone,credibility,lng,lat,
+		address,legalRepresentative,isPass,isOnline,isOpen,openTime,
+		shopNotice,startPrice,carriage,averageTime,dispatchDescription,takeoutAreaId,
+		monthSales,shopPoint,shopClassifyId
+	</sql>
     
     <!-- 根据id查询商店信息 -->
     <select id="findShopById" parameterType="Shop" resultType="Shop">
     	SELECT <include refid="Base_Column_List2" />
 		FROM shop
-		WHERE id=#{id}
+		WHERE id=#{id} or businessmanId=#{businessmanId}
     </select>
 
+
+ <!-- 根据商店名返回商店信息 -->
+    <select id="findShopByName" parameterType="String" resultType="Shop">
+    	SELECT <include refid="Base_Column_List" />
+		FROM shop
+		WHERE shopName=#{shopName}
+    </select>
+    
 	<sql id="Base_Column_List">
 		id, businessmanId, shopName,phone,isPass
 	</sql>
@@ -40,6 +56,44 @@
 			and isPass=0
 		</where>
 	</select>
+	
+	<insert id="insertShop" parameterType="com.chb.entity.Shop">
+		insert into shop (id,businessmanId,
+		shopName,shopPhoto,phone,credibility,lng,lat,address,legalRepresentative,isPass,isOnline,
+		isOpen,openTime,shopNotice,startPrice,carriage,averageTime,dispatchDescription,
+		takeoutAreaId,monthSales,shopPoint,shopClassifyId)
+		values (#{id,jdbcType=INTEGER},#{businessmanId,jdbcType=INTEGER},#{shopName,jdbcType=VARCHAR},
+		#{shopPhoto,jdbcType=VARCHAR},#{phone,jdbcType=VARCHAR},#{credibility,jdbcType=INTEGER},
+		#{lng,jdbcType=DOUBLE},#{lat,jdbcType=DOUBLE},
+		#{address,jdbcType=VARCHAR},#{legalRepresentative,jdbcType=VARCHAR},#{isPass,jdbcType=INTEGER},#{isOnline,jdbcType=INTEGER},
+		#{isOpen,jdbcType=INTEGER},#{openTime,jdbcType=VARCHAR},#{shopNotice,jdbcType=VARCHAR},#{startPrice,jdbcType=DOUBLE},
+		#{carriage,jdbcType=DOUBLE},#{averageTime,jdbcType=INTEGER},#{dispatchDescription,jdbcType=VARCHAR},
+		#{takeoutAreaId,jdbcType=INTEGER},#{monthSales,jdbcType=INTEGER},#{shopPoint,jdbcType=INTEGER},#{shopClassifyId,jdbcType=INTEGER})
+	</insert>
+	
+	
+	  <update id="updateShopById" parameterType="Shop">
+    update shop set
+      shopNotice = #{shopNotice,jdbcType=VARCHAR}
+      where businessmanId=#{businessmanId}
+  </update>
+  
+  <update id="updateDispatching" parameterType="Shop">
+    update shop set
+      takeoutAreaId = #{takeoutAreaId,jdbcType=INTEGER},
+      startPrice = #{startPrice,jdbcType=DOUBLE},
+      carriage = #{carriage,jdbcType=DOUBLE},
+      dispatchDescription = #{dispatchDescription,jdbcType=VARCHAR}
+      where businessmanId=#{businessmanId}
+  </update>
+  
+  <update id="updateAddress" parameterType="Shop">
+    update shop set
+      lng = #{lng,jdbcType=DOUBLE},
+      lat = #{lat,jdbcType=DOUBLE}
+      where businessmanId=#{businessmanId}
+  </update>
+  
 	<!-- 条件分页查询商店总条数 -->
 	<select id="selectAllCount" parameterType="com.chb.entity.Page"
 		resultType="java.lang.Long">

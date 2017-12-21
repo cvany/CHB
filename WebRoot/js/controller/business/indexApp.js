@@ -40,6 +40,7 @@ indexApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvide
             templateUrl: "goods/goods-list.html",
             controller: "goodsList"
         })
+
         .state("goodsAddition", {
             url: "/goodsAddition",
             templateUrl: "goods/goods-addition.html",
@@ -49,6 +50,21 @@ indexApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvide
             url: "/goodsEdition/:id",
             templateUrl: "goods/goods-edition.html",
             controller: "goodsEdition"
+        })
+         .state("information", {
+            url: "/information/:id",
+            templateUrl: "shop/information.html",
+            controller: "information"
+        })
+         .state("dispatching", {
+            url: "/dispatching/:id",
+            templateUrl: "shop/dispatching.html",
+            controller: "dispatching"
+        })
+         .state("notice", {
+            url: "/notice/:id",
+            templateUrl: "shop/notice.html",
+            controller: "notice"
         })
 }])
     .config(['$httpProvider', function ($httpProvider) {

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../../css/business/shenhe.css" />
+<link rel="stylesheet" type="text/css"
+	href="../../../css/lib/bootstrap.min.css">
+<link rel="stylesheet" href="../../../css/business/menu.css" />
+ <link href="../../../css/plugins/toastr/toastr.min.css" rel="stylesheet">
+<title></title>
+</head>
+
+<body style="background-color: #DDDEDE;" data-ng-app="indexApp"
+	data-ng-controller="shopInData">
+	<div class="nav-box">
+		<div class="nav">
+			<img alt="吃货宝" src="../../../img/logo.png" height="30px" /> <a
+				href="#">商家中心</a>
+			<div class="lr">
+				<a href="#">登录</a> <a href="#">注册</a>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+
+		<div class="first">
+			<div class="title">短信验证</div>
+			<div class="big-circle">
+				<div class="big-circle round_active">1</div>
+			</div>
+			<div class="big-line">
+				<div class="big-line line_active"></div>
+			</div>
+		</div>
+
+		<div class="second">
+			<div class="title">填写信息</div>
+			<div class="big-circle">
+				<div class="big-circle round_active">2</div>
+			</div>
+			<div class="big-line">
+				<div class="big-line line_active"></div>
+			</div>
+		</div>
+
+		<div class="third">
+			<div class="title">等待审核</div>
+			<div class="big-circle">
+				<div class="big-circle round_active">3</div>
+			</div>
+		</div>
+	</div>
+	<div class="shenhe">
+		<label
+			style="font-family: '微软雅黑'; font-size: x-large; padding-left: 10px;hidden:false;">提交成功，等待审核中</label>
+		<label id="shenhe"></label>
+	</div>
+
+</body>
+
+<script src="../../../js/lib/jquery-2.1.1.js"></script>
+<!-- 包括所有已编译的插件 -->
+<script src="../../../js/lib/bootstrap.min.js"></script>
+
+<script src="../../../js/angular/angular.js"></script>
+<script src="../../../js/angular/angular-ui-router.min.js"
+	type="text/javascript" charset="utf-8"></script>
+	<script src="../../../js/angular/ng-file-upload.min.js"
+	type="text/javascript" charset="utf-8"></script>
+	<script src="../../../js/plugins/toastr/toastr.min.js"
+	type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/models/ShopVo.js"></script>
+<script src="../../../js/models/BusinessmanVo.js"></script>
+<script src="../../../js/models/ShopInDataVo.js"></script>
+<script src="../../../js/controller/front/indexApp.js"
+	type="text/javascript" charset="utf-8"></script>
+
+
+<script src="../../../js/controller/front/shop/shopInData.js"></script>
+
+
+
+</html>

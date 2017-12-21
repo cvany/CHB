@@ -1,16 +1,14 @@
 package com.chb.service.impl;
 
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.chb.constant.ResultCode;
 import com.chb.dao.GoodsDao;
 import com.chb.entity.Goods;
@@ -27,12 +25,22 @@ import com.chb.utils.Base64Util;
  * @author shilim
  *
  */
+
 @Service
 public class GoodsServiceImpl implements GoodsService {
 	@Autowired
 	private GoodsDao goodsDao;
 
 	@Override
+	public Goods findByGoodsName(String goodsName){
+		return goodsDao.findByGoodsName(goodsName);
+	}
+	
+	@Override
+	public Goods findByShopId(int shopId){
+		return goodsDao.findByShopId(shopId);
+	}
+
 	public ResultMessage getGoodsByPage(Page page, HttpSession session) {
 		page.coutStartColum();
 		Goods goods = new Goods();

@@ -24,11 +24,19 @@
 	</select>
 
 	<!-- 通过手机号查询商家 -->
-	<select id="findBusnessByPhone" parameterType="string"
-		resultType="Businessman">
+	<select id="findByBusinessmanPhone" parameterType="string" resultType="Businessman">
 		SELECT
 		<include refid="Base_Column_List" />
 		FROM businessman WHERE phone=#{phone}
 	</select>
+	
+	<insert id="insertBusinessman" parameterType="com.chb.entity.Businessman">
+	insert into businessman(businessmanName,
+		password,salt,phone,email,registerTime,photo,accountBalance)
+		values(#{businessmanName,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},
+		#{salt,jdbcType=VARCHAR},#{phone,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR},
+		#{registerTime,jdbcType=DATE},#{photo,jdbcType=VARCHAR},
+		#{accountBalance,jdbcType=DOUBLE})
+	</insert>
 
 </mapper>

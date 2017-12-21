@@ -1,0 +1,60 @@
+.nav-box {
+			width: inherit;
+			height: 50px;
+			background-color: #FF4444;
+			color: #FFFFFF;
+			text-align: left;
+			font-size: x-large;
+			font-family: "宋体";
+		}
+		
+		.nav {
+			padding-top: 8px;
+			padding-bottom: 0;
+			padding-left: 20px;
+		}
+		
+		a {
+			color: #FFFFFF;
+			text-decoration: none;
+		}
+		
+		.lr {
+			float: right;
+			font-size: 13px;
+			padding-top: 15px;
+			padding-right: 10px;
+		}
+		
+		.shop {
+			justify-content: center;
+			padding-top: 10px;
+			padding-left: 100px;
+		}
+		
+		.info {
+			display: inline-table;
+		}
+		
+		.sm {
+			float: right;
+			padding-top: 20px;
+			padding-right: 220px;
+			font-size: 24px;
+		}
+		.goods{
+			justify-content: flex-start;
+			flex-direction: row;
+		}
+        .good{
+	        padding-left: 65px;
+	        display: inline-flex;
+        }
+        .gonggao{
+        	float: right;
+        	padding-right: 50px;
+        	
+        }
+        .fenye{
+        	padding-left: 40%;
+        }
