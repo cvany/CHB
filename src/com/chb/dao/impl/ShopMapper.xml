@@ -2,44 +2,70 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chb.dao.ShopDao">
-    <!-- 商店字段 -->
-    <sql id="Base_Column_List2">
+	<!-- 商店字段 -->
+	<sql id="Base_Column_List2">
 		id,shopPhoto,shopName,monthSales,startPrice,shopNotice,averageTime
 	</sql>
-    
-    <!-- 根据id查询商店信息 -->
-    <select id="findShopById" parameterType="Shop" resultType="Shop">
-    	SELECT <include refid="Base_Column_List2" />
+
+	<!-- 根据id查询商店信息 -->
+	<select id="findShopById" parameterType="Shop" resultType="Shop">
+		SELECT
+		<include refid="Base_Column_List2" />
 		FROM shop
 		WHERE id=#{id}
-    </select>
+	</select>
 
 	<sql id="Base_Column_List">
-		id, businessmanId, shopName,phone,isPass
+		id, businessmanId,
+		shopName,shopPhoto,phone,credibility,lng,lat,
+		address,legalRepresentative,isPass,isOnline,isOpen,openTime,
+		shopNotice,startPrice,carriage,averageTime,dispatchDescription,takeoutAreaId,
+		monthSales,shopPoint,shopClassifyId
 	</sql>
+	
 	<sql id="WithBusinessman_Column_list">
-		s.id, s.businessmanId, s.shopName,s.shopPhoto,s.phone,s.credibility,
-		s.lng, s.lat, s.legalRepresentative, s.isPass, s.address,s.isOnline,s.isOpen,
+		s.id, s.businessmanId,
+		s.shopName,s.shopPhoto,s.phone,s.credibility,
+		s.lng, s.lat,
+		s.legalRepresentative, s.isPass, s.address,s.isOnline,s.isOpen,
 		s.openTime,s.shopNotice,s.startPrice,s.carriage,s.averageTime,s.dispatchDescription,
 		s.takeoutAreaId,s.monthSales,s.shopPoint,s.shopClassifyId,
 		b.id,b.businessmanName,sc.id,sc.name
 	</sql>
-	 <!-- 条件分页查询待审核商家总条数 -->
+
+	<insert id="insertShop" parameterType="com.chb.entity.Shop">
+		insert into shop
+		(id,businessmanId,
+		shopName,shopPhoto,phone,credibility,lng,lat,address,legalRepresentative,isPass,isOnline,
+		isOpen,openTime,shopNotice,startPrice,carriage,averageTime,dispatchDescription,
+		takeoutAreaId,monthSales,shopPoint,shopClassifyId)
+		values
+		(#{id,jdbcType=INTEGER},#{businessmanId,jdbcType=INTEGER},#{shopName,jdbcType=VARCHAR},
+		#{shopPhoto,jdbcType=VARCHAR},#{phone,jdbcType=VARCHAR},#{credibility,jdbcType=INTEGER},
+		#{lng,jdbcType=DOUBLE},#{lat,jdbcType=DOUBLE},
+		#{address,jdbcType=VARCHAR},#{legalRepresentative,jdbcType=VARCHAR},#{isPass,jdbcType=INTEGER},#{isOnline,jdbcType=INTEGER},
+		#{isOpen,jdbcType=INTEGER},#{openTime,jdbcType=VARCHAR},#{shopNotice,jdbcType=VARCHAR},#{startPrice,jdbcType=DOUBLE},
+		#{carriage,jdbcType=DOUBLE},#{averageTime,jdbcType=INTEGER},#{dispatchDescription,jdbcType=VARCHAR},
+		#{takeoutAreaId,jdbcType=INTEGER},#{monthSales,jdbcType=INTEGER},#{shopPoint,jdbcType=INTEGER},#{shopClassifyId,jdbcType=INTEGER})
+	</insert>
+	
+	<!-- 条件分页查询待审核商家总条数 -->
 	<select id="selectCount" parameterType="com.chb.entity.Page"
 		resultType="java.lang.Long">
 		SELECT count(0) FROM shop
 		<where>
 			<if test="keyWords != null and keyWords != ''">
 				<if test="fuzzy == true">
-					shopName like '%' #{keyWords} '%' 
+					shopName like '%' #{keyWords} '%'
 				</if>
 				<if test="fuzzy == false">
-					shopName = #{keyWords} 
+					shopName = #{keyWords}
 				</if>
 			</if>
 			and isPass=0
 		</where>
 	</select>
+	
 	<!-- 条件分页查询商店总条数 -->
 	<select id="selectAllCount" parameterType="com.chb.entity.Page"
 		resultType="java.lang.Long">
@@ -47,72 +73,119 @@
 		<where>
 			<if test="keyWords != null and keyWords != ''">
 				<if test="fuzzy == true">
-					shopName like '%' #{keyWords} '%' 
+					shopName like '%' #{keyWords} '%'
 				</if>
 				<if test="fuzzy == false">
-					shopName = #{keyWords} 
+					shopName = #{keyWords}
 				</if>
 			</if>
 			and isPass=1
 		</where>
 	</select>
+	
 	<!-- 查询所有待审核商家 -->
-	<select id="getBusinessInDataListByPage" parameterType="com.chb.entity.Shop" resultType="Shop">
-		SELECT <include refid="WithBusinessman_Column_list"></include>
-		 FROM shop s
-		 LEFT JOIN businessman b ON s.businessmanId=b.id
-		 LEFT JOIN shop_classify sc ON s.shopClassifyId=sc.id
+	<select id="getBusinessInDataListByPage" parameterType="com.chb.entity.Shop"
+		resultType="Shop">
+		SELECT
+		<include refid="WithBusinessman_Column_list"></include>
+		FROM shop s
+		LEFT JOIN businessman b ON s.businessmanId=b.id
+		LEFT JOIN shop_classify sc ON s.shopClassifyId=sc.id
 		<where>
 			<if test="keyWords != null and keyWords != ''">
 				<if test="fuzzy == true">
-					s.shopName like '%' #{keyWords} '%' 
+					s.shopName like '%' #{keyWords} '%'
 				</if>
 				<if test="fuzzy == false">
-					s.shopName = #{keyWords} 
+					s.shopName = #{keyWords}
 				</if>
 			</if>
 			and s.isPass=0
 		</where>
-		 LIMIT ${(pageNum-1)*pageSize},#{pageSize}
+		LIMIT ${(pageNum-1)*pageSize},#{pageSize}
 	</select>
+	
 	<!-- 查询所有商家 -->
-	<select id="getBusinessListByPage" parameterType="com.chb.entity.Shop" resultType="Shop">
-		SELECT <include refid="WithBusinessman_Column_list"></include>
-		 FROM shop s
-		 LEFT JOIN businessman b ON s.businessmanId=b.id
-		 LEFT JOIN shop_classify sc ON s.shopClassifyId=sc.id
+	<select id="getBusinessListByPage" parameterType="com.chb.entity.Shop"
+		resultType="Shop">
+		SELECT
+		<include refid="WithBusinessman_Column_list"></include>
+		FROM shop s
+		LEFT JOIN businessman b ON s.businessmanId=b.id
+		LEFT JOIN shop_classify sc ON s.shopClassifyId=sc.id
 		<where>
 			<if test="keyWords != null and keyWords != ''">
 				<if test="fuzzy == true">
-					s.shopName like '%' #{keyWords} '%' 
+					s.shopName like '%' #{keyWords} '%'
 				</if>
 				<if test="fuzzy == false">
-					s.shopName = #{keyWords} 
+					s.shopName = #{keyWords}
 				</if>
 			</if>
 			and s.isPass=1
 		</where>
-		 LIMIT ${(pageNum-1)*pageSize},#{pageSize}
+		LIMIT ${(pageNum-1)*pageSize},#{pageSize}
 	</select>
+	
 	<!-- 审核商家通过 -->
-	<update id="updateShopById" parameterType="com.chb.entity.Shop" >
+	<update id="updateShopById" parameterType="com.chb.entity.Shop">
 		UPDATE shop SET isPass=1 WHERE id=#{id}
 	</update>
 	<select id="updateShop" parameterType="com.chb.entity.Shop">
-		UPDATE shop SET credibility=#{credibility},isPass=#{isPass},isOnline=#{isOnline} WHERE id=#{id}
+		UPDATE shop SET
+		credibility=#{credibility},isPass=#{isPass},isOnline=#{isOnline} WHERE
+		id=#{id}
 	</select>
+	
 	<!-- 删除商家 -->
 	<delete id="deleteShopById" parameterType="int">
-		DELETE FROM shop WHERE id=#{id}
+		DELETE FROM shop WHERE
+		id=#{id}
 	</delete>
+	
 	<!-- 根据商家信誉查 询总数 -->
-	<select id="selectCountByCredibility" parameterType="long" resultType="java.lang.Long">
-	SELECT count(0) FROM shop WHERE credibility between ${_parameter*20} 
+	<select id="selectCountByCredibility" parameterType="long"
+		resultType="java.lang.Long">
+		SELECT count(0) FROM shop WHERE credibility between ${_parameter*20}
 		and ${(_parameter+1)*20}
 	</select>
+	
 	<!-- 根据商家类别查 询总数 -->
-	<select id="selectCountByShopClassifyId" parameterType="long" resultType="java.lang.Long">
-	SELECT count(0) FROM shop WHERE shopClassifyId = ${_parameter} 
+	<select id="selectCountByShopClassifyId" parameterType="long"
+		resultType="java.lang.Long">
+		SELECT count(0) FROM shop WHERE shopClassifyId = ${_parameter}
 	</select>
+
+	<!-- 根据id查询商店信息 -->
+	<select id="findShopById" parameterType="Shop" resultType="Shop">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM shop
+		WHERE businessmanId=#{businessmanId}
+	</select>
+	
+	<!-- 根据商店名返回商店信息 -->
+	<select id="findShopByName" parameterType="String" resultType="Shop">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM shop
+		WHERE shopName=#{shopName}
+	</select>
+
+	<update id="updateDispatching" parameterType="Shop">
+		update shop set
+		takeoutAreaId = #{takeoutAreaId,jdbcType=INTEGER},
+		startPrice = #{startPrice,jdbcType=DOUBLE},
+		carriage = #{carriage,jdbcType=DOUBLE},
+		dispatchDescription = #{dispatchDescription,jdbcType=VARCHAR}
+		where businessmanId=#{businessmanId}
+	</update>
+
+	<update id="updateAddress" parameterType="Shop">
+		update shop set
+		lng = #{lng,jdbcType=DOUBLE},
+		lat = #{lat,jdbcType=DOUBLE}
+		where businessmanId=#{businessmanId}
+	</update>
 
 </mapper>

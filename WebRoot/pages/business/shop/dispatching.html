@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+ <link href="../../css/lib/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <!-- Toastr style -->
+    <link href="../../css/plugins/toastr/toastr.min.css" rel="stylesheet">
+    <link href="../../css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="../../css/plugins/cropper/cropper.min.css" rel="stylesheet">
+    <link href="../../css/lib/animate.css" rel="stylesheet">
+    <link href="../../css/lib/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/business/index.css"/>
+<title>Insert title here</title>
+</head>
+<body ng-app="indexApp" ng-controller="dispatching">
+<!--面包屑导航开始-->
+<div class="row  border-bottom white-bg dashboard-header">
+    <div class="col-lg-10">
+        <h2>商家信息管理</h2>
+        <ol class="breadcrumb">
+            <li><a href="#">主页</a></li>
+            <li><a>商家信息管理</a></li>
+            <li><a>配送管理</a></li>
+            <li class="active"><strong>修改配送信息</strong></li>
+        </ol>
+    </div>
+    <div class="col-lg-2"></div>
+</div>
+<!--面包屑导航结束-->
+
+<!--列表开始-->
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>修改配送信息</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="input-group pull-left">
+                        <a class="btn btn-sm  btn-white" ng-click="goBackTips()"> <i
+                                class="fa fa-mail-reply"></i> 返回
+                        </a>
+                    </div>
+                    <div class="input-group pull-left" style="margin-left: 10px;">
+                        <a class="btn btn-sm  btn-primary" ng-click="saveDispatching()">确定 </a>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="hr-line-dashed"></div>
+                    <!-- 表单开始 -->
+                    <form class="form-horizontal" name="dispatching" novalidate>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">配送区域</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" name="takeoutAreaId"
+                                       ng-class="{error:valid && shop.takeoutAreaId.$invalid}"
+                                       ng-model="shop.takeoutAreaId" required>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">起步价</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" name="startPrice"
+                                       ng-class="{error:valid && shop.startPrice.$invalid}"
+                                       ng-model="shop.startPrice" required>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">配送费</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" name="carriage"
+                                       ng-class="{error:valid && shop.carriage.$invalid}"
+                                       ng-model="shop.carriage" required>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">配送说明</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" name="dispatchDescription"
+                                       ng-class="{error:valid && shop.dispatchDescription.$invalid}"
+                                       ng-model="shop.dispatchDescription" required>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- 表单结束 -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--列表结束-->
+
+<div id="goBackTips" class="modal fade" aria-hidden="true"
+     data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <h3 class="m-t-none m-b">提示</h3>
+                    <h4>确定放弃修改配送信息吗？</h4>
+                    <div class="pull-right">
+                        <button class="btn btn-sm btn-default" data-dismiss="modal">
+                            <strong>取消</strong>
+                        </button>
+                        <button class="btn btn-sm btn-primary"
+                                ng-click="goBack()">
+                            <strong>确定</strong>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<!-- Mainly scripts -->
+<script src="../../js/lib/jquery-2.1.1.js"></script>
+<script src="../../js/lib/bootstrap.min.js"></script>
+<script src="../../js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="../../js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<!-- Custom and plugin javascript -->
+<!--左边导航相关js-->
+<script src="../../js/lib/inspinia.js"></script>
+<!--页面加载条，不知为什么和导航有点关系-->
+<script src="../../js/plugins/pace/pace.min.js"></script>
+
+<!-- Toastr -->
+<script src="../../js/plugins/toastr/toastr.min.js"></script>
+
+<!-- iCheck -->
+<script src="../../js/plugins/iCheck/icheck.min.js"></script>
+
+<script src="../../js/plugins/cropper/cropper.min.js"></script>
+
+<!-- utils -->
+<script src="../../js/utils/utils.js"></script>
+
+<!--angularjs-->
+<script src="../../js/angular/angular.js" type="text/javascript"
+        charset="utf-8"></script>
+<script src="../../js/angular/angular-ui-router.min.js"
+        type="text/javascript" charset="utf-8"></script>
+
+<!--models-->
+<script src="../../js/models/BusinessmanVo.js"></script>
+<script src="../../js/models/ShopVo.js"></script>
+
+<!--contorllers-->
+<script src="../../js/controller/business/index.js" type="text/javascript"
+        charset="utf-8"></script>
+<script src="../../js/controller/business/indexApp.js"
+        type="text/javascript" charset="utf-8"></script>
+<script src="../../js/controller/business/shop/dispatching.js"
+        type="text/javascript" charset="utf-8"></script>
+<script>
+    $(document).ready(function () {
+        toastr.options = {
+            closeButton: true,
+            showMethod: 'slideDown',
+            timeOut: 1000
+        };
+    });
+</script>
+</html>

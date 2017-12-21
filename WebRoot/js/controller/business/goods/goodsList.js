@@ -6,7 +6,7 @@ controllers.controller("goodsList", ['$scope', '$http', '$state', function ($sco
     $scope.goodsList = [];
     $scope.page = new PageVo();
     $scope.goods = new GoodsVo();
-    $scope.tempPageSize = sessionStorage.goodsListPageSize || '5';
+    $scope.tempPageSize = sessionStorage.goodsListPageSize || 5;
 
     $scope.page.pageNum = 1;
     $scope.page.pageSize = 5;
@@ -30,18 +30,28 @@ controllers.controller("goodsList", ['$scope', '$http', '$state', function ($sco
                 } else {
                     toastr.error('获取数据', '失败');
                 }
-                if (data.serviceResult == 5) {
+                if(data.serviceResult == 5) {
                     toastr.error('获取权限', '失败');
                 }
             })
-            .error(function (data) {
-                toastr.error('获取数据', '失败');
+            .error(function(data) {
+                if (data.serviceResult == 5) {
+                    toastr.error('获取权限', '失败');
+                }
             });
     }
     $scope.getGoodsList();
 
     //修改显示条数
     $scope.changePageSize = function () {
+        sessionStorage.orderListPageSize = $scope.page.pageSize;
+        $scope.getGoodsList();
+    }
+
+    //上一页
+    $scope.lastPage = function(pageNum) {
+        console.log(pageNum);
+        if(pageNum <= 0) return;
         sessionStorage.goodsListPageSize = $scope.page.pageSize;
         $scope.getGoodsList();
     }
@@ -80,7 +90,6 @@ controllers.controller("goodsList", ['$scope', '$http', '$state', function ($sco
         $scope.getGoodsList();
     }
 
-
     //分类查询
     $scope.searchGoods = function (e) {
         if (e && e.keyCode != 13) return;
@@ -90,6 +99,7 @@ controllers.controller("goodsList", ['$scope', '$http', '$state', function ($sco
     }
 
     //全选
+
     $scope.$watch('checkAll', function () {
         if (!$scope.goodsList.list) return;
         if ($scope.checkAll) {
@@ -106,6 +116,7 @@ controllers.controller("goodsList", ['$scope', '$http', '$state', function ($sco
     //删除确认提示
     $scope.deleteType = "";
     $scope.deleteId = ""
+
     $scope.deleteTips = function (type, id) {
         $scope.deleteType = type;
         if (id) {
@@ -114,6 +125,29 @@ controllers.controller("goodsList", ['$scope', '$http', '$state', function ($sco
         $("#deleteTips").modal("show");
     }
 
+    //菜品删除
+    $scope.deleteGoods= function() {
+        var goodsList = [];
+        if($scope.deleteType == "one") {
+            var goodsVo = new GoodsVo();
+            goodsVo.id = $scope.deleteId;
+            goodsList.push(goodsVo);
+        } else if ($scope.deleteType == "batch") {
+            for(var i=0;i<$scope.goodsList.list.length;i++) {
+                if($scope.goodsList.list[i].checked) {
+                    var goodsVo = new GoodsVo();
+                    goodsVo.id = $scope.goodsList.list[i].id;
+                    goodsList.push(goodsVo);
+                }
+            }
+        }
+        var url = baseUrl + "goodsManage/deleteGoods";
+        var data = {goodsList:JSON.stringify(goodsList)};
+        $http.post(url,data)
+            .success(function(data) {
+                toastr.success('删除菜品', '成功');
+            });
+    }
     //用户删除
     $scope.deleteUser = function () {
         var goodsList = [];

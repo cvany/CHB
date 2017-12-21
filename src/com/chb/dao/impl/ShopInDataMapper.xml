@@ -4,12 +4,22 @@
 <mapper namespace="com.chb.dao.ShopInDataDao">
 
 	<sql id="Base_Column_List">
-		id, shopId, shopName,phone,isPass
+		id, shopId, shopName,phone,isPass,
+		frontPhoto,insidePhoto,IDFrontPhoto,IDBackPhoto,legalRepresentative,businessLicense,cateringServiceLicense
 	</sql>
 	 
 	<!-- 查询所有待审核商家 -->
 	<select id="findByShopId" parameterType="com.chb.entity.ShopInData" resultType="ShopInData">
 		SELECT * FROM shop_in_data WHERE shopId=#{id} 
 	</select>
+	
+	<insert id="insertShopInData" parameterType="com.chb.entity.ShopInData">
+	insert into shop_in_data (shopId,
+		frontPhoto,insidePhoto,IDFrontPhoto,IDBackPhoto,legalRepresentative,businessLicense,cateringServiceLicense)
+		values (#{shopId,jdbcType=INTEGER},#{frontPhoto,jdbcType=VARCHAR},
+		#{insidePhoto,jdbcType=VARCHAR},#{IDFrontPhoto,jdbcType=VARCHAR},#{IDBackPhoto,jdbcType=VARCHAR},
+		#{legalRepresentative,jdbcType=DATE},#{businessLicense,jdbcType=VARCHAR},
+		#{cateringServiceLicense,jdbcType=VARCHAR})
+	</insert>
 
 </mapper>

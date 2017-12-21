@@ -15,7 +15,7 @@ public class ShopInData {
 	private String legalRepresentative;
 	private String businessLicense;
 	private String cateringServiceLicense;
-	
+
 	public ShopInData() {
 	}
 

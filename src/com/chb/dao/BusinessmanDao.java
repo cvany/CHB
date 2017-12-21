@@ -13,7 +13,11 @@ public interface BusinessmanDao {
 	// 通过用户名查询商家 
 	Businessman findByBusinessmanName(String businessmanName);
 	// 通过手机号查询商家
-	Businessman findBusnessByPhone(String phone);
+	Businessman findByBusinessmanPhone(String phone);
+	//存入商家
+	void insertBusinessman(Businessman businessman);
+	//id查找
+	Businessman findById(int id);
 //	//条件分页查询总数
 //	long selectCount(Page page);
 //	//条件分页查询审核商家

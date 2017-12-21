@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body ng-app="indexApp" ng-controller="information">
+
+
+	<div class="wrapper wrapper-content animated fadeInRight">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-title">
+						<h5>修改基本信息</h5>
+					</div>
+					<div class="ibox-content">
+						<div class="input-group pull-left">
+							<a class="btn btn-sm  btn-white" ng-click="goBackTips()"> <i
+								class="fa fa-mail-reply"></i> 返回
+							</a>
+						</div>
+						<div class="input-group pull-left" style="margin-left: 10px;">
+							<a class="btn btn-sm  btn-primary" ng-click="saveNotice()">确定
+							</a>
+						</div>
+						<div class="clearfix"></div>
+						<div class="hr-line-dashed"></div>
+						<!-- 表单开始 -->
+						<form class="form-horizontal" name="dispatching" novalidate>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">商家地址</label>
+								<div class="back-box">
+									<div class="search-box">
+										<div class="location">
+											<span ng-bind="city">湛江</span> <i class="fa fa-sort-desc"
+												aria-hidden="true"></i>
+										</div>
+										<input class="input" type="text" id="suggestId" />
+									</div>
+									<div class="search" ng-click="search()">保存</div>
+								</div>
+							</div>
+						</form>
+						<!-- 表单结束 -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="goBackTips" class="modal fade" aria-hidden="true"
+		data-backdrop="static">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="row">
+						<h3 class="m-t-none m-b">提示</h3>
+						<h4>确定放弃修改基本信息吗？</h4>
+						<div class="pull-right">
+							<button class="btn btn-sm btn-default" data-dismiss="modal">
+								<strong>取消</strong>
+							</button>
+							<button class="btn btn-sm btn-primary" ng-click="goBack()">
+								<strong>确定</strong>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+</body>
+</html>

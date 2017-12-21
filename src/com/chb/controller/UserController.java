@@ -2,15 +2,10 @@ package com.chb.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
-import javax.mail.Multipart;
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -26,7 +21,8 @@ import com.chb.entity.OrderUVo;
 import com.chb.entity.User;
 import com.chb.service.OrderServiceU;
 import com.chb.service.UserService;
-import com.chb.utils.*;
+import com.chb.utils.HttpClientUtil;
+import com.chb.utils.sendEmail;
 /**
  * 用户控制类
  * @author 黄雨晨

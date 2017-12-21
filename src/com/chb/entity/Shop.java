@@ -28,7 +28,7 @@ public class Shop {
 	private Integer takeoutAreaId;
 	private Integer monthSales;
 	private Integer shopPoint;
-	private Integer shopClassify;
+	private Integer shopClassifyId;
 	//添加商家姓名属性商家分类名，联合查询
 	private String businessmanName;
 	private String name;
@@ -229,12 +229,12 @@ public class Shop {
 		this.shopPoint = shopPoint;
 	}
 
-	public Integer getShopClassify() {
-		return shopClassify;
+	public Integer getShopClassifyId() {
+		return shopClassifyId;
 	}
 
-	public void setShopClassify(Integer shopClassify) {
-		this.shopClassify = shopClassify;
+	public void setShopClassifyId(Integer shopClassifyId) {
+		this.shopClassifyId = shopClassifyId;
 	}
 	
 

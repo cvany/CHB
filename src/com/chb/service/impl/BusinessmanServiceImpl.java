@@ -18,7 +18,7 @@ public class BusinessmanServiceImpl implements BusinessmanService {
 
 	@Override
 	public ResultMessage login(Businessman businessman, HttpSession session) {
-		Businessman mBusinessman = businessmanDao.findBusnessByPhone(businessman.getPhone());
+		Businessman mBusinessman = businessmanDao.findByBusinessmanPhone(businessman.getPhone());
 		if (mBusinessman != null && mBusinessman.getPassword().equals(businessman.getPassword())) {
 			session.setAttribute("businessmanId", mBusinessman.getId());
 			session.setAttribute("businessmanName", mBusinessman.getPhone());
@@ -38,11 +38,31 @@ public class BusinessmanServiceImpl implements BusinessmanService {
 	public ResultMessage isLogin(HttpSession session) {
 		String phone = (String) session.getAttribute("businessmanName");
 		if(phone!= null) {
-			Businessman mBusinessman = businessmanDao.findBusnessByPhone(phone);
+			Businessman mBusinessman = businessmanDao.findByBusinessmanPhone(phone);
 			mBusinessman.setPassword(null);
 			return new ResultMessage(true, ResultCode.SUCCESS, "获取成功", mBusinessman);
 		}
 		return new ResultMessage(false, ResultCode.NO_LOGIN, "未登录", null);
+	}
+	
+	@Override
+	public Businessman findByBusinessmanName(String businessmanName){
+		return businessmanDao.findByBusinessmanName(businessmanName);
+	}
+	
+	@Override
+	public Businessman findByBusinessmanPhone(String phone){
+		return businessmanDao.findByBusinessmanPhone(phone);
+	}
+	@Override
+	public void insertBusinessman(Businessman businessman){
+		businessmanDao.insertBusinessman(businessman);
+	}
+
+	@Override
+	public Businessman findById(int id) {
+		// TODO Auto-generated method stub
+		return businessmanDao.findById(id);
 	}
 
 }
